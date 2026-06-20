@@ -6,6 +6,7 @@ multi-agent pipeline behind human approval gates and an audit trail. No key set
 """
 from __future__ import annotations
 
+import asyncio
 import json
 from typing import Optional
 
@@ -141,6 +142,42 @@ async def run_pipeline(client_id: str):
                 state.verification = None
 
     return EventSourceResponse(gen())
+
+
+# Background runner + polling. The SSE endpoint above is great locally, but some
+# hosting proxies (e.g. Render over HTTP/2) buffer streamed responses so the
+# browser never sees events. This path runs the pipeline as a background task and
+# lets the client poll GET /pipeline for stage progress — plain GETs that work
+# through any proxy.
+_BG_TASKS: set[asyncio.Task] = set()
+
+
+@app.post("/api/clients/{client_id}/start")
+async def start_pipeline(client_id: str):
+    state = _state_or_404(client_id)
+    if state.pipeline and state.pipeline.status == StageStatus.running:
+        return {"started": False, "running": True}
+    assumptions = store.assumptions_for(client_id)
+
+    async def _bg():
+        completed = False
+        try:
+            async for ev in orchestrator.run_stream(state, assumptions):
+                if isinstance(ev, dict) and ev.get("type") == "run_complete":
+                    completed = True
+        except Exception:
+            pass
+        finally:
+            if completed:
+                store.persist_results(state)
+            elif state.pipeline and state.pipeline.status == StageStatus.running:
+                state.pipeline.status = StageStatus.error
+                state.verification = None
+
+    task = asyncio.create_task(_bg())
+    _BG_TASKS.add(task)
+    task.add_done_callback(_BG_TASKS.discard)
+    return {"started": True}
 
 
 @app.post("/api/clients/{client_id}/documents")

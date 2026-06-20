@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { api, runPipeline } from "@/lib/api";
+import { api, runPipelinePolled } from "@/lib/api";
 import type { ClientState, Verification, SubCheck, SpecialistReview, DocumentRec, Finding, AuditEntry } from "@/lib/types";
 import { LoadingState, ErrorState } from "@/components/states";
 import { ClientSwitcher } from "@/components/client-switcher";
@@ -101,14 +101,14 @@ export default function AgentVerificationFlow() {
     setRunning(true);
     setLiveStatus({});
     try {
-      await runPipeline(id, (e) => {
-        if (e.type === "stage" && e.agent) {
-          setLiveStatus((prev) => ({ ...prev, [e.agent as string]: e.status as string }));
-        }
-        if (e.type === "run_complete") {
-          api.getVerification(id).then(setVerif).catch(() => {});
-        }
+      // Poll-based run (robust against proxies that buffer SSE to the browser).
+      await runPipelinePolled(id, (stages) => {
+        setLiveStatus(
+          Object.fromEntries(stages.map((s) => [s.agent, s.status])),
+        );
       });
+      // Pull the finished verification + state so the canvas reflects the run.
+      await reload();
     } finally {
       setRunning(false);
     }

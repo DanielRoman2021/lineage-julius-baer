@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Check, FileText, Loader2, UploadCloud } from "lucide-react";
-import { api, runPipeline } from "@/lib/api";
-import type { ClientState, Milestone, PipelineEvent } from "@/lib/types";
+import { api, runPipelinePolled } from "@/lib/api";
+import type { ClientState, Milestone } from "@/lib/types";
 import { MobileFrame } from "@/components/mobile-frame";
 import { LoadingState, ErrorState } from "@/components/states";
 
@@ -371,32 +371,33 @@ function StepAnalysing({ id, onComplete }: { id: string; onComplete: () => void 
       }
     }
 
-    function onEvent(e: PipelineEvent) {
-      if (e.type === "run_started" || e.type === "stage" || e.type === "run_complete") {
+    runPipelinePolled(
+      id,
+      (stages) => {
         noteFirstEvent();
-      }
-      if (e.type === "stage") {
-        const key = e.agent || e.label || "";
-        const label = e.label || e.agent || "Working";
-        const done = e.status === "done" || e.status === "approved";
-        setStages((prev) => {
-          const idx = prev.findIndex((s) => s.agent === key);
-          if (idx === -1) return [...prev, { agent: key, label, done }];
-          const next = [...prev];
-          next[idx] = { agent: key, label, done: done || next[idx].done };
-          return next;
-        });
-      } else if (e.type === "run_complete") {
+        setStages(
+          stages.map((s) => ({
+            agent: s.agent,
+            label: s.label,
+            done: s.status === "done" || s.status === "approved",
+          })),
+        );
+      },
+      controller.signal,
+    )
+      .then((run) => {
+        if (run.status === "error" || run.status === "blocked") {
+          if (!controller.signal.aborted) setError(true);
+          return;
+        }
         finished = true;
-        // mark every collected stage as done before revealing
+        // mark every stage as done before revealing
         setStages((prev) => prev.map((s) => ({ ...s, done: true })));
         onComplete();
-      }
-    }
-
-    runPipeline(id, onEvent, controller.signal).catch(() => {
-      if (!finished && !controller.signal.aborted) setError(true);
-    });
+      })
+      .catch(() => {
+        if (!finished && !controller.signal.aborted) setError(true);
+      });
 
     return () => {
       clearTimeout(slowTimer);

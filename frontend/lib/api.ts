@@ -1,6 +1,6 @@
 import type {
   ActionPoint, ApprovalItem, AuditEntry, ClientState, ClientSummary, ConversationSignal,
-  Feasibility, Finding, Note, Oversight, PipelineEvent, PipelineRun, Person, RiskFlag,
+  Feasibility, Finding, Note, Oversight, PipelineEvent, PipelineRun, PipelineStage, Person, RiskFlag,
   TrustScore, Verification, WealthStory, WheelDimension, WheelOfLife,
 } from "./types";
 
@@ -92,4 +92,33 @@ export async function runPipeline(
       }
     }
   }
+}
+
+const TERMINAL_RUN = new Set(["done", "approved", "awaiting_approval", "error", "blocked"]);
+
+/** Run the pipeline as a background task and poll GET /pipeline for progress.
+ *  Robust against proxies that buffer SSE (Render over HTTP/2 never delivers the
+ *  stream to the browser), so this is what the UI uses. onStages fires on each
+ *  poll; resolves with the final PipelineRun once a terminal state is reached. */
+export async function runPipelinePolled(
+  id: string,
+  onStages: (stages: PipelineStage[]) => void,
+  signal?: AbortSignal,
+): Promise<PipelineRun> {
+  await fetch(`${BASE}/api/clients/${id}/start`, { method: "POST", signal });
+  // Poll until the run reaches a terminal state (cap ~100s for a slow first run).
+  for (let i = 0; i < 140; i++) {
+    if (signal?.aborted) throw new DOMException("aborted", "AbortError");
+    await new Promise((r) => setTimeout(r, 700));
+    let run: PipelineRun | null = null;
+    try {
+      run = await get<PipelineRun>(`/api/clients/${id}/pipeline`);
+    } catch {
+      run = null; // 404 until the background task has registered the run
+    }
+    if (!run) continue;
+    onStages(run.stages);
+    if (TERMINAL_RUN.has(run.status)) return run;
+  }
+  throw new Error("pipeline run timed out");
 }
