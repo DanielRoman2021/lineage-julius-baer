@@ -25,8 +25,10 @@ def compute_trust(state: ClientState) -> TrustScore:
     engagement = (13 if has_dna else 0) + (12 if has_goals else 0)
 
     open_flags = [f for f in state.flags if f.status == FlagStatus.open]
-    if not state.flags:
-        risk = 18  # nothing screened yet
+    if state.pipeline is None:
+        risk = 0   # nothing screened yet — no credit until the pipeline actually runs
+    elif not state.flags:
+        risk = 18  # screened, nothing flagged
     elif open_flags:
         risk = max(0, 18 - 6 * len(open_flags))
     else:

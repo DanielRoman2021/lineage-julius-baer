@@ -14,6 +14,16 @@ function stripMarkdown(s: string): string {
     .trim();
 }
 
+// Stand-in for a client whose story has not been generated yet. The page renders
+// a calm "not ready" state from this instead of erroring on the 404 from /wealth-story.
+const EMPTY_STORY: WealthStory = {
+  client_id: "",
+  headline: "",
+  narrative_markdown: "",
+  milestones: [],
+  sources: [],
+};
+
 function milestoneAmount(amount?: number | null, currency?: string): string | null {
   if (amount == null) return null;
   return `${currency || "CHF"} ${(amount / 1e6).toFixed(1)}M`;
@@ -32,9 +42,17 @@ export default function LivingWealthStory() {
     setLoading(true);
     setError(false);
     try {
-      const [s, c] = await Promise.all([api.getStory(id), api.getClient(id)]);
-      setStory(s);
+      const c = await api.getClient(id);
+      // The story endpoint 404s until the pipeline has generated one. That is not
+      // an error for an un-run client, so fall back to an empty story.
+      let s: WealthStory | null = null;
+      try {
+        s = await api.getStory(id);
+      } catch {
+        s = null;
+      }
       setState(c);
+      setStory(s ?? EMPTY_STORY);
     } catch {
       setError(true);
     } finally {
@@ -63,6 +81,8 @@ export default function LivingWealthStory() {
   }
 
   const c = state.client;
+  const hasRun = !!state.pipeline;
+  const storyReady = hasRun && !!story.narrative_markdown?.trim();
   const initials = c.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
   const paragraphs = stripMarkdown(story.narrative_markdown)
     .split(/\n{2,}/)
@@ -90,22 +110,24 @@ export default function LivingWealthStory() {
           subtitle="Living Wealth Story"
         />
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 14 }}>
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 7,
-              fontSize: 12,
-              color: "#436B52",
-              background: "#EAF0EB",
-              padding: "6px 13px",
-              borderRadius: 999,
-              fontWeight: 600,
-            }}
-          >
-            <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#5E806B" }} />
-            Updated 2 days ago
-          </span>
+          {hasRun && (
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                fontSize: 12,
+                color: "#436B52",
+                background: "#EAF0EB",
+                padding: "6px 13px",
+                borderRadius: 999,
+                fontWeight: 600,
+              }}
+            >
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#5E806B" }} />
+              Updated 2 days ago
+            </span>
+          )}
           <span style={{ fontSize: 13, color: "#707A8A", display: "inline-flex", alignItems: "center", gap: 7 }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#707A8A" strokeWidth="1.6">
               <path d="M4 4h11l5 5v11H4z" />
@@ -155,7 +177,7 @@ export default function LivingWealthStory() {
                 marginTop: 8,
               }}
             >
-              {story.headline}
+              {story.headline || c.name}
             </div>
             <div style={{ display: "flex", gap: 22, marginTop: 14, fontSize: 13, color: "#707A8A", flexWrap: "wrap" }}>
               <span>{c.domicile}</span>
@@ -172,43 +194,71 @@ export default function LivingWealthStory() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 44, alignItems: "start" }}>
           {/* narrative */}
           <div>
-            {paragraphs.map((p, i) =>
-              i === 0 ? (
+            {!storyReady ? (
+              <div
+                style={{
+                  background: "#fff",
+                  border: "1px solid #E4DFD3",
+                  borderRadius: 12,
+                  padding: "40px 32px",
+                }}
+              >
                 <div
-                  key={i}
                   style={{
                     fontFamily: "Spectral, serif",
                     fontWeight: 300,
-                    fontSize: 21,
-                    lineHeight: 1.62,
-                    color: "#2C3344",
+                    fontSize: 24,
+                    color: "#141E3C",
+                    lineHeight: 1.3,
                   }}
                 >
-                  {p}
+                  The wealth story isn&apos;t ready yet
                 </div>
-              ) : (
-                <div
-                  key={i}
-                  style={{ marginTop: 18, fontSize: 15.5, lineHeight: 1.78, color: "#3C4456" }}
-                >
-                  {p}
+                <div style={{ marginTop: 12, fontSize: 15, lineHeight: 1.7, color: "#6B7488" }}>
+                  It&apos;s written automatically once the client&apos;s documents have been processed.
                 </div>
-              ),
+              </div>
+            ) : (
+              paragraphs.map((p, i) =>
+                i === 0 ? (
+                  <div
+                    key={i}
+                    style={{
+                      fontFamily: "Spectral, serif",
+                      fontWeight: 300,
+                      fontSize: 21,
+                      lineHeight: 1.62,
+                      color: "#2C3344",
+                    }}
+                  >
+                    {p}
+                  </div>
+                ) : (
+                  <div
+                    key={i}
+                    style={{ marginTop: 18, fontSize: 15.5, lineHeight: 1.78, color: "#3C4456" }}
+                  >
+                    {p}
+                  </div>
+                ),
+              )
             )}
 
             {/* milestone timeline */}
-            <div
-              style={{
-                marginTop: 36,
-                fontSize: 11,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "#A8854A",
-                fontWeight: 700,
-              }}
-            >
-              Milestones
-            </div>
+            {milestones.length > 0 && (
+              <div
+                style={{
+                  marginTop: 36,
+                  fontSize: 11,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "#A8854A",
+                  fontWeight: 700,
+                }}
+              >
+                Milestones
+              </div>
+            )}
             <div style={{ marginTop: 18, position: "relative", paddingLeft: 30 }}>
               <div
                 style={{
@@ -441,19 +491,21 @@ export default function LivingWealthStory() {
             </div>
 
             {/* attribution line */}
-            <div
-              style={{
-                margin: "32px 0 0",
-                padding: "22px 26px",
-                borderLeft: "3px solid #C9A86A",
-                background: "#FBF7EE",
-                borderRadius: "0 10px 10px 0",
-              }}
-            >
-              <div style={{ fontSize: 12, color: "#9F8A5E", letterSpacing: "0.04em" }}>
-                Drafted by the Wealth Story Agent · approved by Markus Brunner
+            {hasRun && (
+              <div
+                style={{
+                  margin: "32px 0 0",
+                  padding: "22px 26px",
+                  borderLeft: "3px solid #C9A86A",
+                  background: "#FBF7EE",
+                  borderRadius: "0 10px 10px 0",
+                }}
+              >
+                <div style={{ fontSize: 12, color: "#9F8A5E", letterSpacing: "0.04em" }}>
+                  Drafted by the Wealth Story Agent · approved by Markus Brunner
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* structured profile */}
@@ -548,14 +600,16 @@ export default function LivingWealthStory() {
               </div>
             )}
 
-            <div style={{ background: "#FBF7EE", border: "1px solid #EAD9B8", borderRadius: 12, padding: "16px 20px" }}>
-              <div style={{ fontSize: 11.5, color: "#9F8A5E", lineHeight: 1.6 }}>
-                Story extracted by the{" "}
-                <span style={{ fontWeight: 600, color: "#7A6533" }}>Wealth Planner Agent</span>, cross-checked by Tax
-                &amp; Compliance, and approved by Markus Brunner. It updates automatically as new documents and life
-                events arrive.
+            {hasRun && (
+              <div style={{ background: "#FBF7EE", border: "1px solid #EAD9B8", borderRadius: 12, padding: "16px 20px" }}>
+                <div style={{ fontSize: 11.5, color: "#9F8A5E", lineHeight: 1.6 }}>
+                  Story extracted by the{" "}
+                  <span style={{ fontWeight: 600, color: "#7A6533" }}>Wealth Planner Agent</span>, cross-checked by Tax
+                  &amp; Compliance, and approved by Markus Brunner. It updates automatically as new documents and life
+                  events arrive.
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

@@ -125,21 +125,20 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "The name, date of birth, and nationality on this passport are the reference "
                 "identity for all screening and know your customer checks.",
             ])
-        if client["id"] == "sofia_castellano":
-            return ("Identity Document, Swiss Passport", [
-                "Issuing authority: Swiss Confederation, Federal Office of Police (fedpol).",
+        if client["id"] == "henrik_lindqvist":
+            return ("Identity Document, Swedish Passport", [
+                "Issuing authority: Kingdom of Sweden, Swedish Police Authority (Polismyndigheten).",
                 "Document type: Passport, machine readable, biometric.",
-                "Full name: Sofia Castellano.",
-                "Nationality: Swiss.",
-                "Sex: Female.",
-                "Date of birth: 17 September 1974.",
-                "Place of birth: Lugano, Ticino, Switzerland.",
-                "Place of origin: Lugano TI.",
-                "Passport number: F4490217.",
-                "Date of issue: 06 March 2022.",
-                "Date of expiry: 05 March 2032.",
-                "Authority: Kanton Ticino.",
-                "Residential domicile on file: Lugano, Switzerland.",
+                "Full name: Henrik Lindqvist.",
+                "Nationality: Swedish.",
+                "Sex: Male.",
+                "Date of birth: 26 August 1978.",
+                "Place of birth: Stockholm, Sweden.",
+                "Passport number: 88204517.",
+                "Date of issue: 14 April 2022.",
+                "Date of expiry: 13 April 2032.",
+                "Authority: Swedish Police Authority, Stockholm.",
+                "Residential domicile on file: Zug, Switzerland.",
                 "Identity verified at onboarding via remote video identification (video-ID).",
                 "Document checks passed: machine readable zone consistent, photograph matches "
                 "the live video session, no signs of tampering.",
@@ -266,33 +265,31 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "CHF 1.9 million.",
                 "Mandate: capital preservation first, with a measured redeployment into ventures.",
             ])
-        if client["id"] == "sofia_castellano":
+        if client["id"] == "henrik_lindqvist":
             return ("Financial Statements 2024, Summary Balance Sheet", [
                 f"Client: {name}.",
                 "Reporting date: 31 December 2024. Reporting currency: Swiss francs (CHF).",
-                "Total consolidated net worth: approximately CHF 180 million.",
+                "Total consolidated net worth: approximately CHF 220 million.",
                 "",
-                "Most assets are now held through Castellano Holding S.a r.l., a holding company "
-                "incorporated in Luxembourg. Sofia Castellano is the ultimate beneficial owner of "
-                "the holding. The Castellano Family Trust, settled in Jersey in 2023, owns the "
-                "shares of Castellano Holding S.a r.l.",
+                "Most assets are now held through Lindqvist Capital AG, a holding company "
+                "incorporated in Zug, Switzerland. Henrik Lindqvist is the ultimate beneficial "
+                "owner of the holding. The Lindqvist Family Trust, settled in Liechtenstein in "
+                "2022, owns the shares of Lindqvist Capital AG.",
                 "",
-                "Assets held under Castellano Holding S.a r.l., approximate values.",
-                "Cash and short term deposits from the company sale: about CHF 160 million. These "
-                "are the net proceeds of the 2022 sale of a 70 percent stake in Castellano Milano "
-                "S.p.A. to Maison Lumiere for EUR 240 million.",
-                "Retained 30 percent stake in Castellano Milano S.p.A., the luxury leather goods "
-                "house: about CHF 8 million.",
-                "Residential property, a Milan apartment: about CHF 5 million.",
-                "Residential property, a Lake Como villa: about CHF 7 million.",
+                "Assets held under Lindqvist Capital AG, approximate values.",
+                "Cash and short term deposits from the company sale: about CHF 200 million. These "
+                "are the net proceeds of the 2021 sale of Nordpay AB for CHF 290 million.",
+                "Residual stake in Nordpay AB, retained at the sale: about CHF 8 million.",
+                "Residential property, a Stockholm apartment: about CHF 5 million.",
+                "Residential property, a Zermatt chalet: about CHF 7 million.",
                 "",
-                "Held outside the holding and the trust: the Castellano Craft Foundation, funded "
-                "with EUR 5 million, sits separately. Sofia is its Founder and Principal. "
-                "Foundation assets are not part of her personal net worth.",
+                "Held outside the holding and the trust: the Lindqvist Code Foundation, funded "
+                "with CHF 6 million, sits separately. Henrik is its Founder and Chairman. "
+                "Foundation assets are not part of his personal net worth.",
                 "",
-                "Annual income: approximately CHF 2.6 million. Annual spending: approximately "
-                "CHF 1.5 million.",
-                "Mandate: capital preservation first, with the sale proceeds ring-fenced.",
+                "Annual income: approximately CHF 3 million. Annual spending: approximately "
+                "CHF 1.7 million.",
+                "Mandate: capital preservation first, with the exit proceeds ring-fenced.",
             ])
         return ("Financial statements", [
             f"Client: {name}", f"Net worth, about {client['currency']} {int(client['net_worth']):,}.",
@@ -374,26 +371,27 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "Purpose: to ring-fence and protect the proceeds of the 2023 company sale and to "
                 "provide for an orderly multi generational transfer of wealth.",
             ])
-        if client["id"] == "sofia_castellano":
-            return ("Castellano Family Trust, Trust Deed Summary", [
-                "Instrument: irrevocable discretionary family trust, governed by the law of Jersey.",
-                "Date of settlement: 2023.",
+        if client["id"] == "henrik_lindqvist":
+            return ("Lindqvist Family Trust, Trust Deed Summary", [
+                "Instrument: irrevocable discretionary family trust, governed by the law of "
+                "Liechtenstein.",
+                "Date of settlement: 2022.",
                 f"Settlor: {name}.",
-                "Trustee: a Jersey licensed corporate trustee.",
-                "Directors of the trustee arrangement: Paolo Castellano is named as a director.",
-                "Beneficiaries: Sofia Castellano and her husband Paolo Castellano. Paolo is a "
+                "Trustee: a Liechtenstein licensed corporate trustee.",
+                "Directors of the trustee arrangement: Astrid Lindqvist is named as a director.",
+                "Beneficiaries: Henrik Lindqvist and his wife Astrid Lindqvist. Astrid is a "
                 "co-beneficiary of the trust. No children are named.",
-                "Trust property: the trust owns the shares of Castellano Holding S.a r.l., a "
-                "holding company incorporated in Luxembourg. Further holding shares are to be "
+                "Trust property: the trust owns the shares of Lindqvist Capital AG, a holding "
+                "company incorporated in Zug, Switzerland. Further holding shares are to be "
                 "settled into the trust to complete the funding.",
-                "Control chain: the Castellano Family Trust (Jersey) sits at the top. It owns the "
-                "shares of Castellano Holding S.a r.l. (Luxembourg), whose ultimate beneficial "
-                "owner is Sofia Castellano. The holding in turn holds the EUR 240 million cash "
-                "proceeds, the retained 30 percent stake in Castellano Milano S.p.A., and the two "
-                "properties, a Milan apartment and a Lake Como villa.",
-                "Outside the structure: the Castellano Craft Foundation is not held by the trust "
-                "or the holding. Sofia is its Founder and Principal.",
-                "Purpose: to ring-fence and protect the proceeds of the 2022 company sale and to "
+                "Control chain: the Lindqvist Family Trust (Liechtenstein) sits at the top. It "
+                "owns the shares of Lindqvist Capital AG (Zug, Switzerland), whose ultimate "
+                "beneficial owner is Henrik Lindqvist. The holding in turn holds the CHF 290 "
+                "million cash proceeds of the 2021 Nordpay AB sale, the residual stake in Nordpay "
+                "AB, and the two properties, a Stockholm apartment and a Zermatt chalet.",
+                "Outside the structure: the Lindqvist Code Foundation is not held by the trust "
+                "or the holding. Henrik is its Founder and Chairman.",
+                "Purpose: to ring-fence and protect the proceeds of the 2021 company sale and to "
                 "provide for an orderly multi generational transfer of wealth.",
             ])
         return ("Family trust deed (summary)", [
@@ -505,37 +503,39 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "agreement and proof of receipt of the CHF 180 million, is to be confirmed and "
                 "cleared by compliance before onboarding completes.",
             ])
-        if client["id"] == "sofia_castellano":
+        if client["id"] == "henrik_lindqvist":
             return ("Source of Funds Letter", [
-                f"Re: Sofia Castellano, primary source of funds and source of wealth.",
+                f"Re: Henrik Lindqvist, primary source of funds and source of wealth.",
                 "",
                 "This letter sets out the origin of the funds and assets placed under management, "
-                "with a dated history of the business she built and sold.",
+                "with a dated history of the business he built and sold.",
                 "",
-                "In 2006 Sofia Castellano founded Castellano Milano S.p.A., a luxury leather goods "
-                "house based in Milan.",
-                "In 2015 the company expanded, opening flagship stores across Europe.",
-                "In 2022 she sold a 70 percent majority stake in Castellano Milano S.p.A. to Maison "
-                "Lumiere, a French luxury group, for EUR 240 million, keeping a 30 percent stake. "
-                "This sale is the principal source of her private wealth.",
-                "In 2023 she settled the Castellano Family Trust in Jersey.",
-                "In May 2024 she funded the Castellano Craft Foundation with EUR 5 million for "
-                "artisan apprenticeships in Italy and Switzerland.",
+                "In 2009 Henrik Lindqvist founded Nordpay AB, a payments company based in "
+                "Stockholm, Sweden.",
+                "In 2016 the company raised a Series B funding round of CHF 40 million.",
+                "In 2021 he sold Nordpay AB to a United States payments group for CHF 290 million, "
+                "keeping a small residual stake. This sale is the principal source of his private "
+                "wealth.",
+                "In 2022 he settled the Lindqvist Family Trust in Liechtenstein.",
+                "In 2023 he launched the Lindqvist Code Foundation, funding it with CHF 6 million "
+                "for coding education for youth in Sweden and Switzerland.",
                 "",
-                "Ownership chain: the Castellano Family Trust (Jersey) owns the shares of Castellano "
-                "Holding S.a r.l. (Luxembourg), whose ultimate beneficial owner is Sofia Castellano. "
-                "The holding holds the EUR 240 million cash proceeds and the retained 30 percent "
-                "stake in Castellano Milano S.p.A. Paolo Castellano is a co-beneficiary and a "
-                "director of the trust.",
+                "Ownership chain: the Lindqvist Family Trust (Liechtenstein) owns the shares of "
+                "Lindqvist Capital AG (Zug, Switzerland), whose ultimate beneficial owner is "
+                "Henrik Lindqvist. The holding holds the CHF 290 million cash proceeds, the "
+                "residual stake in Nordpay AB, and the two properties, a Stockholm apartment and "
+                "a Zermatt chalet. Astrid Lindqvist is a co-beneficiary and a director of the "
+                "trust.",
                 "",
-                "The proceeds are legitimate proceeds from the sale of a company the client founded "
-                "and operated. No borrowed or third party funds were used to build this wealth.",
+                "The proceeds are legitimate proceeds from the sale of a company the client "
+                "founded and operated. No borrowed or third party funds were used to build this "
+                "wealth.",
                 "",
-                "Screening note for compliance: an automated adverse media screen returned a "
-                "name overlap match on the surname Castellano, against an unrelated S. Castellano "
-                "named in a 2019 local tax dispute. That individual has a different first name, a "
-                "different date of birth, and a different nationality from the client. This is most "
-                "likely a name overlap only and is to be confirmed and cleared by compliance.",
+                "Screening note for compliance: an automated adverse media screen returned a name "
+                "overlap match on the surname Lindqvist, against an unrelated H. Lindqvist named "
+                "in a 2018 local matter. That individual has a different first name, a different "
+                "date of birth, and a different nationality from the client. This is most likely "
+                "a name overlap only and is to be confirmed and cleared by compliance.",
             ])
         return ("Source of Wealth — Statement", [
             f"Subject: {name}", f"Domicile: {dom}",
@@ -571,24 +571,23 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "Note: funding of the Jersey trust with the remaining holding shares is still to be "
                 "completed.",
             ])
-        if client["id"] == "sofia_castellano":
+        if client["id"] == "henrik_lindqvist":
             return ("Asset Summary — Ownership and Control Chain", [
-                f"Client: {name}", "Total net worth: approximately CHF 180 million.",
-                "Top of the structure: the Castellano Family Trust, settled in Jersey in 2023. It "
-                "owns the shares of Castellano Holding S.a r.l.",
-                "Castellano Holding S.a r.l. is incorporated in Luxembourg. Sofia Castellano is "
-                "the ultimate beneficial owner. Her husband Paolo Castellano is a co-beneficiary "
-                "of the trust and a director.",
-                "Held by Castellano Holding S.a r.l.: the EUR 240 million cash proceeds from the "
-                "2022 sale of a 70 percent stake in Castellano Milano S.p.A. to Maison Lumiere; "
-                "the retained 30 percent stake in Castellano Milano S.p.A.; a Milan apartment; and "
-                "a Lake Como villa.",
-                "Held outside the holding and the trust: the Castellano Craft Foundation, funded "
-                "with EUR 5 million for artisan apprenticeships in Italy and Switzerland. Sofia is "
-                "its Founder and Principal. Foundation assets are not part of her personal net "
-                "worth.",
-                "Note: funding of the Jersey trust with the remaining holding shares is still to "
-                "be completed.",
+                f"Client: {name}", "Total net worth: approximately CHF 220 million.",
+                "Top of the structure: the Lindqvist Family Trust, settled in Liechtenstein in "
+                "2022. It owns the shares of Lindqvist Capital AG.",
+                "Lindqvist Capital AG is incorporated in Zug, Switzerland. Henrik Lindqvist is "
+                "the ultimate beneficial owner. His wife Astrid Lindqvist is a co-beneficiary of "
+                "the trust and a director.",
+                "Held by Lindqvist Capital AG: the CHF 290 million cash proceeds from the 2021 "
+                "sale of Nordpay AB to a United States payments group; the residual stake in "
+                "Nordpay AB; a Stockholm apartment; and a Zermatt chalet.",
+                "Held outside the holding and the trust: the Lindqvist Code Foundation, funded "
+                "with CHF 6 million for coding education for youth in Sweden and Switzerland. "
+                "Henrik is its Founder and Chairman. Foundation assets are not part of his "
+                "personal net worth.",
+                "Note: funding of the Liechtenstein trust with the remaining holding shares is "
+                "still to be completed.",
             ])
         return ("Asset Summary", [
             f"Client: {name}", f"Total net worth: approximately {client['currency']} "
@@ -663,27 +662,26 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "founder and her STEM philanthropy. No adverse media relating to the client has "
                 "been identified.",
             ])
-        if client["id"] == "sofia_castellano":
+        if client["id"] == "henrik_lindqvist":
             return ("Company and Press Profile", [
                 f"Subject: {name}.",
-                "Sofia Castellano founded Castellano Milano S.p.A. in 2006, a Milan based luxury "
-                "leather goods house.",
-                "In 2015 the company expanded, opening flagship stores across Europe.",
-                "In 2022 she sold a 70 percent majority stake in Castellano Milano S.p.A. to "
-                "Maison Lumiere, a French luxury group, for EUR 240 million, keeping a 30 percent "
-                "stake, a widely reported luxury exit.",
-                "After the sale she set up Castellano Holding S.a r.l. in Luxembourg to "
-                "consolidate the proceeds, with herself as ultimate beneficial owner.",
-                "In 2023 she settled the Castellano Family Trust in Jersey, with her husband Paolo "
-                "Castellano as co-beneficiary and a director.",
-                "In May 2024 she launched the Castellano Craft Foundation, funding it with EUR 5 "
-                "million for artisan apprenticeships in Italy and Switzerland. She serves as "
-                "Founder and Principal of the foundation.",
-                "She has stepped back from running the house and now holds a minority stake and "
-                "the holding company.",
-                "Press coverage is consistently positive and focuses on her record as a luxury "
-                "founder and her craft philanthropy. No adverse media relating to the client has "
-                "been identified.",
+                "Henrik Lindqvist founded Nordpay AB in 2009, a payments company based in "
+                "Stockholm, Sweden.",
+                "In 2016 the company raised a Series B funding round of CHF 40 million.",
+                "In 2021 he sold Nordpay AB to a United States payments group for CHF 290 "
+                "million, keeping a small residual stake, a widely reported Nordic fintech exit.",
+                "After the sale he set up Lindqvist Capital AG in Zug, Switzerland to consolidate "
+                "the proceeds, with himself as ultimate beneficial owner.",
+                "In 2022 he settled the Lindqvist Family Trust in Liechtenstein, with his wife "
+                "Astrid Lindqvist as co-beneficiary and a director.",
+                "In 2023 he launched the Lindqvist Code Foundation, funding it with CHF 6 million "
+                "for coding education for youth in Sweden and Switzerland. He serves as Founder "
+                "and Chairman of the foundation.",
+                "He has stepped back from running the company and now holds a holding company and "
+                "a residual stake, and he wants to back young founders.",
+                "Press coverage is consistently positive and focuses on his record as a payments "
+                "founder and his coding-education philanthropy. No adverse media relating to the "
+                "client has been identified.",
             ])
         return ("Public Profile (Press Compilation)", [
             f"Subject: {name}.", "No material adverse media identified in the compilation.",

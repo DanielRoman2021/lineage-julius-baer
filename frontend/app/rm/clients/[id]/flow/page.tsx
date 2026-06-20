@@ -59,9 +59,31 @@ export default function AgentVerificationFlow() {
     setLoading(true);
     setError(false);
     try {
-      const [cs, v] = await Promise.all([api.getClient(id), api.getVerification(id)]);
+      const cs = await api.getClient(id);
+      // Verification may be a transient "not started / blocked" view for an un-run
+      // client; never let a hiccup here blank the whole page.
+      let v: Verification | null = null;
+      try {
+        v = await api.getVerification(id);
+      } catch {
+        v = null;
+      }
       setState(cs);
-      setVerif(v);
+      setVerif(
+        v ?? {
+          client_id: id,
+          status: "blocked",
+          subchecks: [],
+          specialists: [],
+          criteria_total: 0,
+          criteria_cleared: 0,
+          criteria_to_human: 0,
+          approver_id: "rm_markus",
+          approver_name: "Markus Brunner",
+          approver_initials: "MB",
+          guardrail: "Human only, the AI cannot execute",
+        },
+      );
       setAudit(cs.audit || []);
     } catch {
       setError(true);
@@ -113,7 +135,12 @@ export default function AgentVerificationFlow() {
   const subchecks: SubCheck[] = verif.subchecks || [];
   const specialists: SpecialistReview[] = verif.specialists || [];
   const findings: Finding[] = state.findings || [];
-  const routed = specialists.filter((s) => s.status !== "pass");
+  const routed = specialists.filter((s) => s.status !== "pass" && s.status !== "pending");
+
+  // Two facts gate everything: documents must exist and the pipeline must have run.
+  // Until both are true there is nothing to clear, pass, or approve.
+  const hasDocs = docs.length > 0;
+  const hasRun = !!state.pipeline;
 
   // Match a routed specialist to the finding that backs it (same agent role, awaiting a human).
   function findingFor(sp: SpecialistReview): Finding | undefined {
@@ -175,8 +202,15 @@ export default function AgentVerificationFlow() {
     api.getAudit(id).then(setAudit).catch(() => {});
   }
 
-  // The gate is "approved" once nothing is routed and exactly the human criterion cleared.
-  const gateDone = routed.length === 0 && verif.criteria_to_human === 1;
+  // The gate turns green ONLY when a human actually signed off. A real approval writes
+  // an audit entry (model_version "human-decision"); criteria geometry alone never proves it.
+  const humanApproved = (state.audit || []).some(
+    (a) => a.ref_type === "finding" && a.model_version === "human-decision",
+  );
+  const gateDone = hasRun && routed.length === 0 && humanApproved;
+  // After a run with nothing routed to a human and no sign-off recorded, there is simply
+  // nothing to approve — show a neutral note, not a fabricated approval.
+  const gateNothingToReview = hasRun && routed.length === 0 && !humanApproved;
 
   // ---- Layout math, fully derived from the data so connectors can never drift. ----
   // Each column is a vertical stack with a known total height. We center every column on
@@ -284,7 +318,7 @@ export default function AgentVerificationFlow() {
     <div className="px-8 py-7" style={{ fontFamily: "Archivo", color: "#3C4456" }}>
       {/* Client strip */}
       <div className="flex items-center gap-4" style={{ marginBottom: 4 }}>
-        <ClientSwitcher currentId={id} hrefFor={(cid) => `/rm/clients/${cid}/flow`} subtitle="Onboarding · Verification in progress" />
+        <ClientSwitcher currentId={id} hrefFor={(cid) => `/rm/clients/${cid}/flow`} subtitle={hasRun ? "Onboarding · Verification" : hasDocs ? "Onboarding · Not started yet" : "Onboarding · Awaiting documents"} />
         <div className="flex items-center gap-2" style={{ marginLeft: 18, fontSize: 12.5, color: "#707A8A" }}>
           <span style={{ color: "#A8854A" }}>Intake</span>
           <span style={{ color: "#C7C0B0" }}>›</span>
@@ -295,19 +329,20 @@ export default function AgentVerificationFlow() {
         <div className="flex items-center gap-3" style={{ marginLeft: "auto" }}>
           <button
             onClick={onRun}
-            disabled={running}
+            disabled={running || !hasDocs}
+            title={!hasDocs ? "Upload documents before running the pipeline" : undefined}
             style={{
               padding: "9px 18px",
               borderRadius: 8,
-              background: running ? "#D8CFBC" : "#141E3C",
-              color: running ? "#707A8A" : "#F7F5F0",
+              background: running || !hasDocs ? "#D8CFBC" : "#141E3C",
+              color: running || !hasDocs ? "#707A8A" : "#F7F5F0",
               fontSize: 13,
               fontWeight: 600,
               border: "none",
-              cursor: running ? "default" : "pointer",
+              cursor: running || !hasDocs ? "default" : "pointer",
             }}
           >
-            {running ? "Running…" : "Run pipeline"}
+            {running ? "Running…" : hasRun ? "Re-run pipeline" : "Run pipeline"}
           </button>
           <div
             className="flex items-center gap-2"
@@ -331,9 +366,9 @@ export default function AgentVerificationFlow() {
         </div>
         <div className="flex gap-2.5">
           {[
-            { v: verif.criteria_total, c: "#141E3C", l: "Criteria" },
-            { v: verif.criteria_cleared, c: "#5E806B", l: "Cleared" },
-            { v: verif.criteria_to_human, c: "#C8895E", l: "To human" },
+            { v: hasRun ? verif.criteria_total : "—", c: "#141E3C", l: "Criteria" },
+            { v: hasRun ? verif.criteria_cleared : "—", c: "#5E806B", l: "Cleared" },
+            { v: hasRun ? verif.criteria_to_human : "—", c: "#C8895E", l: "To human" },
           ].map((m) => (
             <div
               key={m.l}
@@ -402,7 +437,8 @@ export default function AgentVerificationFlow() {
         </div>
       )}
 
-      {/* FLOW CANVAS */}
+      {/* FLOW CANVAS — only meaningful once the pipeline has run on real documents */}
+      {hasRun ? (
       <div style={{ paddingTop: 6, overflowX: "auto" }}>
         <div style={{ position: "relative", width: CANVAS_WIDTH, minWidth: CANVAS_WIDTH, height: canvasHeight }}>
           {/* connectors — every endpoint is derived from the same coordinate that
@@ -647,6 +683,28 @@ export default function AgentVerificationFlow() {
                   Signed by {REVIEWER_SHORT}
                 </div>
               </div>
+            ) : gateNothingToReview ? (
+              <div style={{ marginTop: 11 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    padding: "8px 0",
+                    borderRadius: 7,
+                    background: "#F4EFE4",
+                    color: "#707A8A",
+                    fontSize: 12,
+                    fontWeight: 600,
+                  }}
+                >
+                  Nothing needed human review
+                </div>
+                <div style={{ textAlign: "center", fontSize: 11, color: "#A6ADBB", marginTop: 6 }}>
+                  Awaiting sign-off
+                </div>
+              </div>
             ) : (
               <div style={{ marginTop: 11, display: "flex", gap: 8 }}>
                 <button
@@ -822,6 +880,83 @@ export default function AgentVerificationFlow() {
           })}
         </div>
       </div>
+      ) : (
+        <div style={{ paddingTop: 6 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              minHeight: 360,
+              background: "#fff",
+              border: "1px dashed #D8CFBC",
+              borderRadius: 14,
+              padding: "48px 32px",
+            }}
+          >
+            <span
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: "50%",
+                background: "#F4EFE4",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 18,
+              }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A8854A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                {hasDocs ? (
+                  <>
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 8v8M8 12h8" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <path d="M14 2v6h6" />
+                  </>
+                )}
+              </svg>
+            </span>
+            <div style={{ fontFamily: "Spectral", fontSize: 22, color: "#141E3C" }}>
+              {hasDocs ? "Verification has not run yet" : "No documents yet"}
+            </div>
+            <div style={{ fontSize: 14, color: "#707A8A", maxWidth: 470, marginTop: 10, lineHeight: 1.6 }}>
+              {hasDocs
+                ? `${docs.length} document${docs.length === 1 ? "" : "s"} ${docs.length === 1 ? "is" : "are"} ready. Run the pipeline to screen them, route anything sensitive to a human, and build the wealth story. Nothing is cleared, passed, or approved until then.`
+                : "The client has not uploaded any documents. Verification cannot run on an empty file, so nothing here is screened or approved. Once the documents arrive, the pipeline can run."}
+            </div>
+            {hasDocs ? (
+              <button
+                onClick={onRun}
+                disabled={running}
+                style={{
+                  marginTop: 22,
+                  padding: "11px 24px",
+                  borderRadius: 9,
+                  background: running ? "#D8CFBC" : "#141E3C",
+                  color: running ? "#707A8A" : "#F7F5F0",
+                  fontSize: 13.5,
+                  fontWeight: 600,
+                  border: "none",
+                  fontFamily: "Archivo, sans-serif",
+                  cursor: running ? "default" : "pointer",
+                }}
+              >
+                {running ? "Running…" : "Run pipeline"}
+              </button>
+            ) : (
+              <div style={{ marginTop: 20, fontSize: 12.5, color: "#A6ADBB" }}>
+                Waiting for the client to upload documents
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Evidence / audit drawer */}
       {drawerFinding && (

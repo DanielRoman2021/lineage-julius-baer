@@ -111,9 +111,12 @@ def get_pipeline(client_id: str):
 @app.get("/api/clients/{client_id}/verification")
 def get_verification(client_id: str):
     s = _state_or_404(client_id)
-    if not s.verification:
-        s.verification = verification_service.build(s)
-    return s.verification
+    if s.verification:
+        return s.verification
+    # No stored verification means the pipeline has not run. Return a transient
+    # not-started / blocked view WITHOUT caching it onto the canonical slot, so a
+    # real run is still the only thing that can produce a "complete" verification.
+    return verification_service.build(s)
 
 
 @app.post("/api/clients/{client_id}/run")
@@ -122,9 +125,20 @@ async def run_pipeline(client_id: str):
     assumptions = store.assumptions_for(client_id)
 
     async def gen():
-        async for ev in orchestrator.run_stream(state, assumptions):
-            yield {"data": json.dumps(ev)}
-        store.persist_results(state)
+        completed = False
+        try:
+            async for ev in orchestrator.run_stream(state, assumptions):
+                yield {"data": json.dumps(ev)}
+                if isinstance(ev, dict) and ev.get("type") == "run_complete":
+                    completed = True
+        finally:
+            if completed:
+                store.persist_results(state)
+            elif state.pipeline and state.pipeline.status == StageStatus.running:
+                # Interrupted mid-run (client disconnected): don't leave a stale
+                # "running" pipeline or a previous run's verification in memory.
+                state.pipeline.status = StageStatus.error
+                state.verification = None
 
     return EventSourceResponse(gen())
 

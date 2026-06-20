@@ -133,6 +133,8 @@ def _reset(state: ClientState) -> None:
     state.actions, state.audit, state.approvals = [], [], []
     state.wealth_story, state.feasibility = None, None
     state.wealth_graph = None
+    # Never carry a previous run's verification into a fresh/interrupted run.
+    state.verification = None
 
 
 async def run_stream(state: ClientState, assumptions: FeasibilityAssumptions) -> AsyncIterator[dict]:

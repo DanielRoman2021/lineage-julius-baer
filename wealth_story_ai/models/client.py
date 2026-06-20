@@ -410,6 +410,7 @@ class SpecialistReview(BaseModel):
 
 class Verification(BaseModel):
     client_id: str
+    status: str = "complete"            # complete | not_started | blocked (default keeps old artifacts valid)
     subchecks: list[SubCheck] = Field(default_factory=list)
     specialists: list[SpecialistReview] = Field(default_factory=list)
     criteria_total: int = 0

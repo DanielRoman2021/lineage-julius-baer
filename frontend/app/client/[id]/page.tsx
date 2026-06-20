@@ -58,13 +58,6 @@ const ACCENTS = [
   },
 ];
 
-// fallback copy matches the design verbatim when the backend has no actions
-const FALLBACK_NEXT: { title: string; sub: string }[] = [
-  { title: "Confirm your plan to step back by 55", sub: "Agreed with Markus, ready to sign off" },
-  { title: "Review the family trust draft", sub: "Thursday, with Markus" },
-  { title: "Confirm a detail on your source of funds", sub: "Markus has one quick question" },
-];
-
 const Chevron = (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2BBA9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9 6l6 6-6 6" />
@@ -108,15 +101,19 @@ export default function ClientHomePage() {
   const first = firstName(name);
   const inits = initials(name);
 
+  const hasRun = !!state?.pipeline;
+
   // approved / agreed actions to surface, max 3
   const actions: ActionPoint[] = (state?.actions ?? [])
     .filter((a) => ["approved", "agreed", "ready", "done"].includes((a.status || "").toLowerCase()))
     .slice(0, 3);
 
-  const nextItems: { title: string; sub: string }[] =
-    actions.length > 0
-      ? actions.map((a) => ({ title: a.title, sub: a.description }))
-      : FALLBACK_NEXT;
+  // Only show real, approved next steps. New clients see a genuine getting-started state.
+  const nextItems: { title: string; sub: string }[] = actions.map((a) => ({
+    title: a.title,
+    sub: a.description,
+  }));
+  const ready = hasRun && nextItems.length > 0;
 
   return (
     <MobileFrame title="Home">
@@ -167,39 +164,43 @@ export default function ClientHomePage() {
             </div>
             <div style={{ ...SPECTRAL, fontSize: 30, color: "#141E3C", marginTop: 4 }}>{first}</div>
             <div style={{ fontSize: 14, color: "#6B7488", lineHeight: 1.6, marginTop: 8 }}>
-              Your onboarding is nearly done, and your plan is on track.
+              {ready
+                ? "Your onboarding is nearly done, and your plan is on track."
+                : "Welcome. Your wealth story is being prepared."}
             </div>
           </div>
 
           {/* note from Markus */}
-          <div style={{ marginTop: 22, background: "#141E3C", borderRadius: 20, padding: "20px 20px", color: "#F4F1EA" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
-              <span
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: "50%",
-                  background: "#C9A86A",
-                  color: "#141E3C",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 700,
-                  fontSize: 13,
-                }}
-              >
-                MB
-              </span>
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "#F7F5F0" }}>Markus Brunner</div>
-                <div style={{ fontSize: 11.5, color: "#9BA6BC" }}>Your relationship manager</div>
+          {ready && (
+            <div style={{ marginTop: 22, background: "#141E3C", borderRadius: 20, padding: "20px 20px", color: "#F4F1EA" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
+                <span
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: "50%",
+                    background: "#C9A86A",
+                    color: "#141E3C",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 700,
+                    fontSize: 13,
+                  }}
+                >
+                  MB
+                </span>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: "#F7F5F0" }}>Markus Brunner</div>
+                  <div style={{ fontSize: 11.5, color: "#9BA6BC" }}>Your relationship manager</div>
+                </div>
+                <span style={{ marginLeft: "auto", fontSize: 10.5, color: "#9BA6BC" }}>Today</span>
               </div>
-              <span style={{ marginLeft: "auto", fontSize: 10.5, color: "#9BA6BC" }}>Today</span>
+              <div style={{ fontSize: 14, color: "#E3E7F0", lineHeight: 1.65, marginTop: 14 }}>
+                Hi {first}. Two small things left and your onboarding is finished. I have set aside time on Thursday to walk through the trust draft. No rush, and call me any time.
+              </div>
             </div>
-            <div style={{ fontSize: 14, color: "#E3E7F0", lineHeight: 1.65, marginTop: 14 }}>
-              Hi {first}. Two small things left and your onboarding is finished. I have set aside time on Thursday to walk through the trust draft. No rush, and call me any time.
-            </div>
-          </div>
+          )}
 
           {/* what's next */}
           <div style={{ marginTop: 24, display: "flex", alignItems: "center", gap: 9, marginBottom: 13 }}>
@@ -207,45 +208,61 @@ export default function ClientHomePage() {
             <div style={{ ...SPECTRAL, fontSize: 18, color: "#141E3C" }}>What is next</div>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
-            {nextItems.map((item, i) => {
-              const accent = ACCENTS[i % ACCENTS.length];
-              return (
-                <div
-                  key={i}
-                  style={{
-                    background: "#fff",
-                    border: "1px solid #E8E1D3",
-                    borderRadius: 15,
-                    padding: "16px 18px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 13,
-                  }}
-                >
-                  <span
+          {ready ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+              {nextItems.map((item, i) => {
+                const accent = ACCENTS[i % ACCENTS.length];
+                return (
+                  <div
+                    key={i}
                     style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: "50%",
-                      background: accent.bg,
+                      background: "#fff",
+                      border: "1px solid #E8E1D3",
+                      borderRadius: 15,
+                      padding: "16px 18px",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
-                      flex: "none",
+                      gap: 13,
                     }}
                   >
-                    {accent.icon}
-                  </span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 14, color: "#141E3C", fontWeight: 600 }}>{item.title}</div>
-                    <div style={{ fontSize: 12, color: "#707A8A", marginTop: 1 }}>{item.sub}</div>
+                    <span
+                      style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: "50%",
+                        background: accent.bg,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flex: "none",
+                      }}
+                    >
+                      {accent.icon}
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 14, color: "#141E3C", fontWeight: 600 }}>{item.title}</div>
+                      <div style={{ fontSize: 12, color: "#707A8A", marginTop: 1 }}>{item.sub}</div>
+                    </div>
+                    {Chevron}
                   </div>
-                  {Chevron}
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div
+              style={{
+                background: "#fff",
+                border: "1px solid #E8E1D3",
+                borderRadius: 15,
+                padding: "16px 18px",
+                fontSize: 13.5,
+                color: "#707A8A",
+                lineHeight: 1.6,
+              }}
+            >
+              We&apos;re just getting started. Once your documents are processed you&apos;ll see your plan and next steps here.
+            </div>
+          )}
 
           {/* explore buttons into story / wheel / feasibility */}
           <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9 }}>

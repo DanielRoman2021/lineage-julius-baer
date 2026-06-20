@@ -30,6 +30,34 @@ _ACTION_LABEL = {
 
 
 def build(state: ClientState) -> Verification:
+    # Verification only means something once documents exist and the pipeline has run.
+    # Before that we must NOT emit clear/pass — that fabricates a clean screening.
+    if not state.documents:
+        # Nothing to screen. Blocked, not a pass.
+        return Verification(client_id=state.client.id, status="blocked")
+
+    if state.pipeline is None:
+        # Documents are queued but no pipeline has run yet: every check is pending.
+        subchecks = [
+            SubCheck(key="criminal", label="Criminal record", status="pending"),
+            SubCheck(key="pep", label="PEP screening", status="pending"),
+            SubCheck(key="sanctions", label="Sanctions and adverse media", status="pending"),
+            SubCheck(key="social", label="Social signals", status="pending", optional=True),
+        ]
+        specialists = [
+            SpecialistReview(
+                role=HumanRole(r), agent_label=f"{r.replace('_', ' ').title()} agent",
+                note="Queued", status="pending",
+            )
+            for r in ("advisor", "wealth_planner", "tax", "compliance")
+        ]
+        return Verification(
+            client_id=state.client.id, status="not_started",
+            subchecks=subchecks, specialists=specialists,
+            criteria_total=len(state.documents) + 1 + len(subchecks) + len(specialists),
+            criteria_cleared=0, criteria_to_human=0,
+        )
+
     cats = {f.category.value for f in state.flags}
     hit = cats.__contains__
     adverse = hit("sanctions") or hit("adverse_media")
@@ -64,6 +92,6 @@ def build(state: ClientState) -> Verification:
     cleared = max(0, total - to_human)
 
     return Verification(
-        client_id=state.client.id, subchecks=subchecks, specialists=specialists,
+        client_id=state.client.id, status="complete", subchecks=subchecks, specialists=specialists,
         criteria_total=total, criteria_cleared=cleared, criteria_to_human=to_human,
     )

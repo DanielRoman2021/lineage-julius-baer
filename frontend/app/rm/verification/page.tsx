@@ -114,7 +114,8 @@ export default function VerificationOverviewPage() {
 
         {rows.map((c, i) => {
           const pill = statusPill(c.status);
-          const v = c.verification;
+          // Only trust verification numbers once the pipeline has actually run.
+          const v = c.has_run ? c.verification : null;
           const total = v?.criteria_total ?? 0;
           const cleared = v?.criteria_cleared ?? 0;
           const toHuman = v?.criteria_to_human ?? 0;
@@ -184,31 +185,41 @@ export default function VerificationOverviewPage() {
 
               {/* criteria */}
               <div style={{ minWidth: 0 }}>
-                <div style={{ height: 6, borderRadius: 999, background: "#EDEAE2", overflow: "hidden" }}>
-                  <div style={{ width: `${pct}%`, height: "100%", borderRadius: 999, background: "#5E806B" }} />
-                </div>
-                <div style={{ fontSize: 11.5, color: "#707A8A", marginTop: 5 }}>
-                  {cleared}/{total} cleared
-                </div>
+                {v ? (
+                  <>
+                    <div style={{ height: 6, borderRadius: 999, background: "#EDEAE2", overflow: "hidden" }}>
+                      <div style={{ width: `${pct}%`, height: "100%", borderRadius: 999, background: "#5E806B" }} />
+                    </div>
+                    <div style={{ fontSize: 11.5, color: "#707A8A", marginTop: 5 }}>
+                      {cleared}/{total} cleared
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ fontSize: 12.5, color: "#A6ADBB" }}>Not started</div>
+                )}
               </div>
 
               {/* to human */}
               <div>
-                <span
-                  style={{
-                    display: "inline-block",
-                    minWidth: 26,
-                    textAlign: "center",
-                    padding: "3px 9px",
-                    borderRadius: 999,
-                    fontSize: 12,
-                    fontWeight: 600,
-                    color: toHuman > 0 ? "#9F5E3A" : "#A6ADBB",
-                    background: toHuman > 0 ? "#F7EAE1" : "#F4F1EA",
-                  }}
-                >
-                  {toHuman}
-                </span>
+                {v ? (
+                  <span
+                    style={{
+                      display: "inline-block",
+                      minWidth: 26,
+                      textAlign: "center",
+                      padding: "3px 9px",
+                      borderRadius: 999,
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: toHuman > 0 ? "#9F5E3A" : "#A6ADBB",
+                      background: toHuman > 0 ? "#F7EAE1" : "#F4F1EA",
+                    }}
+                  >
+                    {toHuman}
+                  </span>
+                ) : (
+                  <span style={{ fontSize: 13, color: "#A6ADBB" }}>—</span>
+                )}
               </div>
 
               {/* open flags */}

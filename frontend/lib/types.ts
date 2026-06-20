@@ -91,7 +91,8 @@ export interface SpecialistReview {
   routed_to_id?: string | null; routed_to_name: string; routed_to_initials: string; action_label: string;
 }
 export interface Verification {
-  client_id: string; subchecks: SubCheck[]; specialists: SpecialistReview[];
+  client_id: string; status?: string;   // complete | not_started | blocked
+  subchecks: SubCheck[]; specialists: SpecialistReview[];
   criteria_total: number; criteria_cleared: number; criteria_to_human: number;
   approver_id: string; approver_name: string; approver_initials: string; guardrail: string;
 }

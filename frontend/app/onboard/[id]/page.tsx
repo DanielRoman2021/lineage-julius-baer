@@ -184,9 +184,18 @@ function StepUpload({ id, onContinue }: { id: string; onContinue: () => void }) 
     setUploading(true);
     setError(false);
     try {
-      const res = (await api.uploadDocuments(id, files)) as { documents?: { filename: string }[] };
-      const names = (res.documents ?? []).map((d) => d.filename);
-      setUploaded(names.length > 0 ? names : files.map((f) => f.name));
+      const res = (await api.uploadDocuments(id, files)) as {
+        documents?: { filename: string }[];
+        total_added?: number;
+      };
+      const docs = res.documents ?? [];
+      // Trust the server. If it accepted nothing, keep Continue disabled and flag it.
+      if (docs.length === 0) {
+        setUploaded([]);
+        setError(true);
+      } else {
+        setUploaded(docs.map((d) => d.filename));
+      }
     } catch {
       setError(true);
     } finally {
@@ -339,12 +348,33 @@ type StageRow = { agent: string; label: string; done: boolean };
 function StepAnalysing({ id, onComplete }: { id: string; onComplete: () => void }) {
   const [stages, setStages] = useState<StageRow[]>([]);
   const [error, setError] = useState(false);
+  const [slow, setSlow] = useState(false);
+  // bump to re-trigger the run effect from the "Try again" button
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
     let finished = false;
+    let firstEventSeen = false;
+
+    // Cold starts can be slow. After a short wait with no event yet, reassure.
+    setSlow(false);
+    const slowTimer = setTimeout(() => {
+      if (!firstEventSeen) setSlow(true);
+    }, 8000);
+
+    function noteFirstEvent() {
+      if (!firstEventSeen) {
+        firstEventSeen = true;
+        clearTimeout(slowTimer);
+        setSlow(false);
+      }
+    }
 
     function onEvent(e: PipelineEvent) {
+      if (e.type === "run_started" || e.type === "stage" || e.type === "run_complete") {
+        noteFirstEvent();
+      }
       if (e.type === "stage") {
         const key = e.agent || e.label || "";
         const label = e.label || e.agent || "Working";
@@ -368,10 +398,19 @@ function StepAnalysing({ id, onComplete }: { id: string; onComplete: () => void 
       if (!finished && !controller.signal.aborted) setError(true);
     });
 
-    return () => controller.abort();
-    // run once on mount for this client
+    return () => {
+      clearTimeout(slowTimer);
+      controller.abort();
+    };
+    // re-run on mount, on client change, and on each retry attempt
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, attempt]);
+
+  function retry() {
+    setError(false);
+    setStages([]);
+    setAttempt((n) => n + 1);
+  }
 
   return (
     <>
@@ -387,13 +426,40 @@ function StepAnalysing({ id, onComplete }: { id: string; onComplete: () => void 
 
       <div style={{ padding: "20px 24px" }}>
         {error ? (
-          <div style={{ fontSize: 13, color: "#9F5E3A", lineHeight: 1.6 }}>
-            Something interrupted the run. You can close this and your relationship manager will pick it
-            up.
+          <div>
+            <div style={{ fontSize: 13, color: "#9F5E3A", lineHeight: 1.6 }}>
+              Something interrupted the run. You can close this and your relationship manager will pick it
+              up.
+            </div>
+            <button
+              onClick={retry}
+              style={{
+                marginTop: 16,
+                width: "100%",
+                padding: "12px 0",
+                borderRadius: 12,
+                border: "1px solid #C9A86A",
+                background: "#FBF3E2",
+                color: "#A8854A",
+                fontSize: 13.5,
+                fontWeight: 600,
+                fontFamily: ARCHIVO,
+                cursor: "pointer",
+              }}
+            >
+              Try again
+            </button>
           </div>
         ) : stages.length === 0 ? (
-          <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#707A8A" }}>
-            <Loader2 size={16} className="animate-spin" color="#C9A86A" /> Starting…
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#707A8A" }}>
+              <Loader2 size={16} className="animate-spin" color="#C9A86A" /> Starting…
+            </div>
+            {slow && (
+              <div style={{ marginTop: 10, fontSize: 12.5, color: "#A6ADBB", lineHeight: 1.5 }}>
+                This can take a moment on the first run.
+              </div>
+            )}
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
