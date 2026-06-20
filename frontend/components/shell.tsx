@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, FolderClosed, LayoutDashboard, ListChecks, ShieldCheck, Sparkles, UserPlus } from "lucide-react";
+import { BookOpen, FolderClosed, LayoutDashboard, ListChecks, Share2, ShieldCheck, Sparkles, UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 
@@ -38,6 +38,7 @@ export function RmShell({ children }: { children: React.ReactNode }) {
     { href: `/rm/clients/${cid}/vault`, label: "Document Vault", icon: FolderClosed, match: (p: string) => p.includes("/vault") },
     { href: "/rm/verification", label: "Verification", icon: ShieldCheck, match: (p: string) => p.includes("/verification") || p.includes("/flow") },
     { href: `/rm/clients/${cid}/story`, label: "Wealth Story", icon: BookOpen, match: (p: string) => p.includes("/story") },
+    { href: `/rm/clients/${cid}/structure`, label: "Structure", icon: Share2, match: (p: string) => p.includes("/structure") },
     { href: "/rm/approvals", label: "Action Points", icon: ListChecks, match: (p: string) => p.includes("/approvals") },
   ];
 

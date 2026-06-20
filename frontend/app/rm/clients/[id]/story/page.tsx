@@ -14,6 +14,11 @@ function stripMarkdown(s: string): string {
     .trim();
 }
 
+function milestoneAmount(amount?: number | null, currency?: string): string | null {
+  if (amount == null) return null;
+  return `${currency || "CHF"} ${(amount / 1e6).toFixed(1)}M`;
+}
+
 export default function LivingWealthStory() {
   const params = useParams<{ id: string }>();
   const id = params?.id || "sarah_keller";
@@ -21,6 +26,7 @@ export default function LivingWealthStory() {
   const [state, setState] = useState<ClientState | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const reload = useCallback(async () => {
     setLoading(true);
@@ -203,58 +209,234 @@ export default function LivingWealthStory() {
             >
               Milestones
             </div>
-            <div style={{ marginTop: 18, position: "relative", paddingLeft: 26 }}>
+            <div style={{ marginTop: 18, position: "relative", paddingLeft: 30 }}>
               <div
                 style={{
                   position: "absolute",
-                  left: 5,
-                  top: 4,
-                  bottom: 4,
+                  left: 6,
+                  top: 6,
+                  bottom: 6,
                   width: 2,
                   background: "#E4DFD3",
                 }}
               />
-              <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
-                {milestones.map((m, i) => (
-                  <div key={i} style={{ position: "relative" }}>
-                    <div
-                      style={{
-                        position: "absolute",
-                        left: -26,
-                        top: 4,
-                        width: 12,
-                        height: 12,
-                        borderRadius: "50%",
-                        background: "#C9A86A",
-                        boxShadow: "0 0 0 3px #FBF7EE",
-                      }}
-                    />
-                    <div
-                      style={{
-                        fontSize: 11,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        color: "#A8854A",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {m.year}
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                {milestones.map((m, i) => {
+                  const open = openIndex === i;
+                  const amountText = milestoneAmount(m.amount, m.currency);
+                  return (
+                    <div key={i} style={{ position: "relative" }}>
+                      {/* connector dot: gold fill when verified, hollow terracotta ring otherwise */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: -30,
+                          top: 16,
+                          width: 14,
+                          height: 14,
+                          borderRadius: "50%",
+                          background: m.verified ? "#C9A86A" : "#F7F5F0",
+                          border: m.verified ? "none" : "2px solid #C8895E",
+                          boxShadow: "0 0 0 4px #F7F5F0",
+                        }}
+                      />
+                      <div
+                        style={{
+                          background: "#fff",
+                          border: "1px solid #E4DFD3",
+                          borderRadius: 12,
+                          overflow: "hidden",
+                        }}
+                      >
+                        {/* collapsed row (always visible, toggles open) */}
+                        <button
+                          type="button"
+                          onClick={() => setOpenIndex(open ? null : i)}
+                          aria-expanded={open}
+                          style={{
+                            width: "100%",
+                            textAlign: "left",
+                            background: "transparent",
+                            border: "none",
+                            cursor: "pointer",
+                            padding: "16px 18px",
+                            display: "block",
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "baseline",
+                              justifyContent: "space-between",
+                              gap: 14,
+                            }}
+                          >
+                            <div
+                              style={{
+                                fontSize: 11,
+                                letterSpacing: "0.14em",
+                                textTransform: "uppercase",
+                                color: "#A8854A",
+                                fontWeight: 700,
+                              }}
+                            >
+                              {m.date || m.year}
+                            </div>
+                            {amountText ? (
+                              <div
+                                style={{
+                                  fontFamily: "Spectral, serif",
+                                  fontSize: 18,
+                                  color: "#141E3C",
+                                  whiteSpace: "nowrap",
+                                }}
+                              >
+                                {amountText}
+                              </div>
+                            ) : null}
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              gap: 12,
+                              marginTop: 6,
+                            }}
+                          >
+                            <div
+                              style={{
+                                fontFamily: "Spectral, serif",
+                                fontSize: 17,
+                                color: "#141E3C",
+                                lineHeight: 1.25,
+                              }}
+                            >
+                              {m.title}
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", gap: 10, flex: "none" }}>
+                              <span
+                                style={{
+                                  fontSize: 10.5,
+                                  fontWeight: 700,
+                                  letterSpacing: "0.04em",
+                                  textTransform: "uppercase",
+                                  padding: "3px 9px",
+                                  borderRadius: 999,
+                                  color: m.verified ? "#436B52" : "#9F5E3A",
+                                  background: m.verified ? "#EAF0EB" : "#F7EAE1",
+                                }}
+                              >
+                                {m.verified ? "Verified" : "Unverified"}
+                              </span>
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#A8854A"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                style={{
+                                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                                  transition: "transform 160ms ease",
+                                }}
+                              >
+                                <path d="M6 9l6 6 6-6" />
+                              </svg>
+                            </div>
+                          </div>
+                        </button>
+
+                        {/* expanded body */}
+                        {open ? (
+                          <div style={{ padding: "0 18px 18px" }}>
+                            <div style={{ height: 1, background: "#EFEADF", marginBottom: 14 }} />
+                            <div style={{ fontSize: 14.5, lineHeight: 1.7, color: "#3C4456" }}>
+                              {m.description}
+                            </div>
+                            <div
+                              style={{
+                                marginTop: 16,
+                                display: "grid",
+                                gridTemplateColumns: "1fr 1fr",
+                                gap: 22,
+                              }}
+                            >
+                              <div>
+                                <div
+                                  style={{
+                                    fontSize: 10,
+                                    letterSpacing: "0.14em",
+                                    textTransform: "uppercase",
+                                    color: "#A8854A",
+                                    fontWeight: 700,
+                                    marginBottom: 10,
+                                  }}
+                                >
+                                  Linked entities
+                                </div>
+                                {m.linked_entities && m.linked_entities.length > 0 ? (
+                                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                                    {m.linked_entities.map((e, j) => (
+                                      <div key={j}>
+                                        <div style={{ fontSize: 13.5, color: "#141E3C", fontWeight: 600 }}>
+                                          {e.name}
+                                        </div>
+                                        <div style={{ fontSize: 12, color: "#707A8A" }}>{e.role}</div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <div style={{ fontSize: 12.5, color: "#9AA1AE" }}>None recorded</div>
+                                )}
+                              </div>
+                              <div>
+                                <div
+                                  style={{
+                                    fontSize: 10,
+                                    letterSpacing: "0.14em",
+                                    textTransform: "uppercase",
+                                    color: "#A8854A",
+                                    fontWeight: 700,
+                                    marginBottom: 10,
+                                  }}
+                                >
+                                  Supporting evidence
+                                </div>
+                                {m.evidence ? (
+                                  <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                                    <span style={{ fontSize: 13, color: "#141E3C", lineHeight: 1.5 }}>
+                                      {m.evidence.label}
+                                    </span>
+                                    <span
+                                      style={{
+                                        fontSize: 10,
+                                        fontWeight: 700,
+                                        letterSpacing: "0.06em",
+                                        color: "#7A6533",
+                                        background: "#FBF7EE",
+                                        border: "1px solid #EAD9B8",
+                                        padding: "2px 7px",
+                                        borderRadius: 6,
+                                      }}
+                                    >
+                                      PDF
+                                    </span>
+                                  </div>
+                                ) : (
+                                  <div style={{ fontSize: 12.5, color: "#9AA1AE" }}>No document linked</div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "Spectral, serif",
-                        fontSize: 17,
-                        color: "#141E3C",
-                        marginTop: 3,
-                      }}
-                    >
-                      {m.title}
-                    </div>
-                    <div style={{ marginTop: 4, fontSize: 14.5, lineHeight: 1.7, color: "#3C4456" }}>
-                      {m.description}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 

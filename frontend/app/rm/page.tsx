@@ -43,6 +43,16 @@ export default function RmDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  // New-client inline form (email only, no password).
+  const [showForm, setShowForm] = useState(false);
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [email, setEmail] = useState("");
+  const [creating, setCreating] = useState(false);
+  const [formError, setFormError] = useState(false);
+  const [newId, setNewId] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
   const reload = useCallback(async () => {
     setLoading(true);
     setError(false);
@@ -61,6 +71,37 @@ export default function RmDashboard() {
   useEffect(() => {
     reload();
   }, [reload]);
+
+  const onboardLink = newId ? `${window.location.origin}/onboard/${newId}` : "";
+
+  async function submitNewClient(e: React.FormEvent) {
+    e.preventDefault();
+    const name = `${first} ${last}`.trim();
+    if (!name || !email.trim()) return;
+    setCreating(true);
+    setFormError(false);
+    try {
+      const res = await api.createClient({ name, email: email.trim() });
+      setNewId(res.client.id);
+      setCopied(false);
+      await reload();
+    } catch {
+      setFormError(true);
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  async function copyLink() {
+    if (!onboardLink) return;
+    try {
+      await navigator.clipboard.writeText(onboardLink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  }
 
   if (loading) {
     return (
@@ -127,8 +168,119 @@ export default function RmDashboard() {
         <div style={{ background: "#fff", border: "1px solid #E4DFD3", borderRadius: 12, overflow: "hidden" }}>
           <div style={{ padding: "18px 22px", borderBottom: "1px solid #F1ECE1", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div style={{ ...SPECTRAL, fontSize: 18, color: "#141E3C" }}>Your relationships</div>
-            <div style={{ fontSize: 12, color: "#707A8A" }}>Sorted by priority</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <span style={{ fontSize: 12, color: "#707A8A" }}>Sorted by priority</span>
+              <button
+                onClick={() => {
+                  setShowForm((v) => !v);
+                  setFormError(false);
+                }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "7px 14px",
+                  borderRadius: 8,
+                  border: "1px solid #C9A86A",
+                  background: showForm ? "#C9A86A" : "#FBF3E2",
+                  color: showForm ? "#141E3C" : "#A8854A",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  fontFamily: "Archivo, sans-serif",
+                  cursor: "pointer",
+                }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+                New client
+              </button>
+            </div>
           </div>
+
+          {showForm && (
+            <div style={{ padding: "18px 22px", borderBottom: "1px solid #F1ECE1", background: "#FBFAF6" }}>
+              <form onSubmit={submitNewClient} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                  <Field label="First name" value={first} onChange={setFirst} placeholder="Sarah" />
+                  <Field label="Last name" value={last} onChange={setLast} placeholder="Keller" />
+                </div>
+                <Field label="Email" value={email} onChange={setEmail} placeholder="sarah@example.com" type="email" />
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <button
+                    type="submit"
+                    disabled={creating || !first.trim() || !last.trim() || !email.trim()}
+                    style={{
+                      padding: "9px 18px",
+                      borderRadius: 8,
+                      border: "none",
+                      background: "#141E3C",
+                      color: "#F7F5F0",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      fontFamily: "Archivo, sans-serif",
+                      cursor: creating ? "default" : "pointer",
+                      opacity: creating || !first.trim() || !last.trim() || !email.trim() ? 0.5 : 1,
+                      boxShadow: "inset 0 0 0 1px #C9A86A",
+                    }}
+                  >
+                    {creating ? "Creating…" : "Create client"}
+                  </button>
+                  {formError && (
+                    <span style={{ fontSize: 12, color: "#9F5E3A" }}>Could not create the client. Try again.</span>
+                  )}
+                </div>
+              </form>
+
+              {newId && (
+                <div style={{ marginTop: 16, background: "#fff", border: "1px solid #E4DFD3", borderRadius: 10, padding: "14px 16px" }}>
+                  <div style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "#A8854A", fontWeight: 700 }}>
+                    Onboarding link
+                  </div>
+                  <div style={{ fontSize: 12.5, color: "#707A8A", marginTop: 4, lineHeight: 1.5 }}>
+                    Send this to your new client so they can upload their documents.
+                  </div>
+                  <div style={{ display: "flex", gap: 10, marginTop: 11 }}>
+                    <input
+                      readOnly
+                      value={onboardLink}
+                      onFocus={(e) => e.currentTarget.select()}
+                      style={{
+                        flex: 1,
+                        padding: "9px 12px",
+                        borderRadius: 8,
+                        border: "1px solid #E4DFD3",
+                        background: "#FBFAF6",
+                        color: "#141E3C",
+                        fontSize: 12.5,
+                        fontFamily: "Archivo, sans-serif",
+                      }}
+                    />
+                    <button
+                      onClick={copyLink}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                        padding: "9px 16px",
+                        borderRadius: 8,
+                        border: "1px solid #C9A86A",
+                        background: copied ? "#EAF0EB" : "#FBF3E2",
+                        color: copied ? "#436B52" : "#A8854A",
+                        fontSize: 12.5,
+                        fontWeight: 600,
+                        fontFamily: "Archivo, sans-serif",
+                        cursor: "pointer",
+                        flex: "none",
+                      }}
+                    >
+                      {copied ? "Copied" : "Copy link"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
           <div
             style={{
               display: "grid",
@@ -280,5 +432,42 @@ export default function RmDashboard() {
         </div>
       </div>
     </div>
+  );
+}
+
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+}) {
+  return (
+    <label style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+      <span style={{ fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "#707A8A", fontWeight: 600 }}>
+        {label}
+      </span>
+      <input
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
+        style={{
+          padding: "9px 12px",
+          borderRadius: 8,
+          border: "1px solid #E4DFD3",
+          background: "#fff",
+          color: "#141E3C",
+          fontSize: 13,
+          fontFamily: "Archivo, sans-serif",
+        }}
+      />
+    </label>
   );
 }

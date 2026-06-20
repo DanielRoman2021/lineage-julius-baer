@@ -248,11 +248,12 @@ export default function ClientHomePage() {
           </div>
 
           {/* explore buttons into story / wheel / feasibility */}
-          <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 9 }}>
+          <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9 }}>
             {[
               { href: `/client/${id}/story`, label: "Your story" },
               { href: `/client/${id}/wheel`, label: "Life wheel" },
               { href: `/client/${id}/feasibility`, label: "Your plan" },
+              { href: `/client/${id}/graph`, label: "Ownership & structure" },
             ].map((b) => (
               <Link
                 key={b.href}

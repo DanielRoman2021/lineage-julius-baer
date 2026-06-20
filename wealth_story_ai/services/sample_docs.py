@@ -104,6 +104,27 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "The name, date of birth, and nationality on this passport are the reference "
                 "identity for all screening and know your customer checks.",
             ])
+        if client["id"] == "elena_marchetti":
+            return ("Identity Document, Swiss Passport", [
+                "Issuing authority: Swiss Confederation, Federal Office of Police (fedpol).",
+                "Document type: Passport, machine readable, biometric.",
+                "Full name: Elena Marchetti. Title: Doctor.",
+                "Nationality: Swiss.",
+                "Sex: Female.",
+                "Date of birth: 04 April 1977.",
+                "Place of birth: Lugano, Ticino, Switzerland.",
+                "Place of origin: Lugano TI.",
+                "Passport number: F7781204.",
+                "Date of issue: 11 January 2023.",
+                "Date of expiry: 10 January 2033.",
+                "Authority: Kanton Zurich.",
+                "Residential domicile on file: Zurich, Switzerland.",
+                "Identity verified at onboarding via remote video identification (video-ID).",
+                "Document checks passed: machine readable zone consistent, photograph matches "
+                "the live video session, no signs of tampering.",
+                "The name, date of birth, and nationality on this passport are the reference "
+                "identity for all screening and know your customer checks.",
+            ])
         return ("Identity Document — Passport", [
             f"Full name: {name}", "Document type: Passport (machine-readable)",
             f"Nationality: {'Swiss' if 'Switzerland' in dom else 'See record'}",
@@ -197,6 +218,33 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "Annual income: approximately CHF 7.8 million. Annual spending: approximately "
                 "CHF 3.1 million.",
             ])
+        if client["id"] == "elena_marchetti":
+            return ("Financial Statements 2024, Summary Balance Sheet", [
+                f"Client: {name}.",
+                "Reporting date: 31 December 2024. Reporting currency: Swiss francs (CHF).",
+                "Total consolidated net worth: approximately CHF 200 million.",
+                "",
+                "Most assets are now held through Marchetti Holding SA, a holding company "
+                "incorporated in Luxembourg. Elena Marchetti is the ultimate beneficial owner of "
+                "the holding. The Marchetti Family Trust, settled in Jersey in February 2024, "
+                "owns shares of Marchetti Holding SA.",
+                "",
+                "Assets held under Marchetti Holding SA, approximate values.",
+                "Cash and short term deposits from the company sale: CHF 180 million. These are the "
+                "net proceeds of the November 2023 sale of Helvetia Robotics AG.",
+                "100 percent of Alpine Ventures GmbH, a Swiss venture capital firm acquired by the "
+                "holding in 2025: carried at CHF 6 million.",
+                "Commercial property, Bahnhofstrasse 14, Zurich: CHF 9 million.",
+                "Residential property, Villa Lugano, Ticino: CHF 5 million.",
+                "",
+                "Held outside the holding and the trust: the Marchetti Education Foundation, funded "
+                "with CHF 8 million, sits separately. Elena is its Founder and Principal. Foundation "
+                "assets are not part of her personal net worth.",
+                "",
+                "Annual income: approximately CHF 3.2 million. Annual spending: approximately "
+                "CHF 1.9 million.",
+                "Mandate: capital preservation first, with a measured redeployment into ventures.",
+            ])
         return ("Financial statements", [
             f"Client: {name}", f"Net worth, about {client['currency']} {int(client['net_worth']):,}.",
         ])
@@ -254,6 +302,28 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "plans to acquire a London residence, the client is Swiss domiciled, and the "
                 "structure is Cyprus tax resident. This Swiss, UK, and Cyprus exposure must be "
                 "confirmed by the tax specialist before any gift, distribution, or purchase.",
+            ])
+        if client["id"] == "elena_marchetti":
+            return ("Marchetti Family Trust, Trust Deed Summary", [
+                "Instrument: irrevocable discretionary family trust, governed by the law of Jersey.",
+                "Date of settlement: February 2024.",
+                f"Settlor: {name}.",
+                "Trustee: a Jersey licensed corporate trustee.",
+                "Directors of the trustee arrangement: Marco Marchetti is named as a director.",
+                "Beneficiaries: Elena Marchetti and her husband Marco Marchetti. Marco is a "
+                "co-beneficiary of the trust. No children are named.",
+                "Trust property: the trust owns shares of Marchetti Holding SA, a holding company "
+                "incorporated in Luxembourg. Further holding shares are to be settled into the "
+                "trust to complete the funding.",
+                "Control chain: the Marchetti Family Trust (Jersey) sits at the top. It owns shares "
+                "of Marchetti Holding SA (Luxembourg), whose ultimate beneficial owner is Elena "
+                "Marchetti. The holding in turn owns 100 percent of Alpine Ventures GmbH, holds the "
+                "CHF 180 million sale cash, and owns the Bahnhofstrasse 14 Zurich commercial "
+                "property and the Villa Lugano Ticino residential property.",
+                "Outside the structure: the Marchetti Education Foundation is not held by the trust "
+                "or the holding. Elena is its Founder and Principal.",
+                "Purpose: to ring-fence and protect the proceeds of the 2023 company sale and to "
+                "provide for an orderly multi generational transfer of wealth.",
             ])
         return ("Family trust deed (summary)", [
             f"Settlor: {name}", "A family trust holds part of the estate for the next generation.",
@@ -337,6 +407,33 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "",
                 "Supporting documentation to evidence the source of wealth is still outstanding.",
             ])
+        if client["id"] == "elena_marchetti":
+            return ("Source of Funds Letter", [
+                f"Re: Dr. Elena Marchetti, primary source of funds and source of wealth.",
+                "",
+                "This letter sets out the origin of the funds and assets placed under management, "
+                "with a dated history of the business she built and sold.",
+                "",
+                "In March 2008 Elena Marchetti founded Helvetia Robotics AG, a Zurich based "
+                "industrial robotics company.",
+                "In September 2014 the company raised a Series A round of CHF 22 million, led by "
+                "Alpine Ventures GmbH.",
+                "In 2019 Helvetia Robotics AG expanded across Europe.",
+                "In November 2023 she sold Helvetia Robotics AG for CHF 180 million. This sale is "
+                "the principal source of her private wealth.",
+                "In February 2024 she settled the Marchetti Family Trust in Jersey.",
+                "In May 2024 she funded the Marchetti Education Foundation with CHF 8 million for "
+                "STEM scholarships across Ticino and Lombardy.",
+                "In 2025 Marchetti Holding SA, her Luxembourg holding company, acquired Alpine "
+                "Ventures GmbH, the venture firm that had backed her Series A.",
+                "",
+                "The proceeds are legitimate proceeds from the sale of a company the client founded "
+                "and operated. No borrowed or third party funds were used to build this wealth.",
+                "",
+                "Screening note for compliance: source of wealth evidence, including the share sale "
+                "agreement and proof of receipt of the CHF 180 million, is to be confirmed and "
+                "cleared by compliance before onboarding completes.",
+            ])
         return ("Source of Wealth — Statement", [
             f"Subject: {name}", f"Domicile: {dom}",
             "Declared source of wealth: proceeds from a privately owned operating business and "
@@ -352,6 +449,24 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "private/alternative assets (8%).", "Mandate: balanced, capital preservation.",
                 "Note: the single-name concentration is the principal portfolio risk and the basis "
                 "for a proposed phased liquidity programme.",
+            ])
+        if client["id"] == "elena_marchetti":
+            return ("Asset Summary — Ownership and Control Chain", [
+                f"Client: {name}", "Total net worth: approximately CHF 200 million.",
+                "Top of the structure: the Marchetti Family Trust, settled in Jersey in February "
+                "2024. It owns shares of Marchetti Holding SA.",
+                "Marchetti Holding SA is incorporated in Luxembourg. Elena Marchetti is the "
+                "ultimate beneficial owner. Her husband Marco Marchetti is a co-beneficiary of the "
+                "trust and a director.",
+                "Held by Marchetti Holding SA: 100 percent of Alpine Ventures GmbH (a Swiss venture "
+                "capital firm acquired in 2025); the CHF 180 million cash from the November 2023 "
+                "sale of Helvetia Robotics AG; the commercial property at Bahnhofstrasse 14, "
+                "Zurich; and the residential property Villa Lugano in Ticino.",
+                "Held outside the holding and the trust: the Marchetti Education Foundation, funded "
+                "with CHF 8 million for STEM scholarships across Ticino and Lombardy. Elena is its "
+                "Founder and Principal. Foundation assets are not part of her personal net worth.",
+                "Note: funding of the Jersey trust with the remaining holding shares is still to be "
+                "completed.",
             ])
         return ("Asset Summary", [
             f"Client: {name}", f"Total net worth: approximately {client['currency']} "
@@ -402,6 +517,29 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "Separate reporting names the client himself in connection with a cross-border "
                 "trading and procurement inquiry.",
                 "This adverse media is to be reviewed and confirmed by compliance.",
+            ])
+        if client["id"] == "elena_marchetti":
+            return ("Company and Press Profile", [
+                f"Subject: {name}.",
+                "Dr. Elena Marchetti founded Helvetia Robotics AG in March 2008, a Zurich based "
+                "industrial robotics company.",
+                "In September 2014 the company raised a Series A of CHF 22 million, led by Alpine "
+                "Ventures GmbH.",
+                "In 2019 the company expanded across Europe.",
+                "In November 2023 she sold Helvetia Robotics AG for CHF 180 million, a widely "
+                "reported Swiss technology exit.",
+                "After the sale she set up Marchetti Holding SA in Luxembourg to consolidate the "
+                "proceeds, with herself as ultimate beneficial owner.",
+                "In February 2024 she settled the Marchetti Family Trust in Jersey, with her "
+                "husband Marco Marchetti as co-beneficiary and a director.",
+                "In May 2024 she launched the Marchetti Education Foundation, funding it with "
+                "CHF 8 million for STEM scholarships across Ticino and Lombardy. She serves as "
+                "Founder and Principal of the foundation.",
+                "In 2025 Marchetti Holding SA acquired Alpine Ventures GmbH, the firm that had led "
+                "her Series A, and she now redeploys into early stage robotics through it.",
+                "Press coverage is consistently positive and focuses on her record as a robotics "
+                "founder and her STEM philanthropy. No adverse media relating to the client has "
+                "been identified.",
             ])
         return ("Public Profile (Press Compilation)", [
             f"Subject: {name}.", "No material adverse media identified in the compilation.",

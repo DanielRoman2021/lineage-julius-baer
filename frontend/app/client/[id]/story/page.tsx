@@ -14,6 +14,11 @@ function splitNarrative(markdown: string): string[] {
     .filter(Boolean);
 }
 
+function milestoneAmount(amount?: number | null, currency?: string): string | null {
+  if (amount == null) return null;
+  return `${currency || "CHF"} ${(amount / 1e6).toFixed(1)}M`;
+}
+
 export default function ClientStoryPage() {
   const params = useParams<{ id: string }>();
   const id = params?.id || "sarah_keller";
@@ -325,26 +330,30 @@ export default function ClientStoryPage() {
                 }}
               />
               {(story && story.milestones.length > 0
-                ? story.milestones.map((m, i) => ({
-                    label: `${m.year} · ${m.title}`,
+                ? story.milestones.map((m) => ({
+                    label: `${m.date || m.year} · ${m.title}`,
                     desc: m.description,
-                    open: i === story.milestones.length - 1,
+                    verified: !!m.verified,
+                    amount: milestoneAmount(m.amount, m.currency),
                   }))
                 : [
                     {
                       label: "2023 · You sold the company",
                       desc: "The beginning of this next chapter.",
-                      open: false,
+                      verified: true,
+                      amount: null,
                     },
                     {
                       label: "Autumn 2026 · Lena starts university",
                       desc: "Funded and ready.",
-                      open: false,
+                      verified: false,
+                      amount: null,
                     },
                     {
                       label: "2031 · The year you step back",
                       desc: "Your freedom milestone.",
-                      open: true,
+                      verified: false,
+                      amount: null,
                     },
                   ]
               ).map((m, i, arr) => (
@@ -363,23 +372,68 @@ export default function ClientStoryPage() {
                       width: 11,
                       height: 11,
                       borderRadius: "50%",
-                      background: m.open ? "#F7F5F0" : i === 0 ? "#C9A86A" : "#1B2A4A",
-                      border: m.open
-                        ? "2px solid #C9A86A"
-                        : "2px solid #F7F5F0",
-                      boxShadow: m.open ? undefined : "0 0 0 1px #C9A86A",
+                      background: m.verified ? "#C9A86A" : "#F7F5F0",
+                      border: m.verified ? "2px solid #C9A86A" : "2px solid #C8895E",
                     }}
                   />
                   <div
                     style={{
-                      fontSize: 13.5,
-                      fontWeight: 600,
-                      color: "#141E3C",
+                      display: "flex",
+                      alignItems: "baseline",
+                      justifyContent: "space-between",
+                      gap: 10,
                     }}
                   >
-                    {m.label}
+                    <div
+                      style={{
+                        fontSize: 13.5,
+                        fontWeight: 600,
+                        color: "#141E3C",
+                      }}
+                    >
+                      {m.label}
+                    </div>
+                    {m.amount ? (
+                      <div
+                        style={{
+                          fontFamily: "Spectral, serif",
+                          fontSize: 14,
+                          color: "#141E3C",
+                          whiteSpace: "nowrap",
+                          flex: "none",
+                        }}
+                      >
+                        {m.amount}
+                      </div>
+                    ) : null}
                   </div>
-                  <div style={{ fontSize: 12, color: "#707A8A" }}>{m.desc}</div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 7,
+                      marginTop: 1,
+                    }}
+                  >
+                    <div style={{ fontSize: 12, color: "#707A8A" }}>{m.desc}</div>
+                    {!m.verified ? (
+                      <span
+                        style={{
+                          fontSize: 9.5,
+                          fontWeight: 700,
+                          letterSpacing: "0.04em",
+                          textTransform: "uppercase",
+                          color: "#9F5E3A",
+                          background: "#F7EAE1",
+                          padding: "1px 6px",
+                          borderRadius: 999,
+                          flex: "none",
+                        }}
+                      >
+                        Unverified
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
               ))}
             </div>

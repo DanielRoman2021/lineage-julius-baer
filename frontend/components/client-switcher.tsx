@@ -7,7 +7,9 @@ import type { ClientSummary } from "@/lib/types";
 const SPECTRAL = { fontFamily: "Spectral, serif" } as const;
 
 function initialsOf(name: string): string {
-  return name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+  const parts = name.split(" ").filter((w) => w && !/^(dr|mr|mrs|ms|prof)\.?$/i.test(w));
+  const use = parts.length ? parts : name.split(" ");
+  return use.map((w) => w[0]).slice(0, 2).join("").toUpperCase();
 }
 
 const STATUS_TONE: Record<string, { bg: string; fg: string }> = {

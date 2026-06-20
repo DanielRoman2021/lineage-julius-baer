@@ -19,6 +19,7 @@ from agents import (
     compliance_agent,
     compliance_router,
     goal_agent,
+    graph_agent,
     kyc_agent,
     tax_agent,
     wealth_planner_agent,
@@ -49,6 +50,7 @@ AGENTS = {
     AgentType.compliance: compliance_agent,
     AgentType.wealth_story: wealth_story_agent,
     AgentType.goal: goal_agent,
+    AgentType.graph: graph_agent,
     AgentType.action: action_agent,
 }
 
@@ -62,15 +64,18 @@ STAGE_DEFS: list[tuple[AgentType, str, list[AgentType]]] = [
     (AgentType.compliance, "Compliance review", [AgentType.compliance_router]),
     (AgentType.wealth_story, "Wealth story", [AgentType.compliance_router]),
     (AgentType.goal, "Goals & feasibility", [AgentType.compliance_router]),
+    (AgentType.graph, "Ownership graph", [AgentType.compliance_router]),
     (AgentType.action, "Action points", [
         AgentType.advisor, AgentType.wealth_planner, AgentType.tax,
         AgentType.compliance, AgentType.wealth_story, AgentType.goal,
+        AgentType.graph,
     ]),
 ]
 
 _STAGE_B = [
     AgentType.advisor, AgentType.wealth_planner, AgentType.tax,
     AgentType.compliance, AgentType.wealth_story, AgentType.goal,
+    AgentType.graph,
 ]
 # Staggered delays (canned mode is instant; spread completion so the graph animates).
 _STAGE_B_DELAY = {t: (0.0 if settings.live_mode else 0.4 + 0.35 * i) for i, t in enumerate(_STAGE_B)}
@@ -100,6 +105,8 @@ def _merge(ctx: PipelineContext, state: ClientState, agent: AgentType, result: A
         ctx.findings.extend(result.findings); state.findings.extend(result.findings)
     if result.wealth_story:
         ctx.wealth_story = result.wealth_story; state.wealth_story = result.wealth_story
+    if result.wealth_graph:
+        ctx.wealth_graph = result.wealth_graph; state.wealth_graph = result.wealth_graph
     if result.goals:
         ctx.goals = result.goals; state.goals = result.goals
     if result.feasibility:
@@ -125,6 +132,7 @@ def _reset(state: ClientState) -> None:
     state.flags, state.routing, state.findings = [], [], []
     state.actions, state.audit, state.approvals = [], [], []
     state.wealth_story, state.feasibility = None, None
+    state.wealth_graph = None
 
 
 async def run_stream(state: ClientState, assumptions: FeasibilityAssumptions) -> AsyncIterator[dict]:

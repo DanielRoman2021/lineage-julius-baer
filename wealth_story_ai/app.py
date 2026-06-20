@@ -83,6 +83,18 @@ def list_clients():
     return {"clients": out, "mode": "live" if settings.live_mode else "demo"}
 
 
+class ClientCreate(BaseModel):
+    name: str
+    email: str = ""
+
+
+@app.post("/api/clients")
+def create_client(payload: ClientCreate):
+    if not payload.name.strip():
+        raise HTTPException(status_code=400, detail="name is required")
+    return store.create_client(payload.name.strip(), payload.email.strip())
+
+
 @app.get("/api/clients/{client_id}")
 def get_client(client_id: str):
     return _state_or_404(client_id)

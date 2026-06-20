@@ -97,6 +97,7 @@ def main() -> None:
             "routing": [r.model_dump(mode="json") for r in s.routing],
             "findings": [f.model_dump(mode="json") for f in s.findings],
             "wealth_story": s.wealth_story.model_dump(mode="json") if s.wealth_story else None,
+            "wealth_graph": s.wealth_graph.model_dump(mode="json") if s.wealth_graph else None,
             "feasibility": s.feasibility.model_dump(mode="json") if s.feasibility else None,
             "actions": [act.model_dump(mode="json") for act in s.actions],
             "audit": [e.model_dump(mode="json") for e in s.audit],

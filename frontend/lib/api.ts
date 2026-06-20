@@ -27,6 +27,8 @@ export const api = {
   health: () => get<{ ok: boolean; mode: string }>("/api/health"),
   listClients: () => get<{ clients: ClientSummary[]; mode: string }>("/api/clients"),
   getClient: (id: string) => get<ClientState>(`/api/clients/${id}`),
+  createClient: (body: { name: string; email?: string }) =>
+    post<ClientState>("/api/clients", body),
   uploadDocuments: async (id: string, files: File[]) => {
     const fd = new FormData();
     files.forEach((f) => fd.append("files", f));

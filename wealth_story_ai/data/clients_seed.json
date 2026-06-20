@@ -329,5 +329,56 @@
       "current_age": 54,
       "retirement_age": 62
     }
+  },
+  {
+    "id": "elena_marchetti",
+    "name": "Dr. Elena Marchetti",
+    "photo_url": null,
+    "headline": "Robotics founder, post-exit. Building a Luxembourg holding, a Jersey family trust, and a STEM foundation across Ticino and Lombardy.",
+    "domicile": "Zurich, Switzerland",
+    "marital_status": "Married to Marco Marchetti",
+    "segment": "UHNW",
+    "net_worth": 200000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "onboarding",
+    "tags": ["Tech exit 2023", "Holding + trust structure", "STEM philanthropy", "Cross-border CH/LU/JE/IT"],
+    "trust_score": 0,
+    "dna": [
+      {"name": "Legacy", "score": 9, "note": "Just stood up a Jersey family trust and a foundation; multi-generational structure is the priority."},
+      {"name": "Impact", "score": 9, "note": "CHF 8M STEM foundation funding scholarships across Ticino and Lombardy; wants measurable reach."},
+      {"name": "Family", "score": 7, "note": "Married to Marco, who is a co-beneficiary of the trust and a director; no children on file."},
+      {"name": "Security", "score": 8, "note": "Wants the holding and trust to ring-fence and protect the exit proceeds."},
+      {"name": "Health", "score": 5, "note": "Decompressing after a multi-year build and sale."},
+      {"name": "Freedom", "score": 7, "note": "Now liquid after the November 2023 sale; first time with real optionality."},
+      {"name": "Growth", "score": 8, "note": "Already redeploying; acquired Alpine Ventures GmbH in 2025."},
+      {"name": "Lifestyle", "score": 6, "note": "Zurich base plus a Ticino villa; understated."},
+      {"name": "Wealth", "score": 10, "note": "About CHF 200M after the CHF 180M company sale."},
+      {"name": "Business", "score": 8, "note": "Exited Helvetia Robotics; now controls a holding and an acquired VC firm."}
+    ],
+    "goals": [
+      {"title": "Consolidate the exit proceeds under Marchetti Holding SA", "goal_type": "other", "target_year": 2026, "estimated_cost": null, "notes": "Finish moving liquid and private assets under the Luxembourg holding."},
+      {"title": "Endow the Marchetti Education Foundation", "goal_type": "philanthropy", "target_year": 2027, "estimated_cost": 8000000, "notes": "STEM scholarships across Ticino and Lombardy; she is Founder and Principal."},
+      {"title": "Build a venture portfolio around Alpine Ventures GmbH", "goal_type": "other", "target_year": 2028, "estimated_cost": null, "notes": "Use the 2025-acquired VC firm to redeploy into early-stage robotics."},
+      {"title": "Complete the Jersey family trust funding", "goal_type": "other", "target_year": 2026, "estimated_cost": null, "notes": "Settle remaining holding shares into the trust; Marco is co-beneficiary and a director."}
+    ],
+    "documents": [
+      {"filename": "marchetti_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "marchetti_financials_2024.pdf", "doc_type": "financials", "flagged": false},
+      {"filename": "marchetti_source_of_wealth.pdf", "doc_type": "source_of_wealth", "flagged": true},
+      {"filename": "marchetti_trust_deed.pdf", "doc_type": "trust_deed", "flagged": false},
+      {"filename": "marchetti_asset_summary.pdf", "doc_type": "asset_summary", "flagged": false},
+      {"filename": "marchetti_company_profile.pdf", "doc_type": "news", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 200000000,
+      "annual_income": 3200000,
+      "annual_spending": 1900000,
+      "growth_rate": 0.045,
+      "inflation": 0.02,
+      "current_age": 49,
+      "retirement_age": 55
+    }
   }
 ]

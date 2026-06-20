@@ -96,10 +96,24 @@ export interface Verification {
   approver_id: string; approver_name: string; approver_initials: string; guardrail: string;
 }
 
-export interface Milestone { year: number; title: string; description: string; }
+export interface LinkedEntity { name: string; role: string; }
+export interface Milestone {
+  year: number; title: string; description: string;
+  date?: string; amount?: number | null; currency?: string;
+  verified?: boolean; linked_entities?: LinkedEntity[];
+  evidence?: SourceCitation | null; confidence?: number;
+}
 export interface WealthStory {
   client_id: string; headline: string; narrative_markdown: string;
   milestones: Milestone[]; sources: SourceCitation[];
+}
+
+export type EntityType = "person" | "company" | "trust" | "property" | "foundation";
+export interface GraphNode { id: string; type: EntityType; label: string; sublabel: string; }
+export interface GraphEdge { source: string; target: string; relation: string; }
+export interface WealthGraph {
+  client_id: string; nodes: GraphNode[]; edges: GraphEdge[];
+  sources?: SourceCitation[]; updated_at?: string;
 }
 
 export interface Goal {
@@ -151,6 +165,7 @@ export interface ClientState {
   routing: RoutingDecision[];
   findings: Finding[];
   wealth_story?: WealthStory | null;
+  wealth_graph?: WealthGraph | null;
   goals: Goal[];
   feasibility?: Feasibility | null;
   wheel?: WheelOfLife | null;

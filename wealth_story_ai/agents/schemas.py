@@ -4,7 +4,9 @@ domain models in models/client.py.
 """
 from __future__ import annotations
 
-from pydantic import BaseModel
+from typing import Optional
+
+from pydantic import BaseModel, Field
 
 
 class KYCItemOut(BaseModel):
@@ -38,16 +40,46 @@ class ReviewOut(BaseModel):
     findings: list[FindingOut]
 
 
+class LinkedEntityOut(BaseModel):
+    name: str
+    role: str = ""
+
+
 class MilestoneOut(BaseModel):
     year: int
+    date: str = ""                # "May 2024"
     title: str
     description: str
+    amount: Optional[float] = None
+    currency: str = "CHF"
+    linked_entities: list[LinkedEntityOut] = Field(default_factory=list)
+    evidence_label: str = ""      # the document the event is drawn from
+    confidence: float = 0.6       # 0-1
 
 
 class WealthStoryOut(BaseModel):
     headline: str
     narrative_markdown: str
     milestones: list[MilestoneOut]
+
+
+# --- Ownership & control graph ---
+class GraphNodeOut(BaseModel):
+    id: str                       # stable slug, e.g. "marchetti_holding"
+    type: str                     # person | company | trust | property | foundation
+    label: str
+    sublabel: str = ""
+
+
+class GraphEdgeOut(BaseModel):
+    source: str
+    target: str
+    relation: str                 # OWNS | CONTROLS | DIRECTOR OF | SETTLOR OF | BENEFICIARY OF
+
+
+class WealthGraphOut(BaseModel):
+    nodes: list[GraphNodeOut]
+    edges: list[GraphEdgeOut]
 
 
 class GoalAnalysisOut(BaseModel):

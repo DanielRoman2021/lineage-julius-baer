@@ -8,6 +8,7 @@ Mongo when it's available.
 from __future__ import annotations
 
 import json
+import re
 from typing import Optional
 
 import db
@@ -31,6 +32,7 @@ from models.client import (
     RoutingDecision,
     TrustScore,
     Verification,
+    WealthGraph,
     WealthStory,
     WheelDimension,
     WheelOfLife,
@@ -111,6 +113,8 @@ def _hydrate(state: ClientState, res: dict) -> None:
         state.verification = Verification(**res["verification"])
     if res.get("latest_signal"):
         state.latest_signal = ConversationSignal(**res["latest_signal"])
+    if res.get("wealth_graph"):
+        state.wealth_graph = WealthGraph(**res["wealth_graph"])
     if res.get("trust"):
         state.trust = TrustScore(**res["trust"])
         state.client.trust_score = state.trust.score
@@ -145,6 +149,39 @@ def seed() -> None:
         _ASSUMPTIONS[c["id"]] = assumptions
 
     _seeded = True
+
+
+def _slug_id(name: str) -> str:
+    """Build a stable slug id from a name, made unique against existing states."""
+    base = re.sub(r"[^a-z0-9]+", "_", (name or "").lower()).strip("_") or "client"
+    cid = base
+    n = 2
+    while cid in _STATES:
+        cid = f"{base}_{n}"
+        n += 1
+    return cid
+
+
+def create_client(name: str, email: str = "") -> ClientState:
+    """Create a new onboarding client, register its state, and persist (best-effort)."""
+    seed()
+    cid = _slug_id(name)
+    raw = {
+        "id": cid, "name": name, "status": "onboarding",
+        "rm_id": "rm_markus", "rm_name": "Markus Brunner",
+        "dna": [], "goals": [], "documents": [], "tags": [], "trust_score": 0,
+    }
+    state, assumptions = _build_state(raw)
+    _STATES[cid] = state
+    _ASSUMPTIONS[cid] = assumptions
+    if _use_mongo:
+        try:
+            doc = dict(raw)
+            doc["email"] = email
+            db.upsert(db.CLIENTS, "id", doc)
+        except Exception:
+            pass
+    return state
 
 
 def list_states() -> list[ClientState]:
@@ -258,6 +295,7 @@ def persist_results(state: ClientState) -> None:
         "pipeline": state.pipeline.model_dump(mode="json") if state.pipeline else None,
         "verification": state.verification.model_dump(mode="json") if state.verification else None,
         "latest_signal": state.latest_signal.model_dump(mode="json") if state.latest_signal else None,
+        "wealth_graph": state.wealth_graph.model_dump(mode="json") if state.wealth_graph else None,
     }
     try:
         db.get_db()[db.RESULTS].replace_one({"client_id": state.client.id}, res, upsert=True)

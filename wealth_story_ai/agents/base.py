@@ -24,6 +24,7 @@ from models.client import (
     Goal,
     RiskFlag,
     RoutingDecision,
+    WealthGraph,
     WealthStory,
     WheelOfLife,
 )
@@ -60,6 +61,7 @@ class PipelineContext:
     routing: list[RoutingDecision] = field(default_factory=list)
     findings: list[Finding] = field(default_factory=list)
     wealth_story: Optional[WealthStory] = None
+    wealth_graph: Optional[WealthGraph] = None
     feasibility: Optional[Feasibility] = None
     actions: list[ActionPoint] = field(default_factory=list)
 
@@ -108,6 +110,7 @@ class AgentResult:
     routing: list[RoutingDecision] = field(default_factory=list)
     findings: list[Finding] = field(default_factory=list)
     wealth_story: Optional[WealthStory] = None
+    wealth_graph: Optional[WealthGraph] = None
     goals: list[Goal] = field(default_factory=list)
     feasibility: Optional[Feasibility] = None
     actions: list[ActionPoint] = field(default_factory=list)

@@ -50,6 +50,7 @@ class AgentType(str, Enum):
     wealth_story = "wealth_story"
     goal = "goal"
     action = "action"
+    graph = "graph"
 
 
 class StageStatus(str, Enum):
@@ -181,10 +182,23 @@ class Finding(BaseModel):
 # --------------------------------------------------------------------------- #
 # Wealth story
 # --------------------------------------------------------------------------- #
+class LinkedEntity(BaseModel):
+    name: str
+    role: str = ""
+
+
 class Milestone(BaseModel):
     year: int
     title: str
     description: str
+    # Richer timeline fields (all defaulted so older artifacts still parse).
+    date: str = ""                                  # display label, e.g. "May 2024"
+    amount: Optional[float] = None                  # optional CHF amount
+    currency: str = "CHF"
+    verified: bool = False                          # false until a human approves
+    linked_entities: list[LinkedEntity] = Field(default_factory=list)
+    evidence: Optional[SourceCitation] = None       # the supporting document
+    confidence: float = 0.0                         # 0-1
 
 
 class WealthStory(BaseModel):
@@ -193,6 +207,38 @@ class WealthStory(BaseModel):
     narrative_markdown: str = ""
     milestones: list[Milestone] = Field(default_factory=list)
     sources: list[SourceCitation] = Field(default_factory=list)
+
+
+# --------------------------------------------------------------------------- #
+# Ownership & control graph (the Wealth Graph screen)
+# --------------------------------------------------------------------------- #
+class EntityType(str, Enum):
+    person = "person"
+    company = "company"
+    trust = "trust"
+    property = "property"
+    foundation = "foundation"
+
+
+class GraphNode(BaseModel):
+    id: str
+    type: EntityType = EntityType.company
+    label: str
+    sublabel: str = ""
+
+
+class GraphEdge(BaseModel):
+    source: str
+    target: str
+    relation: str = "OWNS"          # OWNS | CONTROLS | DIRECTOR OF | SETTLOR OF | BENEFICIARY OF
+
+
+class WealthGraph(BaseModel):
+    client_id: str
+    nodes: list[GraphNode] = Field(default_factory=list)
+    edges: list[GraphEdge] = Field(default_factory=list)
+    sources: list[SourceCitation] = Field(default_factory=list)
+    updated_at: str = Field(default_factory=now_iso)
 
 
 # --------------------------------------------------------------------------- #
@@ -448,6 +494,7 @@ class ClientState(BaseModel):
     routing: list[RoutingDecision] = Field(default_factory=list)
     findings: list[Finding] = Field(default_factory=list)
     wealth_story: Optional[WealthStory] = None
+    wealth_graph: Optional[WealthGraph] = None
     goals: list[Goal] = Field(default_factory=list)
     feasibility: Optional[Feasibility] = None
     wheel: Optional[WheelOfLife] = None
