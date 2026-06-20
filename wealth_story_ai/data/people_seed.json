@@ -1,0 +1,10 @@
+[
+  { "id": "rm_markus", "name": "Markus Brunner", "initials": "MB", "role": "rm", "title": "Relationship Manager", "email": "markus.brunner@juliusbaer.com", "avatar_tone": "gold" },
+  { "id": "rm_anna", "name": "Anna Vogt", "initials": "AV", "role": "rm", "title": "Relationship Manager", "email": "anna.vogt@juliusbaer.com", "avatar_tone": "navy" },
+  { "id": "wp_sophie", "name": "Sophie Brandt", "initials": "SB", "role": "wealth_planner", "title": "Wealth Planner", "email": "sophie.brandt@juliusbaer.com", "avatar_tone": "emerald" },
+  { "id": "tax_lea", "name": "Léa Fontaine", "initials": "LF", "role": "tax", "title": "Tax Specialist", "email": "lea.fontaine@juliusbaer.com", "avatar_tone": "navy" },
+  { "id": "comp_daniel", "name": "Daniel Roth", "initials": "DR", "role": "compliance", "title": "Compliance Officer", "email": "daniel.roth@juliusbaer.com", "avatar_tone": "terracotta" },
+  { "id": "adv_thomas", "name": "Thomas Meier", "initials": "TM", "role": "advisor", "title": "Investment Advisor", "email": "thomas.meier@juliusbaer.com", "avatar_tone": "navy" },
+  { "id": "succ_clara", "name": "Clara Imhof", "initials": "CI", "role": "succession", "title": "Succession Planner", "email": "clara.imhof@juliusbaer.com", "avatar_tone": "navy" },
+  { "id": "phil_noah", "name": "Noah Berger", "initials": "NB", "role": "philanthropy", "title": "Philanthropy Lead", "email": "noah.berger@juliusbaer.com", "avatar_tone": "emerald" }
+]

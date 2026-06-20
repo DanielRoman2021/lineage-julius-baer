@@ -1,0 +1,64 @@
+[
+  {
+    "id": "pep_001",
+    "name": "Sara Lindqvist",
+    "aliases": ["S. Lindqvist"],
+    "country": "Sweden",
+    "position": "Former Cantonal Councillor (Regierungsrätin), Canton of Aargau",
+    "category": "pep",
+    "risk_tier": "domestic_pep",
+    "active": false,
+    "since": "2008",
+    "until": "2016",
+    "note": "Domestic politically exposed person. No name overlap with the current client book."
+  },
+  {
+    "id": "pep_002",
+    "name": "Dimitri Volkov",
+    "aliases": ["D. Volkov"],
+    "country": "Russia",
+    "position": "Deputy Minister of Energy",
+    "category": "pep",
+    "risk_tier": "foreign_pep",
+    "active": true,
+    "since": "2019",
+    "note": "Foreign PEP, higher-risk jurisdiction."
+  },
+  {
+    "id": "pep_003",
+    "name": "Marcus Brenner",
+    "aliases": ["M. Brenner"],
+    "country": "Germany",
+    "position": "Member of the Bundestag",
+    "category": "pep",
+    "risk_tier": "foreign_pep",
+    "active": true,
+    "since": "2021",
+    "note": "Sitting legislator."
+  },
+  {
+    "id": "pep_004",
+    "name": "Isabelle Moreau",
+    "aliases": ["I. Moreau"],
+    "country": "France",
+    "position": "Regional Court Judge, Lyon",
+    "category": "pep",
+    "risk_tier": "foreign_pep",
+    "active": true,
+    "since": "2017",
+    "note": "Judiciary PEP."
+  },
+  {
+    "id": "pep_005",
+    "name": "Viktor Sokolenko",
+    "aliases": ["V. Sokolenko", "Viktor Sokolenko"],
+    "country": "Cyprus",
+    "position": "Former Regional Energy Commissioner; ex board member, state energy enterprise",
+    "category": "pep",
+    "risk_tier": "foreign_pep",
+    "active": false,
+    "since": "2009",
+    "until": "2017",
+    "note": "Foreign PEP. True profile match for the onboarding client; requires four-eyes compliance approval."
+  }
+]

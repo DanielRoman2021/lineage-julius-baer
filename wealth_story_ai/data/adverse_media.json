@@ -1,0 +1,74 @@
+[
+  {
+    "id": "adv_001",
+    "entity": "Helvetia Growth Partners",
+    "match_terms": ["Helvetia Growth Partners"],
+    "headline": "Helvetia Growth Partners settles minor reporting dispute with FINMA",
+    "outlet": "Finanz und Wirtschaft",
+    "date": "2021-09-04",
+    "sentiment": "low_negative",
+    "category": "adverse_media",
+    "summary": "A co-investment vehicle resolved an administrative late-filing matter with the regulator; no findings of misconduct against individuals. Generally considered immaterial for KYC.",
+    "note": "Low-severity, resolved administrative matter. Included to show the LLM can downgrade non-material noise."
+  },
+  {
+    "id": "adv_002",
+    "entity": "Dimitri Volkov",
+    "match_terms": ["Dimitri Volkov", "D. Volkov"],
+    "headline": "Energy official named in cross-border corruption probe",
+    "outlet": "Reuters",
+    "date": "2023-02-11",
+    "sentiment": "high_negative",
+    "category": "adverse_media",
+    "summary": "Ongoing investigation into procurement irregularities.",
+    "note": "High-severity; correlates with PEP + sanctions entries for the same name."
+  },
+  {
+    "id": "adv_003",
+    "entity": "Northbridge Maritime FZE",
+    "match_terms": ["Northbridge Maritime"],
+    "headline": "Shipping firm tied to sanctions-evasion network",
+    "outlet": "OCCRP",
+    "date": "2022-08-30",
+    "sentiment": "high_negative",
+    "category": "adverse_media",
+    "summary": "Investigative report linking the firm to sanctioned trade flows.",
+    "note": "High-severity."
+  },
+  {
+    "id": "adv_004",
+    "entity": "S. Keller",
+    "match_terms": ["S. Keller", "Sarah Keller"],
+    "headline": "Local article names an \"S. Keller\" in an unrelated fraud case",
+    "outlet": "Regional press archive",
+    "date": "2019-05-12",
+    "sentiment": "low_negative",
+    "category": "adverse_media",
+    "summary": "A 2019 article mentions an \"S. Keller\" in an unrelated fraud case. The date of birth and nationality do not match the client. Most likely a name overlap.",
+    "note": "Name-only match. Low confidence. Needs a human to confirm the date of birth and nationality, then it can be cleared."
+  },
+  {
+    "id": "adv_005",
+    "entity": "Viktor Sokolenko",
+    "match_terms": ["Viktor Sokolenko", "V. Sokolenko"],
+    "headline": "Energy industrialist named in cross-border procurement inquiry",
+    "outlet": "OCCRP",
+    "date": "2024-03-19",
+    "sentiment": "high_negative",
+    "category": "adverse_media",
+    "summary": "Reporting names the industrialist in connection with opaque cross-border trades and an ongoing procurement inquiry.",
+    "note": "High-severity; correlates with the PEP profile match for the same person."
+  },
+  {
+    "id": "adv_006",
+    "entity": "Meridian Energy Holdings Ltd",
+    "match_terms": ["Meridian Energy Holdings", "Meridian Energy Holdings Ltd"],
+    "headline": "Trading group linked to opaque cross-border deals and procurement inquiry",
+    "outlet": "Reuters",
+    "date": "2024-01-22",
+    "sentiment": "high_negative",
+    "category": "adverse_media",
+    "summary": "Investigative reporting links the energy and metals trading group to opaque cross-border trades and names it in a procurement inquiry.",
+    "note": "High-severity; matches the company named in the source-of-wealth and company-profile documents."
+  }
+]

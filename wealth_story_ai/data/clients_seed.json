@@ -1,0 +1,333 @@
+[
+  {
+    "id": "sarah_keller",
+    "name": "Sarah Keller",
+    "photo_url": null,
+    "headline": "Tech founder, post-exit. Wants to retire early, leave a legacy, and give with impact.",
+    "domicile": "Zurich, Switzerland",
+    "marital_status": "Married, two children (16 & 18)",
+    "segment": "UHNW",
+    "net_worth": 180000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "onboarding",
+    "tags": ["Tech exit 2023", "Impact philanthropy", "Next-gen legacy"],
+    "trust_score": 0,
+    "dna": [
+      {"name": "Legacy", "score": 9, "note": "Multi-generational wealth transfer is the north star."},
+      {"name": "Impact", "score": 8, "note": "Wants giving to be measurable, not symbolic."},
+      {"name": "Family", "score": 8, "note": "Two teenagers; preparing them to inherit responsibly."},
+      {"name": "Security", "score": 9, "note": "Capital preservation over upside."},
+      {"name": "Health", "score": 4, "note": "Has the means but not the time; runs on empty."},
+      {"name": "Freedom", "score": 5, "note": "Wealth is concentrated and illiquid; not yet freedom."},
+      {"name": "Growth", "score": 7, "note": "Still curious; angel-invests in impact ventures."},
+      {"name": "Lifestyle", "score": 6, "note": "Comfortable but deliberately understated."},
+      {"name": "Wealth", "score": 10, "note": "CHF 180M net worth post-exit."},
+      {"name": "Business", "score": 7, "note": "Exited operating role; now a board member and investor."}
+    ],
+    "goals": [
+      {"title": "Retire from operating roles at 55", "goal_type": "retirement", "target_year": 2032, "estimated_cost": null, "notes": "Step back from boards; keep selective investing."},
+      {"title": "Fund both children's university education", "goal_type": "education", "target_year": 2026, "estimated_cost": 1200000, "notes": "Two children, likely abroad (UK / US)."},
+      {"title": "Acquire a family residence in the Engadin", "goal_type": "property", "target_year": 2027, "estimated_cost": 9000000, "notes": "Long-term family anchor."},
+      {"title": "Pre-fund the Keller Foundation grant cycle", "goal_type": "philanthropy", "target_year": 2026, "estimated_cost": 15000000, "notes": "Impact-aligned, measurable grants."},
+      {"title": "Sabbatical travel with the family", "goal_type": "travel", "target_year": 2028, "estimated_cost": 600000, "notes": "Before the eldest leaves home."}
+    ],
+    "documents": [
+      {"filename": "keller_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "keller_financials_2023.pdf", "doc_type": "financials", "flagged": false},
+      {"filename": "keller_trust_deed.pdf", "doc_type": "trust_deed", "flagged": false},
+      {"filename": "keller_source_of_funds.pdf", "doc_type": "source_of_wealth", "flagged": true},
+      {"filename": "keller_board_profile.pdf", "doc_type": "news", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 180000000,
+      "annual_income": 2400000,
+      "annual_spending": 3600000,
+      "growth_rate": 0.045,
+      "inflation": 0.02,
+      "current_age": 52,
+      "retirement_age": 55
+    }
+  },
+  {
+    "id": "marco_bernasconi",
+    "name": "Marco Bernasconi",
+    "photo_url": null,
+    "headline": "Family-business owner weighing a partial sale; cautious, hands-on.",
+    "domicile": "Lugano, Switzerland",
+    "marital_status": "Married, three children",
+    "segment": "HNW",
+    "net_worth": 45000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "review",
+    "tags": ["Pre-exit", "Manufacturing", "Succession"],
+    "trust_score": 72,
+    "dna": [
+      {"name": "Legacy", "score": 8, "note": ""},
+      {"name": "Impact", "score": 4, "note": ""},
+      {"name": "Family", "score": 9, "note": ""},
+      {"name": "Security", "score": 8, "note": ""},
+      {"name": "Health", "score": 6, "note": ""},
+      {"name": "Freedom", "score": 5, "note": ""},
+      {"name": "Growth", "score": 7, "note": ""},
+      {"name": "Lifestyle", "score": 6, "note": ""},
+      {"name": "Wealth", "score": 6, "note": ""},
+      {"name": "Business", "score": 9, "note": ""}
+    ],
+    "goals": [
+      {"title": "Sell a minority stake to fund diversification", "goal_type": "other", "target_year": 2027, "estimated_cost": null, "notes": ""},
+      {"title": "Hand the business to the next generation", "goal_type": "other", "target_year": 2030, "estimated_cost": null, "notes": ""}
+    ],
+    "documents": [
+      {"filename": "generic_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "generic_source_of_wealth.pdf", "doc_type": "source_of_wealth", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 45000000,
+      "annual_income": 1800000,
+      "annual_spending": 900000,
+      "growth_rate": 0.05,
+      "inflation": 0.02,
+      "current_age": 58,
+      "retirement_age": 63
+    }
+  },
+  {
+    "id": "eleanor_ashford",
+    "name": "Eleanor Ashford",
+    "photo_url": null,
+    "headline": "Third-generation family matriarch; cross-border UK/CH structure.",
+    "domicile": "Geneva, Switzerland / London, UK",
+    "marital_status": "Widowed, four grandchildren",
+    "segment": "UHNW",
+    "net_worth": 320000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "active",
+    "tags": ["Multi-generational", "Cross-border tax", "Family office"],
+    "trust_score": 88,
+    "dna": [
+      {"name": "Legacy", "score": 10, "note": ""},
+      {"name": "Impact", "score": 7, "note": ""},
+      {"name": "Family", "score": 9, "note": ""},
+      {"name": "Security", "score": 9, "note": ""},
+      {"name": "Health", "score": 6, "note": ""},
+      {"name": "Freedom", "score": 8, "note": ""},
+      {"name": "Growth", "score": 5, "note": ""},
+      {"name": "Lifestyle", "score": 8, "note": ""},
+      {"name": "Wealth", "score": 10, "note": ""},
+      {"name": "Business", "score": 4, "note": ""}
+    ],
+    "goals": [
+      {"title": "Equalise inheritance across four grandchildren", "goal_type": "other", "target_year": 2029, "estimated_cost": null, "notes": ""},
+      {"title": "Resolve UK/CH residency tax asymmetry", "goal_type": "other", "target_year": 2026, "estimated_cost": null, "notes": ""}
+    ],
+    "documents": [
+      {"filename": "generic_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "generic_asset_summary.pdf", "doc_type": "asset_summary", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 320000000,
+      "annual_income": 4200000,
+      "annual_spending": 2800000,
+      "growth_rate": 0.04,
+      "inflation": 0.02,
+      "current_age": 74,
+      "retirement_age": 74
+    }
+  },
+  {
+    "id": "rafael_santos",
+    "name": "Rafael Santos",
+    "photo_url": null,
+    "headline": "Recently liquid sports professional; first-time private-banking client.",
+    "domicile": "Madrid, Spain",
+    "marital_status": "Single",
+    "segment": "HNW",
+    "net_worth": 28000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "onboarding",
+    "tags": ["New money", "Liquidity event", "Brand risk"],
+    "trust_score": 41,
+    "dna": [
+      {"name": "Legacy", "score": 4, "note": ""},
+      {"name": "Impact", "score": 6, "note": ""},
+      {"name": "Family", "score": 7, "note": ""},
+      {"name": "Security", "score": 5, "note": ""},
+      {"name": "Health", "score": 9, "note": ""},
+      {"name": "Freedom", "score": 7, "note": ""},
+      {"name": "Growth", "score": 8, "note": ""},
+      {"name": "Lifestyle", "score": 8, "note": ""},
+      {"name": "Wealth", "score": 5, "note": ""},
+      {"name": "Business", "score": 3, "note": ""}
+    ],
+    "goals": [
+      {"title": "Protect career earnings for life after sport", "goal_type": "retirement", "target_year": 2035, "estimated_cost": null, "notes": ""},
+      {"title": "Launch a youth foundation", "goal_type": "philanthropy", "target_year": 2027, "estimated_cost": 2000000, "notes": ""}
+    ],
+    "documents": [
+      {"filename": "generic_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "generic_source_of_wealth.pdf", "doc_type": "source_of_wealth", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 28000000,
+      "annual_income": 6000000,
+      "annual_spending": 1500000,
+      "growth_rate": 0.05,
+      "inflation": 0.02,
+      "current_age": 29,
+      "retirement_age": 35
+    }
+  },
+  {
+    "id": "mei_lin_chen",
+    "name": "Mei-Lin Chen",
+    "photo_url": null,
+    "headline": "Next-generation heir taking over family philanthropy.",
+    "domicile": "Zug, Switzerland",
+    "marital_status": "Married",
+    "segment": "UHNW",
+    "net_worth": 110000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "active",
+    "tags": ["Next-gen", "Philanthropy", "Sustainable investing"],
+    "trust_score": 80,
+    "dna": [
+      {"name": "Legacy", "score": 8, "note": ""},
+      {"name": "Impact", "score": 10, "note": ""},
+      {"name": "Family", "score": 7, "note": ""},
+      {"name": "Security", "score": 6, "note": ""},
+      {"name": "Health", "score": 7, "note": ""},
+      {"name": "Freedom", "score": 7, "note": ""},
+      {"name": "Growth", "score": 9, "note": ""},
+      {"name": "Lifestyle", "score": 6, "note": ""},
+      {"name": "Wealth", "score": 8, "note": ""},
+      {"name": "Business", "score": 6, "note": ""}
+    ],
+    "goals": [
+      {"title": "Shift the portfolio to 100% sustainable mandates", "goal_type": "other", "target_year": 2026, "estimated_cost": null, "notes": ""},
+      {"title": "Scale the family foundation's annual giving", "goal_type": "philanthropy", "target_year": 2027, "estimated_cost": 8000000, "notes": ""}
+    ],
+    "documents": [
+      {"filename": "generic_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "generic_asset_summary.pdf", "doc_type": "asset_summary", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 110000000,
+      "annual_income": 1900000,
+      "annual_spending": 1400000,
+      "growth_rate": 0.045,
+      "inflation": 0.02,
+      "current_age": 38,
+      "retirement_age": 60
+    }
+  },
+  {
+    "id": "lukas_adler",
+    "name": "Lukas Adler",
+    "photo_url": null,
+    "headline": "Second-generation pharma-distribution heir; just inherited the group, onboarding fresh.",
+    "domicile": "Munich, Germany",
+    "marital_status": "Divorced, one child (7)",
+    "segment": "UHNW",
+    "net_worth": 240000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "onboarding",
+    "tags": ["Recent inheritance", "Pharma distribution", "Operating-company wealth"],
+    "trust_score": 0,
+    "dna": [
+      {"name": "Legacy", "score": 8, "note": "Just inherited; wants to honour his father's company and protect it for his son."},
+      {"name": "Impact", "score": 5, "note": "Open to healthcare-access giving but undecided and cautious."},
+      {"name": "Family", "score": 7, "note": "Recently divorced; co-parenting a young son he wants to provide for."},
+      {"name": "Security", "score": 8, "note": "Inheritance feels fragile; wants to de-risk before doing anything bold."},
+      {"name": "Health", "score": 6, "note": "Healthy but stretched by grief and a sudden operational load."},
+      {"name": "Freedom", "score": 4, "note": "Wealth is locked in the operating company and property; very little is liquid."},
+      {"name": "Growth", "score": 6, "note": "Curious about diversifying out of a single-sector concentration."},
+      {"name": "Lifestyle", "score": 6, "note": "Comfortable Munich lifestyle, no appetite for excess."},
+      {"name": "Wealth", "score": 9, "note": "CHF 240M, but concentrated in the family GmbH and real estate."},
+      {"name": "Business", "score": 8, "note": "Now sole shareholder and acting chairman of Adler Pharma Distribution GmbH."}
+    ],
+    "goals": [
+      {"title": "Diversify out of single-company concentration", "goal_type": "other", "target_year": 2028, "estimated_cost": null, "notes": "Roughly 60% of net worth sits in the family GmbH; phased de-risking."},
+      {"title": "Set up a trust for his son", "goal_type": "other", "target_year": 2026, "estimated_cost": 5000000, "notes": "Provide for the seven-year-old independent of the divorce settlement."},
+      {"title": "Acquire a primary residence in Munich", "goal_type": "property", "target_year": 2027, "estimated_cost": 7000000, "notes": "Post-divorce family home; long-term anchor."},
+      {"title": "Explore a healthcare-access foundation", "goal_type": "philanthropy", "target_year": 2029, "estimated_cost": 3000000, "notes": "Tentative; honour his father's name in the pharma sector."}
+    ],
+    "documents": [
+      {"filename": "adler_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "adler_inheritance_deed.pdf", "doc_type": "trust_deed", "flagged": false},
+      {"filename": "adler_financials_2025.pdf", "doc_type": "financials", "flagged": false},
+      {"filename": "adler_source_of_wealth.pdf", "doc_type": "source_of_wealth", "flagged": true},
+      {"filename": "adler_company_profile.pdf", "doc_type": "news", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 240000000,
+      "annual_income": 5200000,
+      "annual_spending": 2200000,
+      "growth_rate": 0.045,
+      "inflation": 0.02,
+      "current_age": 41,
+      "retirement_age": 60
+    }
+  },
+  {
+    "id": "viktor_sokolenko",
+    "name": "Viktor Sokolenko",
+    "photo_url": null,
+    "headline": "Cross-border energy and metals industrialist; opaque offshore structure, onboarding under enhanced due diligence.",
+    "domicile": "Zug, Switzerland / Limassol, Cyprus",
+    "marital_status": "Married, three children (11, 15, 19)",
+    "segment": "UHNW",
+    "net_worth": 410000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "onboarding",
+    "tags": ["PEP", "Cross-border CH/UK/CY", "Offshore holding structure", "Enhanced due diligence"],
+    "trust_score": 0,
+    "dna": [
+      {"name": "Legacy", "score": 8, "note": "Wants the industrial group to outlast him and pass cleanly to three children."},
+      {"name": "Impact", "score": 4, "note": "Some regional giving in Cyprus, but undefined and reputation-driven."},
+      {"name": "Family", "score": 7, "note": "Three children across two jurisdictions; eldest now studying in London."},
+      {"name": "Security", "score": 9, "note": "Geopolitical exposure makes asset protection the first priority."},
+      {"name": "Health", "score": 5, "note": "High-stress operating life; constant travel."},
+      {"name": "Freedom", "score": 4, "note": "Wealth is locked in an offshore holding chain; very little is cleanly liquid."},
+      {"name": "Growth", "score": 6, "note": "Wants to diversify out of energy and metals into mainstream markets."},
+      {"name": "Lifestyle", "score": 7, "note": "Residences in Zug and Limassol; understated by choice for political reasons."},
+      {"name": "Wealth", "score": 9, "note": "CHF 410M, but concentrated and held through opaque vehicles."},
+      {"name": "Business", "score": 9, "note": "Controls Meridian Energy Holdings, an energy and metals trading group."}
+    ],
+    "goals": [
+      {"title": "Diversify out of the energy and metals group", "goal_type": "other", "target_year": 2029, "estimated_cost": null, "notes": "Roughly 70% of net worth sits in the Cyprus holding company; phased de-risking."},
+      {"title": "Fund the eldest child's studies in London", "goal_type": "education", "target_year": 2026, "estimated_cost": 900000, "notes": "Eldest is UK-resident; cross-border gift treatment unclear."},
+      {"title": "Acquire a London residence", "goal_type": "property", "target_year": 2027, "estimated_cost": 18000000, "notes": "UK situs asset; creates direct UK tax exposure."},
+      {"title": "Restructure the family holding into a transparent trust", "goal_type": "other", "target_year": 2028, "estimated_cost": null, "notes": "Replace the BVI nominee arrangement with a vehicle the bank can see through."}
+    ],
+    "documents": [
+      {"filename": "sokolenko_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "sokolenko_financials_2025.pdf", "doc_type": "financials", "flagged": false},
+      {"filename": "sokolenko_trust_deed.pdf", "doc_type": "trust_deed", "flagged": false},
+      {"filename": "sokolenko_source_of_wealth.pdf", "doc_type": "source_of_wealth", "flagged": true},
+      {"filename": "sokolenko_company_profile.pdf", "doc_type": "news", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 410000000,
+      "annual_income": 7800000,
+      "annual_spending": 3100000,
+      "growth_rate": 0.045,
+      "inflation": 0.02,
+      "current_age": 54,
+      "retirement_age": 62
+    }
+  }
+]

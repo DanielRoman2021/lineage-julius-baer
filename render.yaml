@@ -1,0 +1,24 @@
+# Render Blueprint for the Lineage backend (FastAPI).
+# In Render: New > Blueprint > pick this repo. It reads this file.
+# Set the two secret env vars (ANTHROPIC_API_KEY, MONGODB_URI) in the dashboard.
+services:
+  - type: web
+    name: lineage-api
+    runtime: python
+    rootDir: wealth_story_ai
+    plan: free                       # free sleeps after 15 min idle; use "starter" ($7/mo) to stay warm
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeploy: true                 # redeploy on every push to the connected branch
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: ANTHROPIC_API_KEY
+        sync: false                  # set in the dashboard, never in the repo
+      - key: MONGODB_URI
+        sync: false                  # set in the dashboard, never in the repo
+      - key: MONGODB_DB
+        value: lineage
+      - key: CORS_ORIGINS
+        value: "*"                   # tighten to the Cloudflare domain once it exists

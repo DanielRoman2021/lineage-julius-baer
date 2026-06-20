@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#EDEAE2;}::selection{background:#C9A86A;color:#141E3C;}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:999px;background:#E4DFD3;outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:#141E3C;border:3px solid #C9A86A;cursor:pointer;}
+</style>
+</helmet>
+<div style="width:1440px; min-height:900px; margin:0 auto; background:#F7F5F0; font-family:'Archivo',sans-serif; color:#3C4456; display:flex; -webkit-font-smoothing:antialiased;">
+
+  <div style="width:232px; flex:none; background:#141E3C; color:#C7CEDC; display:flex; flex-direction:column; padding:26px 0;">
+    <div style="padding:0 26px;"><div style="font-family:'Spectral',serif; font-size:20px; letter-spacing:0.26em; color:#F7F5F0; font-weight:500;">LINEAGE</div></div>
+    <div style="margin-top:38px; display:flex; flex-direction:column; gap:3px; padding:0 14px;">
+      <a href="RM%20-%20Dashboard.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; color:#9BA6BC; font-size:13.5px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+      <a href="RM%20-%20Intake%20%26%20DNA.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; background:rgba(201,168,106,.14); color:#F4F1EA; font-size:13.5px; font-weight:600; box-shadow:inset 2px 0 0 #C9A86A;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C9A86A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V5"/><path d="M8 9l4-4 4 4"/><path d="M5 19h14"/></svg>Intake &amp; DNA</a>
+      <a href="RM%20-%20Document%20Vault.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; color:#9BA6BC; font-size:13.5px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11H4z"/><path d="M15 4v5h5"/></svg>Document Vault</a>
+      <a href="RM%20-%20Agent%20Verification%20Flow.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; color:#9BA6BC; font-size:13.5px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Verification</a>
+      <a href="RM%20-%20Living%20Wealth%20Story.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; color:#9BA6BC; font-size:13.5px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Wealth Story</a>
+      <a href="RM%20-%20Action%20Points%20%26%20Approvals.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; color:#9BA6BC; font-size:13.5px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Action Points</a>
+    </div>
+    <div style="margin-top:auto; padding:16px 20px 0; border-top:1px solid rgba(255,255,255,.07); margin-left:14px; margin-right:14px; display:flex; align-items:center; gap:11px;">
+      <div style="width:34px; height:34px; border-radius:50%; background:#C9A86A; color:#141E3C; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px;">MB</div>
+      <div><div style="font-size:13px; color:#F4F1EA; font-weight:600;">Markus Brunner</div><div style="font-size:11.5px; color:#7E8AA0;">Relationship Manager</div></div>
+    </div>
+  </div>
+
+  <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+    <div style="height:68px; flex:none; border-bottom:1px solid #E4DFD3; background:#FBFAF6; display:flex; align-items:center; padding:0 32px; gap:18px;">
+      <div style="width:40px; height:40px; border-radius:50%; background:#1B2A4A; color:#F7F5F0; display:flex; align-items:center; justify-content:center; font-family:'Spectral',serif; font-size:16px;">SK</div>
+      <div><div style="font-family:'Spectral',serif; font-size:18px; color:#141E3C;">Sarah Keller</div><div style="font-size:12px; color:#707A8A;">New relationship · Intake</div></div>
+      <div style="margin-left:18px; display:flex; align-items:center; gap:8px; font-size:12.5px; color:#707A8A;"><span style="color:#141E3C; font-weight:600;">Intake</span><span style="color:#C7C0B0;">›</span><span>Verification</span><span style="color:#C7C0B0;">›</span><span>Approval</span></div>
+    </div>
+
+    <div style="padding:28px 32px 40px;">
+      <div style="margin-bottom:22px;">
+        <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#A8854A; font-weight:700;">Onboarding</div>
+        <div style="font-family:'Spectral',serif; font-weight:400; font-size:29px; color:#141E3C; margin-top:6px;">Intake &amp; DNA</div>
+        <div style="font-size:14px; color:#707A8A; max-width:640px; line-height:1.6; margin-top:6px;">Gather the essentials, then capture what wealth is <span style="font-style:italic;">for</span>. Sarah's answers quietly shape her Wheel of Life — no forms she'll ever see.</div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+
+        <!-- documents -->
+        <div style="background:#fff; border:1px solid #E4DFD3; border-radius:12px; padding:24px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;"><div style="font-family:'Spectral',serif; font-size:19px; color:#141E3C;">Essential documents</div><span style="font-size:12px; color:#5E806B; font-weight:600;">4 of 5 verified</span></div>
+          <div style="height:6px; background:#EFEADF; border-radius:999px; overflow:hidden; margin-bottom:18px;"><div style="width:80%; height:100%; background:#C9A86A;"></div></div>
+          <div style="border:1.5px dashed #C9A86A; border-radius:10px; padding:22px; text-align:center; background:#FBF7EE; margin-bottom:18px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A8854A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><path d="M12 16V5"/><path d="M8 9l4-4 4 4"/><path d="M5 19h14"/></svg>
+            <div style="font-family:'Spectral',serif; font-size:16px; color:#141E3C; margin-top:10px;">Drop documents here</div>
+            <div style="font-size:12px; color:#707A8A; margin-top:3px;">Auto-routed to the right agent</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:9px;">
+            <div style="display:flex; align-items:center; gap:11px; padding:11px 14px; border:1px solid #EAE4D7; border-radius:9px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5E806B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:13.5px; color:#141E3C;">Passport · Swiss</span><span style="margin-left:auto; font-size:11.5px; color:#5E806B;">Verified</span></div>
+            <div style="display:flex; align-items:center; gap:11px; padding:11px 14px; border:1px solid #EAE4D7; border-radius:9px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5E806B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:13.5px; color:#141E3C;">Proof of address</span><span style="margin-left:auto; font-size:11.5px; color:#5E806B;">Verified</span></div>
+            <div style="display:flex; align-items:center; gap:11px; padding:11px 14px; border:1px solid #EBD9C9; background:#FDF8F2; border-radius:9px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8895E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg><span style="font-size:13.5px; color:#141E3C;">Source of funds</span><span style="margin-left:auto; font-size:11.5px; color:#9F5E3A; font-weight:600;">Flagged</span></div>
+            <div style="display:flex; align-items:center; gap:11px; padding:11px 14px; border:1px solid #EAE4D7; border-radius:9px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5E806B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:13.5px; color:#141E3C;">Financial statements</span><span style="margin-left:auto; font-size:11.5px; color:#5E806B;">Verified</span></div>
+            <div style="display:flex; align-items:center; gap:11px; padding:11px 14px; border:1px solid #EAE4D7; border-radius:9px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5E806B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span style="font-size:13.5px; color:#141E3C;">Board and press profile</span><span style="margin-left:auto; font-size:11.5px; color:#5E806B;">Verified</span></div>
+          </div>
+        </div>
+
+        <!-- DNA -->
+        <div style="background:#fff; border:1px solid #E4DFD3; border-radius:12px; padding:24px;">
+          <div style="font-family:'Spectral',serif; font-size:19px; color:#141E3C; margin-bottom:4px;">Values DNA</div>
+          <div style="font-size:13px; color:#707A8A; line-height:1.55; margin-bottom:18px;">Where should her wealth lean? Adjust to reflect the conversation.</div>
+
+          <div style="display:flex; gap:22px; align-items:flex-start;">
+            <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+              <div><div style="display:flex; justify-content:space-between; font-size:13px; color:#141E3C; margin-bottom:8px;"><span>Family &amp; legacy</span><span style="font-weight:600;">{{ vFamily }}</span></div><input type="range" min="1" max="10" value="{{ vFamily }}" onChange="{{ setFamily }}"></div>
+              <div><div style="display:flex; justify-content:space-between; font-size:13px; color:#141E3C; margin-bottom:8px;"><span>Freedom &amp; time</span><span style="font-weight:600;">{{ vFreedom }}</span></div><input type="range" min="1" max="10" value="{{ vFreedom }}" onChange="{{ setFreedom }}"></div>
+              <div><div style="display:flex; justify-content:space-between; font-size:13px; color:#141E3C; margin-bottom:8px;"><span>Impact &amp; philanthropy</span><span style="font-weight:600;">{{ vImpact }}</span></div><input type="range" min="1" max="10" value="{{ vImpact }}" onChange="{{ setImpact }}"></div>
+              <div><div style="display:flex; justify-content:space-between; font-size:13px; color:#141E3C; margin-bottom:8px;"><span>Security</span><span style="font-weight:600;">{{ vSecurity }}</span></div><input type="range" min="1" max="10" value="{{ vSecurity }}" onChange="{{ setSecurity }}"></div>
+              <div><div style="display:flex; justify-content:space-between; font-size:13px; color:#141E3C; margin-bottom:8px;"><span>Growth &amp; ventures</span><span style="font-weight:600;">{{ vGrowth }}</span></div><input type="range" min="1" max="10" value="{{ vGrowth }}" onChange="{{ setGrowth }}"></div>
+            </div>
+            <div style="width:170px; flex:none; text-align:center;">
+              <div style="font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:#A6ADBB; font-weight:600; margin-bottom:8px;">Live preview</div>
+              {{ mini }}
+              <div style="font-size:11.5px; color:#707A8A; margin-top:8px; line-height:1.5;">Feeds Sarah's Wheel of Life</div>
+            </div>
+          </div>
+
+          <div style="margin-top:22px; padding-top:18px; border-top:1px solid #F1ECE1;">
+            <div style="font-size:13px; color:#141E3C; margin-bottom:11px; font-weight:600;">In Sarah's words, wealth is mostly here to…</div>
+            <div style="display:flex; flex-wrap:wrap; gap:9px;">
+              <span style="padding:9px 15px; border-radius:999px; background:#141E3C; color:#F7F5F0; font-size:12.5px; font-weight:600;">Provide for family</span>
+              <span style="padding:9px 15px; border-radius:999px; background:#fff; border:1px solid #DDD5C5; color:#707A8A; font-size:12.5px; font-weight:600;">Create lasting impact</span>
+              <span style="padding:9px 15px; border-radius:999px; background:#fff; border:1px solid #DDD5C5; color:#707A8A; font-size:12.5px; font-weight:600;">Buy freedom &amp; time</span>
+              <span style="padding:9px 15px; border-radius:999px; background:#fff; border:1px solid #DDD5C5; color:#707A8A; font-size:12.5px; font-weight:600;">Build something new</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { vFamily:9, vFreedom:4, vImpact:6, vSecurity:9, vGrowth:7 };
+  pol(cx,cy,r,deg){const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+  wedge(cx,cy,r,a0,a1){const [x0,y0]=this.pol(cx,cy,r,a0);const [x1,y1]=this.pol(cx,cy,r,a1);return `M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 0 1 ${x1} ${y1} Z`;}
+  renderMini(){
+    const h=React.createElement;
+    const vals=[this.state.vFamily,this.state.vFreedom,this.state.vImpact,this.state.vSecurity,this.state.vGrowth];
+    const cx=85,cy=85,R=72; const els=[h('circle',{key:'b',cx,cy,r:R,fill:'#FBFAF6',stroke:'#E8E1D3'})];
+    for(let g=1;g<=5;g++) els.push(h('circle',{key:'r'+g,cx,cy,r:R*g/5,fill:'none',stroke:'#EFEADF',strokeWidth:1}));
+    vals.forEach((v,i)=>{const a0=i*72+2,a1=(i+1)*72-2;const low=v<=5;els.push(h('path',{key:'w'+i,d:this.wedge(cx,cy,R*v/10,a0,a1),fill:low?'#C8895E':'#1B2A4A',opacity:.9}));});
+    return h('svg',{viewBox:'0 0 170 170',width:'100%',style:{display:'block',maxWidth:150,margin:'0 auto'}},...els);
+  }
+  renderVals(){
+    return {
+      mini:this.renderMini(),
+      vFamily:this.state.vFamily, vFreedom:this.state.vFreedom, vImpact:this.state.vImpact, vSecurity:this.state.vSecurity, vGrowth:this.state.vGrowth,
+      setFamily:(e)=>this.setState({vFamily:+e.target.value}),
+      setFreedom:(e)=>this.setState({vFreedom:+e.target.value}),
+      setImpact:(e)=>this.setState({vImpact:+e.target.value}),
+      setSecurity:(e)=>this.setState({vSecurity:+e.target.value}),
+      setGrowth:(e)=>this.setState({vGrowth:+e.target.value})
+    };
+  }
+}
+</script>
+</body>
+</html>

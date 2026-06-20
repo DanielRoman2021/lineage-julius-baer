@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  ::selection{background:#C9A86A;color:#141E3C;}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:999px;background:#E4DFD3;outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:#141E3C;border:3px solid #C9A86A;cursor:pointer;}
+</style>
+</helmet>
+<div style="background:#F7F5F0; min-height:100vh; font-family:'Archivo',sans-serif; color:#3C4456; -webkit-font-smoothing:antialiased;">
+
+  <!-- Masthead -->
+  <div style="background:#141E3C; color:#F7F5F0;">
+    <div style="max-width:1180px; margin:0 auto; padding:54px 56px 46px;">
+      <div style="display:flex; align-items:center; gap:18px;">
+        <div style="font-family:'Spectral',serif; font-size:28px; letter-spacing:0.30em; font-weight:500;">LINEAGE</div>
+        <div style="height:16px; width:1px; background:#C9A86A; opacity:.7;"></div>
+        <div style="font-size:11px; letter-spacing:0.24em; text-transform:uppercase; color:#C9A86A; font-weight:600;">Design System · v1</div>
+      </div>
+      <div style="margin-top:30px; max-width:720px; font-family:'Spectral',serif; font-weight:300; font-size:28px; line-height:1.42; color:#F7F5F0;">A living wealth story the client co-owns — verified by AI agents, approved by people, and kept by the relationship&nbsp;manager.</div>
+      <div style="margin-top:20px; font-size:13px; color:#9BA6BC; letter-spacing:0.02em;">Quiet-luxury private banking · Julius Baer SwissHacks 2026</div>
+    </div>
+    <div style="height:1px; background:linear-gradient(90deg,transparent,#C9A86A 50%,transparent); opacity:.55;"></div>
+  </div>
+
+  <!-- COLOUR -->
+  <div style="max-width:1180px; margin:0 auto; padding:64px 56px 16px;">
+    <div style="font-size:11px; letter-spacing:0.24em; text-transform:uppercase; color:#A8854A; font-weight:700;">Foundations</div>
+    <div style="font-family:'Spectral',serif; font-weight:400; font-size:32px; color:#141E3C; margin:10px 0 6px;">Colour</div>
+    <div style="font-size:14px; color:#707A8A; max-width:600px; line-height:1.65;">Deep navy carries authority; warm ivory keeps surfaces calm and spacious; champagne gold is used sparingly, only to mark what matters. Status colours are muted, never alarming.</div>
+
+    <div style="margin-top:34px; display:grid; grid-template-columns:repeat(auto-fit,minmax(146px,1fr)); gap:16px;">
+      <div><div style="height:92px; border-radius:4px; background:#141E3C; border:1px solid rgba(0,0,0,.06);"></div><div style="margin-top:11px; font-size:13px; font-weight:600; color:#141E3C;">Navy 900</div><div style="font-size:12px; color:#707A8A;">#141E3C · Primary</div></div>
+      <div><div style="height:92px; border-radius:4px; background:#1B2A4A; border:1px solid rgba(0,0,0,.06);"></div><div style="margin-top:11px; font-size:13px; font-weight:600; color:#141E3C;">Navy 700</div><div style="font-size:12px; color:#707A8A;">#1B2A4A · Surface</div></div>
+      <div><div style="height:92px; border-radius:4px; background:#C9A86A; border:1px solid rgba(0,0,0,.06);"></div><div style="margin-top:11px; font-size:13px; font-weight:600; color:#141E3C;">Champagne</div><div style="font-size:12px; color:#707A8A;">#C9A86A · Accent</div></div>
+      <div><div style="height:92px; border-radius:4px; background:#F7F5F0; border:1px solid #E4DFD3;"></div><div style="margin-top:11px; font-size:13px; font-weight:600; color:#141E3C;">Ivory</div><div style="font-size:12px; color:#707A8A;">#F7F5F0 · Canvas</div></div>
+      <div><div style="height:92px; border-radius:4px; background:#3C4456; border:1px solid rgba(0,0,0,.06);"></div><div style="margin-top:11px; font-size:13px; font-weight:600; color:#141E3C;">Slate</div><div style="font-size:12px; color:#707A8A;">#3C4456 · Text</div></div>
+      <div><div style="height:92px; border-radius:4px; background:#5E806B; border:1px solid rgba(0,0,0,.06);"></div><div style="margin-top:11px; font-size:13px; font-weight:600; color:#141E3C;">Emerald</div><div style="font-size:12px; color:#707A8A;">#5E806B · Verified</div></div>
+      <div><div style="height:92px; border-radius:4px; background:#C8895E; border:1px solid rgba(0,0,0,.06);"></div><div style="margin-top:11px; font-size:13px; font-weight:600; color:#141E3C;">Terracotta</div><div style="font-size:12px; color:#707A8A;">#C8895E · Flagged</div></div>
+    </div>
+  </div>
+
+  <div style="max-width:1180px; margin:48px auto 0; padding:0 56px;"><div style="height:1px; background:#E4DFD3;"></div></div>
+
+  <!-- TYPE -->
+  <div style="max-width:1180px; margin:0 auto; padding:56px 56px 16px;">
+    <div style="font-size:11px; letter-spacing:0.24em; text-transform:uppercase; color:#A8854A; font-weight:700;">Foundations</div>
+    <div style="font-family:'Spectral',serif; font-weight:400; font-size:32px; color:#141E3C; margin:10px 0 6px;">Typography</div>
+    <div style="font-size:14px; color:#707A8A; max-width:600px; line-height:1.65;">An editorial serif for voice and headlines; a clean grotesque for interface and data. Numbers are presented as insight, never crammed into dense tables.</div>
+
+    <div style="margin-top:36px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:44px; align-items:start;">
+      <div>
+        <div style="font-size:12px; color:#A8854A; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;">Spectral · Display</div>
+        <div style="font-family:'Spectral',serif; font-weight:300; font-size:58px; line-height:1.04; color:#141E3C; margin-top:14px;">Sarah Keller</div>
+        <div style="font-family:'Spectral',serif; font-weight:300; font-style:italic; font-size:23px; color:#6B7488; margin-top:8px;">A founder who built, then chose what to keep.</div>
+        <div style="margin-top:26px; display:flex; flex-direction:column; gap:7px;">
+          <div style="font-family:'Spectral',serif; font-size:30px; color:#141E3C;">H1 · Living Wealth Story</div>
+          <div style="font-family:'Spectral',serif; font-size:22px; color:#1B2A4A;">H2 · Agent Verification</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px; color:#A8854A; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;">Archivo · Interface</div>
+        <div style="margin-top:14px; font-size:15px; line-height:1.7; color:#3C4456;">Body copy stays generous and unhurried. We write to the client and the relationship manager in plain language — explaining the picture, not listing the data behind it.</div>
+        <div style="margin-top:22px; display:flex; gap:26px; flex-wrap:wrap;">
+          <div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#707A8A; font-weight:600;">Net worth</div><div style="font-family:'Spectral',serif; font-size:40px; color:#141E3C; margin-top:4px;">CHF 180M</div></div>
+          <div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#707A8A; font-weight:600;">Trust score</div><div style="font-family:'Spectral',serif; font-size:40px; color:#A8854A; margin-top:4px;">82</div></div>
+        </div>
+        <div style="margin-top:20px; font-size:12.5px; color:#707A8A; letter-spacing:0.02em;">Weights: 400 · 500 · 600 · 700 — labels in 600 uppercase, tracked 0.14em.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1180px; margin:48px auto 0; padding:0 56px;"><div style="height:1px; background:#E4DFD3;"></div></div>
+
+  <!-- COMPONENTS -->
+  <div style="max-width:1180px; margin:0 auto; padding:56px 56px 80px;">
+    <div style="font-size:11px; letter-spacing:0.24em; text-transform:uppercase; color:#A8854A; font-weight:700;">Library</div>
+    <div style="font-family:'Spectral',serif; font-weight:400; font-size:32px; color:#141E3C; margin:10px 0 6px;">Components</div>
+    <div style="font-size:14px; color:#707A8A; max-width:600px; line-height:1.65;">The building blocks that recur across the RM cockpit and the client app.</div>
+
+    <div style="margin-top:36px; display:grid; grid-template-columns:repeat(2,1fr); gap:26px;">
+
+      <!-- Dropzone -->
+      <div style="background:#fff; border:1px solid #ECE7DC; border-radius:7px; padding:26px;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#A8854A; font-weight:700; margin-bottom:18px;">Upload · Dropzone</div>
+        <div style="border:1.5px dashed #C9A86A; border-radius:7px; padding:32px 24px; text-align:center; background:#FBFAF6;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A8854A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><path d="M12 16V5"/><path d="M8 9l4-4 4 4"/><path d="M5 19h14"/></svg>
+          <div style="margin-top:14px; font-family:'Spectral',serif; font-size:18px; color:#141E3C;">Drop documents to begin</div>
+          <div style="font-size:12.5px; color:#707A8A; margin-top:6px;">Passport · Financials · Trust deeds — PDF, JPG to 25&nbsp;MB</div>
+        </div>
+      </div>
+
+      <!-- Status chips -->
+      <div style="background:#fff; border:1px solid #ECE7DC; border-radius:7px; padding:26px;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#A8854A; font-weight:700; margin-bottom:18px;">Document status chips</div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; align-items:center; gap:11px; padding:11px 15px; border:1px solid #E4DFD3; border-radius:999px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#5E806B;"></span>
+            <span style="font-weight:600; font-size:13.5px; color:#141E3C;">Verified</span>
+            <span style="font-size:12px; color:#707A8A; margin-left:auto;">Passport · KYC Agent</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:11px; padding:11px 15px; border:1px solid #E4DFD3; border-radius:999px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#C8895E;"></span>
+            <span style="font-weight:600; font-size:13.5px; color:#141E3C;">Flagged</span>
+            <span style="font-size:12px; color:#707A8A; margin-left:auto;">Source of funds · Compliance</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:11px; padding:11px 15px; border:1px solid #E4DFD3; border-radius:999px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#C9A86A;"></span>
+            <span style="font-weight:600; font-size:13.5px; color:#141E3C;">Pending</span>
+            <span style="font-size:12px; color:#707A8A; margin-left:auto;">Trust deed · Wealth Planner</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent node -->
+      <div style="background:#fff; border:1px solid #ECE7DC; border-radius:7px; padding:26px;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#A8854A; font-weight:700; margin-bottom:18px;">Agent-flow node</div>
+        <div style="border:1px solid #E4DFD3; border-radius:8px; overflow:hidden;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:15px 17px; background:#141E3C; color:#fff;">
+            <div style="display:flex; align-items:center; gap:11px;">
+              <span style="width:30px; height:30px; border-radius:7px; background:rgba(201,168,106,.18); border:1px solid rgba(201,168,106,.5); display:flex; align-items:center; justify-content:center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A86A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>
+              </span>
+              <span style="font-family:'Spectral',serif; font-size:16px;">KYC Agent</span>
+            </div>
+            <span style="font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#C9A86A; display:flex; align-items:center; gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:#C9A86A;"></span>Running</span>
+          </div>
+          <div style="padding:15px 17px; font-size:12.5px; color:#707A8A; line-height:1.7;">Criminal record · PEP screening · Sanctions &amp; adverse media · optional social signals</div>
+        </div>
+      </div>
+
+      <!-- Routing & approval -->
+      <div style="background:#fff; border:1px solid #ECE7DC; border-radius:7px; padding:26px;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#A8854A; font-weight:700; margin-bottom:18px;">Routing &amp; approval chips</div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <span style="display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:#C9A86A; color:#141E3C; font-weight:600; font-size:13px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#141E3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Approve
+          </span>
+          <span style="display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:#fff; border:1px solid #C8895E; color:#9F5E3A; font-weight:600; font-size:13px;">Re-route</span>
+          <span style="display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:#fff; border:1px solid #1B2A4A; color:#1B2A4A; font-weight:600; font-size:13px;">→ Tax Specialist</span>
+          <span style="display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:#fff; border:1px solid #1B2A4A; color:#1B2A4A; font-weight:600; font-size:13px;">→ Compliance</span>
+          <span style="display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; background:#F4EFE4; color:#707A8A; font-weight:600; font-size:13px;">Human gate</span>
+        </div>
+      </div>
+
+      <!-- Trust gauge -->
+      <div style="background:#fff; border:1px solid #ECE7DC; border-radius:7px; padding:26px;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#A8854A; font-weight:700; margin-bottom:8px;">Relationship trust gauge</div>
+        <div style="padding-top:8px;">{{ gauge }}</div>
+        <div style="text-align:center; font-size:12.5px; color:#707A8A; margin-top:-6px;">Engagement · responsiveness · completeness of profile</div>
+      </div>
+
+      <!-- Wheel -->
+      <div style="background:#fff; border:1px solid #ECE7DC; border-radius:7px; padding:26px;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#A8854A; font-weight:700; margin-bottom:8px;">Wheel of life</div>
+        <div>{{ wheel }}</div>
+        <div style="display:flex; justify-content:center; gap:20px; margin-top:6px; font-size:12px; color:#707A8A;">
+          <span style="display:inline-flex; align-items:center; gap:7px;"><span style="width:9px;height:9px;border-radius:2px;background:#1B2A4A;"></span>On track</span>
+          <span style="display:inline-flex; align-items:center; gap:7px;"><span style="width:9px;height:9px;border-radius:2px;background:#C8895E;"></span>Life gap</span>
+        </div>
+      </div>
+
+      <!-- Feasibility -->
+      <div style="background:#fff; border:1px solid #ECE7DC; border-radius:7px; padding:26px;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#A8854A; font-weight:700; margin-bottom:18px;">Feasibility lever</div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;">
+          <span style="font-size:14px; color:#3C4456; font-weight:500;">Retire at age</span>
+          <span style="font-family:'Spectral',serif; font-size:34px; color:#141E3C;">{{ retire }}</span>
+        </div>
+        <input type="range" min="50" max="65" value="{{ retire }}" onChange="{{ setRetire }}" style="width:100%;" />
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:#A6ADBB; margin-top:6px;"><span>50</span><span>65</span></div>
+        <div style="margin-top:18px; display:inline-flex; align-items:center; gap:9px; padding:10px 16px; border-radius:999px; background:{{ verdictBg }}; color:{{ verdictColor }}; font-weight:600; font-size:13.5px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:{{ verdictColor }};"></span>{{ verdict }}
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div style="background:#fff; border:1px solid #ECE7DC; border-radius:7px; padding:26px;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#A8854A; font-weight:700; margin-bottom:18px;">Timeline</div>
+        <div style="position:relative; padding-left:22px;">
+          <div style="position:absolute; left:5px; top:6px; bottom:6px; width:1.5px; background:#E4DFD3;"></div>
+          <div style="position:relative; margin-bottom:18px;"><span style="position:absolute; left:-22px; top:3px; width:11px; height:11px; border-radius:50%; background:#C9A86A; border:2px solid #fff; box-shadow:0 0 0 1px #C9A86A;"></span><div style="font-size:13.5px; font-weight:600; color:#141E3C;">2023 · Tech exit</div><div style="font-size:12.5px; color:#707A8A;">Liquidity event, CHF 180M</div></div>
+          <div style="position:relative; margin-bottom:18px;"><span style="position:absolute; left:-22px; top:3px; width:11px; height:11px; border-radius:50%; background:#1B2A4A; border:2px solid #fff; box-shadow:0 0 0 1px #C9A86A;"></span><div style="font-size:13.5px; font-weight:600; color:#141E3C;">2024 · Onboarded with Lineage</div><div style="font-size:12.5px; color:#707A8A;">Profile &amp; DNA captured</div></div>
+          <div style="position:relative;"><span style="position:absolute; left:-22px; top:3px; width:11px; height:11px; border-radius:50%; background:#fff; border:2px solid #C9A86A;"></span><div style="font-size:13.5px; font-weight:600; color:#141E3C;">2026 · Eldest enters university</div><div style="font-size:12.5px; color:#707A8A;">Education funding milestone</div></div>
+        </div>
+      </div>
+
+      <!-- Story card -->
+      <div style="grid-column:1 / -1; background:#141E3C; border-radius:7px; padding:40px 44px; color:#F7F5F0; position:relative; overflow:hidden;">
+        <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#C9A86A; font-weight:700; margin-bottom:18px;">Narrative story card</div>
+        <div style="font-family:'Spectral',serif; font-weight:300; font-size:26px; line-height:1.5; max-width:760px; color:#F4F1EA;">"Sarah built a software company over fourteen years and sold it in 2023. Wealth, for her, is less about the number and more about <span style="color:#C9A86A; font-style:italic;">time with her family and a legacy that outlasts her.</span>"</div>
+        <div style="margin-top:22px; font-size:12.5px; color:#9BA6BC; letter-spacing:0.04em;">Extracted by Wealth Planner Agent · approved by Markus Brunner, RM</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="background:#141E3C; padding:26px 56px; text-align:center; color:#6B7488; font-size:12px; letter-spacing:0.04em;">Lineage · a living wealth story, co-owned</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { retire: 55 };
+
+  pol(cx, cy, r, deg){ const a = (deg - 90) * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+
+  wedge(cx, cy, r, a0, a1){
+    const [x0, y0] = this.pol(cx, cy, r, a0);
+    const [x1, y1] = this.pol(cx, cy, r, a1);
+    const large = (a1 - a0) <= 180 ? 0 : 1;
+    return `M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} Z`;
+  }
+
+  arc(cx, cy, r, a0, a1){
+    const [x0, y0] = this.pol(cx, cy, r, a0);
+    const [x1, y1] = this.pol(cx, cy, r, a1);
+    const large = (a1 - a0) <= 180 ? 0 : 1;
+    return `M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1}`;
+  }
+
+  renderWheel(){
+    const h = React.createElement;
+    const segs = [
+      {k:'Legacy',v:8},{k:'Impact',v:6},{k:'Family',v:9},{k:'Security',v:9},{k:'Health',v:5},
+      {k:'Freedom',v:4},{k:'Growth',v:7},{k:'Lifestyle',v:8},{k:'Wealth',v:9},{k:'Business',v:6}
+    ];
+    const cx = 170, cy = 170, R = 124;
+    const els = [ h('circle',{key:'base',cx,cy,r:R,fill:'#FBFAF6',stroke:'#E4DFD3'}) ];
+    for(let g=1; g<=5; g++){ els.push(h('circle',{key:'r'+g,cx,cy,r:R*g/5,fill:'none',stroke:'#EFEADF',strokeWidth:1})); }
+    segs.forEach((s,i)=>{
+      const a0 = i*36 + 1.4, a1 = (i+1)*36 - 1.4;
+      const r = R * s.v / 10;
+      const low = s.v <= 5;
+      els.push(h('path',{key:'w'+i,d:this.wedge(cx,cy,r,a0,a1),fill:low?'#C8895E':'#1B2A4A',opacity:0.92}));
+    });
+    segs.forEach((s,i)=>{
+      const mid = i*36 + 18;
+      const [lx,ly] = this.pol(cx,cy,R+24,mid);
+      els.push(h('text',{key:'t'+i,x:lx,y:ly,fill:'#3C4456',fontSize:11.5,fontFamily:'Archivo',fontWeight:600,textAnchor:'middle',dominantBaseline:'middle'},s.k));
+    });
+    return h('svg',{viewBox:'0 0 340 340',width:'100%',style:{maxWidth:330,display:'block',margin:'0 auto'}}, ...els);
+  }
+
+  renderGauge(){
+    const h = React.createElement;
+    const val = 82, cx = 140, cy = 134, r = 94;
+    const start = -128, end = 128, span = end - start;
+    const vAng = start + span * val / 100;
+    return h('svg',{viewBox:'0 0 280 188',width:'100%',style:{maxWidth:280,display:'block',margin:'0 auto'}},
+      h('path',{key:'bg',d:this.arc(cx,cy,r,start,end),fill:'none',stroke:'#E9E3D6',strokeWidth:13,strokeLinecap:'round'}),
+      h('path',{key:'val',d:this.arc(cx,cy,r,start,vAng),fill:'none',stroke:'#C9A86A',strokeWidth:13,strokeLinecap:'round'}),
+      h('text',{key:'num',x:cx,y:cy-4,fill:'#141E3C',fontSize:48,fontFamily:'Spectral',textAnchor:'middle'},String(val)),
+      h('text',{key:'lab',x:cx,y:cy+22,fill:'#707A8A',fontSize:11,fontFamily:'Archivo',fontWeight:600,letterSpacing:'0.16em',textAnchor:'middle'},'STRONG')
+    );
+  }
+
+  renderVals(){
+    const r = this.state.retire;
+    const feasible = r >= 53;
+    return {
+      wheel: this.renderWheel(),
+      gauge: this.renderGauge(),
+      retire: r,
+      verdict: feasible ? 'Feasible' : 'At risk',
+      verdictBg: feasible ? '#EAF0EB' : '#F7EAE1',
+      verdictColor: feasible ? '#436B52' : '#9F5E3A',
+      setRetire: (e) => this.setState({ retire: +e.target.value })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E8E4DB;}
+  ::selection{background:#C9A86A;color:#141E3C;}
+  .scroll::-webkit-scrollbar{width:0;}
+</style>
+</helmet>
+<div style="min-height:924px; background:radial-gradient(120% 90% at 50% 0%, #EFEBE2, #E2DDD3); display:flex; align-items:flex-start; justify-content:center; padding:40px; font-family:'Archivo',sans-serif;">
+  <div style="width:392px; height:844px; background:#F7F5F0; border-radius:46px; border:11px solid #141E3C; box-shadow:0 40px 80px -30px rgba(20,30,60,.55); overflow:hidden; position:relative;">
+
+    <!-- status bar -->
+    <div style="height:46px; display:flex; align-items:center; justify-content:space-between; padding:0 26px; font-size:13px; font-weight:600; color:#141E3C;">
+      <span>9:41</span>
+      <span style="display:flex; gap:6px; align-items:center;"><svg width="17" height="11" viewBox="0 0 17 11" fill="#141E3C"><rect x="0" y="6" width="3" height="5" rx="1"/><rect x="4.5" y="4" width="3" height="7" rx="1"/><rect x="9" y="2" width="3" height="9" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="2.5" stroke="#141E3C"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.2" fill="#141E3C"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#141E3C"/></svg></span>
+    </div>
+
+    <div class="scroll" style="height:787px; overflow-y:auto; padding:6px 22px 30px;">
+
+      <!-- header -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:4px 2px 14px;">
+        <div>
+          <div style="font-size:12px; color:#A8854A; letter-spacing:0.12em; text-transform:uppercase; font-weight:700;">Good evening, Sarah</div>
+          <div style="font-family:'Spectral',serif; font-size:25px; color:#141E3C; margin-top:3px;">Your Wheel of Life</div>
+        </div>
+        <span style="width:40px; height:40px; border-radius:50%; background:#1B2A4A; color:#F7F5F0; display:flex; align-items:center; justify-content:center; font-family:'Spectral',serif; font-size:15px;">SK</span>
+      </div>
+
+      <div style="font-size:13.5px; color:#6B7488; line-height:1.6; margin-bottom:6px;">A picture of what matters to you — beyond the numbers. Tap a petal to explore.</div>
+
+      <!-- wheel -->
+      <div style="margin-top:6px;">{{ wheel }}</div>
+
+      <!-- selected detail -->
+      <div style="margin-top:8px; background:#fff; border:1px solid #E8E1D3; border-radius:16px; padding:18px 20px;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <div style="font-family:'Spectral',serif; font-size:20px; color:#141E3C;">{{ selName }}</div>
+          <div style="display:flex; align-items:baseline; gap:3px;"><span style="font-family:'Spectral',serif; font-size:26px; color:{{ selColor }};">{{ selScore }}</span><span style="font-size:13px; color:#A6ADBB;">/10</span></div>
+        </div>
+        <div style="font-size:13.5px; color:#6B7488; line-height:1.6; margin-top:6px;">{{ selNote }}</div>
+      </div>
+
+      <!-- life gaps -->
+      <div style="margin-top:22px; display:flex; align-items:center; gap:9px;">
+        <span style="width:9px; height:9px; border-radius:3px; background:#C8895E;"></span>
+        <div style="font-family:'Spectral',serif; font-size:18px; color:#141E3C;">Life gaps to tend</div>
+      </div>
+      <div style="margin-top:12px; display:flex; flex-direction:column; gap:12px;">
+        <div style="background:#fff; border:1px solid #EBD9C9; border-radius:16px; padding:16px 18px;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="font-size:15px; color:#141E3C; font-weight:600;">Freedom</div>
+            <span style="font-size:11px; font-weight:600; color:#9F5E3A; background:#F7EAE1; padding:3px 9px; border-radius:999px;">Score 4 · low</span>
+          </div>
+          <div style="font-size:13px; color:#6B7488; line-height:1.6; margin-top:7px;">Your calendar is still full of obligations. We can model retiring at 55 so time becomes yours sooner.</div>
+          <div style="margin-top:11px; font-size:12.5px; color:#A8854A; font-weight:600; display:flex; align-items:center; gap:6px;">Explore feasibility <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A8854A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+        <div style="background:#fff; border:1px solid #EBD9C9; border-radius:16px; padding:16px 18px;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="font-size:15px; color:#141E3C; font-weight:600;">Health</div>
+            <span style="font-size:11px; font-weight:600; color:#9F5E3A; background:#F7EAE1; padding:3px 9px; border-radius:999px;">Score 5 · at risk</span>
+          </div>
+          <div style="font-size:13px; color:#6B7488; line-height:1.6; margin-top:7px;">Little time is set aside for wellbeing. A small recurring commitment here protects everything else you've built.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:472,&quot;height&quot;:924}}">
+class Component extends DCLogic {
+  segs = [
+    {k:'Legacy',v:8,note:'Your multi-generational plan is taking shape and feels clear.'},
+    {k:'Impact',v:6,note:'Philanthropic intent is set, but not yet structured into a vehicle.'},
+    {k:'Family',v:9,note:'Central to every decision — the anchor of your wealth story.'},
+    {k:'Security',v:9,note:'A strong liquidity buffer means you sleep well at night.'},
+    {k:'Health',v:5,note:'Little time is currently set aside for your own wellbeing.'},
+    {k:'Freedom',v:4,note:'Your calendar is still dominated by obligations rather than choice.'},
+    {k:'Growth',v:7,note:'Curious and energised — exploring new ventures and ideas.'},
+    {k:'Lifestyle',v:8,note:'Comfortable and well-travelled, with room to enjoy it more.'},
+    {k:'Wealth',v:9,note:'Exceptional position following your 2023 exit.'},
+    {k:'Business',v:6,note:'Advisory roles continue as you wind down operational load.'}
+  ];
+  state = { sel: 5 };
+
+  pol(cx,cy,r,deg){const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+  wedge(cx,cy,r,a0,a1){const [x0,y0]=this.pol(cx,cy,r,a0);const [x1,y1]=this.pol(cx,cy,r,a1);return `M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 0 1 ${x1} ${y1} Z`;}
+
+  renderWheel(){
+    const h=React.createElement;
+    const cx=174, cy=174, R=116;
+    const els=[ h('circle',{key:'b',cx,cy,r:R,fill:'#FBFAF6',stroke:'#E8E1D3'}) ];
+    for(let g=1;g<=5;g++){ els.push(h('circle',{key:'r'+g,cx,cy,r:R*g/5,fill:'none',stroke:'#EFEADF',strokeWidth:1})); }
+    this.segs.forEach((s,i)=>{
+      const a0=i*36+1.5, a1=(i+1)*36-1.5;
+      els.push(h('path',{key:'hit'+i,d:this.wedge(cx,cy,R,a0,a1),fill:'transparent',style:{cursor:'pointer'},onClick:()=>this.setState({sel:i})}));
+    });
+    this.segs.forEach((s,i)=>{
+      const a0=i*36+1.5, a1=(i+1)*36-1.5;
+      const r=R*s.v/10;
+      const low=s.v<=5;
+      const selected=this.state.sel===i;
+      els.push(h('path',{key:'w'+i,d:this.wedge(cx,cy,r,a0,a1),fill:low?'#C8895E':'#1B2A4A',opacity:selected?1:0.88,stroke:selected?'#C9A86A':'none',strokeWidth:selected?2:0,style:{pointerEvents:'none'}}));
+    });
+    this.segs.forEach((s,i)=>{
+      const mid=i*36+18;
+      const [lx,ly]=this.pol(cx,cy,R+22,mid);
+      els.push(h('text',{key:'t'+i,x:lx,y:ly,fill:this.state.sel===i?'#141E3C':'#6B7488',fontSize:10.5,fontFamily:'Archivo',fontWeight:this.state.sel===i?700:600,textAnchor:'middle',dominantBaseline:'middle',style:{pointerEvents:'none'}},s.k));
+    });
+    els.push(h('circle',{key:'cc',cx,cy,r:30,fill:'#141E3C'}));
+    els.push(h('text',{key:'cn',x:cx,y:cy-3,fill:'#F7F5F0',fontSize:19,fontFamily:'Spectral',textAnchor:'middle'},'7.1'));
+    els.push(h('text',{key:'cl',x:cx,y:cy+13,fill:'#C9A86A',fontSize:8,fontFamily:'Archivo',fontWeight:600,letterSpacing:'0.1em',textAnchor:'middle'},'BALANCE'));
+    return h('svg',{viewBox:'0 0 348 348',width:'100%',style:{display:'block'}},...els);
+  }
+
+  renderVals(){
+    const s=this.segs[this.state.sel];
+    return {
+      wheel:this.renderWheel(),
+      selName:s.k, selScore:s.v, selNote:s.note,
+      selColor:s.v<=5?'#9F5E3A':'#141E3C'
+    };
+  }
+}
+</script>
+</body>
+</html>

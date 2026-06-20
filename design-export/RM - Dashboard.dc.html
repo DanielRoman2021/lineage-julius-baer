@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#EDEAE2;}
+  ::selection{background:#C9A86A;color:#141E3C;}
+</style>
+</helmet>
+<div style="width:1440px; min-height:900px; margin:0 auto; background:#F7F5F0; font-family:'Archivo',sans-serif; color:#3C4456; display:flex; -webkit-font-smoothing:antialiased;">
+
+  <!-- SIDEBAR -->
+  <div style="width:232px; flex:none; background:#141E3C; color:#C7CEDC; display:flex; flex-direction:column; padding:26px 0;">
+    <div style="padding:0 26px;"><div style="font-family:'Spectral',serif; font-size:20px; letter-spacing:0.26em; color:#F7F5F0; font-weight:500;">LINEAGE</div></div>
+    <div style="margin-top:38px; display:flex; flex-direction:column; gap:3px; padding:0 14px;">
+      <a href="RM%20-%20Dashboard.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; font-size:13.5px; background:rgba(201,168,106,.14); color:#F4F1EA; font-weight:600; box-shadow:inset 2px 0 0 #C9A86A;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C9A86A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+      <a href="RM%20-%20Intake%20%26%20DNA.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; font-size:13.5px; color:#9BA6BC;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V5"/><path d="M8 9l4-4 4 4"/><path d="M5 19h14"/></svg>Intake &amp; DNA</a>
+      <a href="RM%20-%20Document%20Vault.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; font-size:13.5px; color:#9BA6BC;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11H4z"/><path d="M15 4v5h5"/></svg>Document Vault</a>
+      <a href="RM%20-%20Agent%20Verification%20Flow.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; font-size:13.5px; color:#9BA6BC;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Verification</a>
+      <a href="RM%20-%20Living%20Wealth%20Story.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; font-size:13.5px; color:#9BA6BC;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Wealth Story</a>
+      <a href="RM%20-%20Action%20Points%20%26%20Approvals.dc.html" style="display:flex; align-items:center; gap:13px; padding:11px 14px; border-radius:7px; text-decoration:none; font-size:13.5px; color:#9BA6BC;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Action Points</a>
+    </div>
+    <div style="margin-top:auto; padding:16px 20px 0; border-top:1px solid rgba(255,255,255,.07); margin-left:14px; margin-right:14px; display:flex; align-items:center; gap:11px;">
+      <div style="width:34px; height:34px; border-radius:50%; background:#C9A86A; color:#141E3C; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px;">MB</div>
+      <div><div style="font-size:13px; color:#F4F1EA; font-weight:600;">Markus Brunner</div><div style="font-size:11.5px; color:#7E8AA0;">Relationship Manager</div></div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+
+    <!-- Topbar -->
+    <div style="height:68px; flex:none; border-bottom:1px solid #E4DFD3; background:#FBFAF6; display:flex; align-items:center; padding:0 32px; gap:18px;">
+      <div>
+        <div style="font-family:'Spectral',serif; font-size:18px; color:#141E3C;">Good morning, Markus</div>
+        <div style="font-size:12px; color:#707A8A;">Friday, 20 June 2026 · 5 relationships</div>
+      </div>
+      <div style="margin-left:auto; display:flex; align-items:center; gap:16px;">
+        <div style="display:flex; align-items:center; gap:9px; padding:9px 16px; border:1px solid #E4DFD3; border-radius:999px; background:#fff; width:240px; color:#A6ADBB;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A6ADBB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><span style="font-size:13px;">Search clients</span></div>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#707A8A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      </div>
+    </div>
+
+    <div style="padding:28px 32px 40px;">
+
+      <!-- Metrics -->
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
+        <div style="background:#fff; border:1px solid #E4DFD3; border-radius:10px; padding:18px 20px;"><div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#707A8A; font-weight:600;">Assets under care</div><div style="font-family:'Spectral',serif; font-size:30px; color:#141E3C; margin-top:7px;">CHF 895M</div></div>
+        <div style="background:#fff; border:1px solid #E4DFD3; border-radius:10px; padding:18px 20px;"><div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#707A8A; font-weight:600;">Relationships</div><div style="font-family:'Spectral',serif; font-size:30px; color:#141E3C; margin-top:7px;">5</div></div>
+        <div style="background:#fff; border:1px solid #E4DFD3; border-radius:10px; padding:18px 20px;"><div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#707A8A; font-weight:600;">Avg. trust score</div><div style="font-family:'Spectral',serif; font-size:30px; color:#A8854A; margin-top:7px;">74</div></div>
+        <div style="background:#141E3C; border-radius:10px; padding:18px 20px;"><div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#9BA6BC; font-weight:600;">Open action points</div><div style="font-family:'Spectral',serif; font-size:30px; color:#C9A86A; margin-top:7px;">6</div></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 392px; gap:24px; margin-top:24px; align-items:start;">
+
+        <!-- Client list -->
+        <div style="background:#fff; border:1px solid #E4DFD3; border-radius:12px; overflow:hidden;">
+          <div style="padding:18px 22px; border-bottom:1px solid #F1ECE1; display:flex; align-items:center; justify-content:space-between;">
+            <div style="font-family:'Spectral',serif; font-size:18px; color:#141E3C;">Your relationships</div>
+            <div style="font-size:12px; color:#707A8A;">Sorted by priority</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1.6fr 1fr 0.9fr 1.2fr; gap:12px; padding:11px 22px; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#A6ADBB; font-weight:600; border-bottom:1px solid #F1ECE1;">
+            <span>Client</span><span>Assets</span><span style="text-align:center;">Trust</span><span>Next action</span>
+          </div>
+
+          <!-- rows -->
+          <div style="display:grid; grid-template-columns:1.6fr 1fr 0.9fr 1.2fr; gap:12px; padding:16px 22px; align-items:center; border-bottom:1px solid #F4EFE6;">
+            <div style="display:flex; align-items:center; gap:12px;"><span style="width:38px;height:38px;border-radius:50%;background:#1B2A4A;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:15px;">SK</span><div><div style="font-size:14px; color:#141E3C; font-weight:600;">Sarah Keller</div><div style="font-size:11.5px; color:#707A8A;">Entrepreneur · Zurich</div></div></div>
+            <div><div style="font-size:14px; color:#141E3C; font-family:'Spectral',serif;">CHF 180M</div><div style="font-size:11px; color:#5E806B;">▲ onboarding</div></div>
+            <div style="display:flex; justify-content:center;"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="15" fill="none" stroke="#EFEADF" stroke-width="4"/><circle cx="23" cy="23" r="15" fill="none" stroke="#5E806B" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="16.97" transform="rotate(-90 23 23)"/><text x="23" y="27" text-anchor="middle" font-family="Spectral" font-size="14" fill="#141E3C">82</text></svg></div>
+            <div style="font-size:12px; color:#9F5E3A; font-weight:600;">Resolve flagged hit<div style="font-size:11px; color:#A6ADBB; font-weight:400;">Today</div></div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.6fr 1fr 0.9fr 1.2fr; gap:12px; padding:16px 22px; align-items:center; border-bottom:1px solid #F4EFE6;">
+            <div style="display:flex; align-items:center; gap:12px;"><span style="width:38px;height:38px;border-radius:50%;background:#1B2A4A;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:15px;">BF</span><div><div style="font-size:14px; color:#141E3C; font-weight:600;">The Bianchi Family</div><div style="font-size:11.5px; color:#707A8A;">Multi-gen · Lugano</div></div></div>
+            <div><div style="font-size:14px; color:#141E3C; font-family:'Spectral',serif;">CHF 320M</div><div style="font-size:11px; color:#707A8A;">stable</div></div>
+            <div style="display:flex; justify-content:center;"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="15" fill="none" stroke="#EFEADF" stroke-width="4"/><circle cx="23" cy="23" r="15" fill="none" stroke="#5E806B" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="8.48" transform="rotate(-90 23 23)"/><text x="23" y="27" text-anchor="middle" font-family="Spectral" font-size="14" fill="#141E3C">91</text></svg></div>
+            <div style="font-size:12px; color:#3C4456; font-weight:600;">10-year anniversary<div style="font-size:11px; color:#A6ADBB; font-weight:400;">Jun 24</div></div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.6fr 1fr 0.9fr 1.2fr; gap:12px; padding:16px 22px; align-items:center; border-bottom:1px solid #F4EFE6;">
+            <div style="display:flex; align-items:center; gap:12px;"><span style="width:38px;height:38px;border-radius:50%;background:#1B2A4A;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:15px;">HV</span><div><div style="font-size:14px; color:#141E3C; font-weight:600;">Henrik Voss</div><div style="font-size:11.5px; color:#707A8A;">Real estate · Geneva</div></div></div>
+            <div><div style="font-size:14px; color:#141E3C; font-family:'Spectral',serif;">CHF 240M</div><div style="font-size:11px; color:#5E806B;">▲ liquidity</div></div>
+            <div style="display:flex; justify-content:center;"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="15" fill="none" stroke="#EFEADF" stroke-width="4"/><circle cx="23" cy="23" r="15" fill="none" stroke="#C9A86A" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="30.16" transform="rotate(-90 23 23)"/><text x="23" y="27" text-anchor="middle" font-family="Spectral" font-size="14" fill="#141E3C">68</text></svg></div>
+            <div style="font-size:12px; color:#3C4456; font-weight:600;">Property sale closing<div style="font-size:11px; color:#A6ADBB; font-weight:400;">Jun 26</div></div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.6fr 1fr 0.9fr 1.2fr; gap:12px; padding:16px 22px; align-items:center; border-bottom:1px solid #F4EFE6;">
+            <div style="display:flex; align-items:center; gap:12px;"><span style="width:38px;height:38px;border-radius:50%;background:#1B2A4A;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:15px;">AO</span><div><div style="font-size:14px; color:#141E3C; font-weight:600;">Amara Okafor</div><div style="font-size:11.5px; color:#707A8A;">Pharma exec · Basel</div></div></div>
+            <div><div style="font-size:14px; color:#141E3C; font-family:'Spectral',serif;">CHF 95M</div><div style="font-size:11px; color:#707A8A;">stable</div></div>
+            <div style="display:flex; justify-content:center;"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="15" fill="none" stroke="#EFEADF" stroke-width="4"/><circle cx="23" cy="23" r="15" fill="none" stroke="#C9A86A" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="21.68" transform="rotate(-90 23 23)"/><text x="23" y="27" text-anchor="middle" font-family="Spectral" font-size="14" fill="#141E3C">77</text></svg></div>
+            <div style="font-size:12px; color:#3C4456; font-weight:600;">Education funding<div style="font-size:11px; color:#A6ADBB; font-weight:400;">August</div></div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.6fr 1fr 0.9fr 1.2fr; gap:12px; padding:16px 22px; align-items:center;">
+            <div style="display:flex; align-items:center; gap:12px;"><span style="width:38px;height:38px;border-radius:50%;background:#1B2A4A;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:15px;">TL</span><div><div style="font-size:14px; color:#141E3C; font-weight:600;">Théo Lambert</div><div style="font-size:11.5px; color:#707A8A;">Founder · Lausanne</div></div></div>
+            <div><div style="font-size:14px; color:#141E3C; font-family:'Spectral',serif;">CHF 60M</div><div style="font-size:11px; color:#9F5E3A;">▼ engagement</div></div>
+            <div style="display:flex; justify-content:center;"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="15" fill="none" stroke="#EFEADF" stroke-width="4"/><circle cx="23" cy="23" r="15" fill="none" stroke="#C8895E" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="43.36" transform="rotate(-90 23 23)"/><text x="23" y="27" text-anchor="middle" font-family="Spectral" font-size="14" fill="#141E3C">54</text></svg></div>
+            <div style="font-size:12px; color:#9F5E3A; font-weight:600;">Schedule review<div style="font-size:11px; color:#A6ADBB; font-weight:400;">This week</div></div>
+          </div>
+        </div>
+
+        <!-- Action points feed -->
+        <div style="background:#fff; border:1px solid #E4DFD3; border-radius:12px; overflow:hidden;">
+          <div style="padding:18px 20px; border-bottom:1px solid #F1ECE1; display:flex; align-items:center; justify-content:space-between;">
+            <div style="font-family:'Spectral',serif; font-size:18px; color:#141E3C;">Next action points</div>
+            <span style="font-size:11px; background:#141E3C; color:#C9A86A; font-weight:600; padding:3px 9px; border-radius:999px;">6</span>
+          </div>
+          <div style="padding:6px 8px;">
+            <div style="display:flex; gap:12px; padding:13px 14px; border-radius:9px;">
+              <span style="width:8px; height:8px; border-radius:50%; background:#C8895E; margin-top:5px; flex:none;"></span>
+              <div style="flex:1;"><div style="font-size:13.5px; color:#141E3C; font-weight:600;">Resolve adverse-media flag</div><div style="font-size:12px; color:#707A8A; margin-top:2px;">Sarah Keller · before onboarding completes</div><div style="margin-top:7px; display:flex; gap:7px;"><span style="font-size:10.5px; background:#F7EAE1; color:#9F5E3A; font-weight:600; padding:2px 8px; border-radius:999px;">Compliance</span><span style="font-size:10.5px; color:#A6ADBB;">Today</span></div></div>
+            </div>
+            <div style="display:flex; gap:12px; padding:13px 14px; border-radius:9px;">
+              <span style="width:8px; height:8px; border-radius:50%; background:#C8895E; margin-top:5px; flex:none;"></span>
+              <div style="flex:1;"><div style="font-size:13.5px; color:#141E3C; font-weight:600;">Trust score declining</div><div style="font-size:12px; color:#707A8A; margin-top:2px;">Théo Lambert · no contact in 64 days</div><div style="margin-top:7px; display:flex; gap:7px;"><span style="font-size:10.5px; background:#F4EFE4; color:#707A8A; font-weight:600; padding:2px 8px; border-radius:999px;">Advisor</span><span style="font-size:10.5px; color:#A6ADBB;">This week</span></div></div>
+            </div>
+            <div style="display:flex; gap:12px; padding:13px 14px; border-radius:9px; background:#FBFAF6;">
+              <span style="width:8px; height:8px; border-radius:50%; background:#C9A86A; margin-top:5px; flex:none;"></span>
+              <div style="flex:1;"><div style="font-size:13.5px; color:#141E3C; font-weight:600;">Liquidity event approaching</div><div style="font-size:12px; color:#707A8A; margin-top:2px;">Henrik Voss · property sale, ~CHF 28M proceeds</div><div style="margin-top:7px; display:flex; gap:7px;"><span style="font-size:10.5px; background:#EDEFF3; color:#1B2A4A; font-weight:600; padding:2px 8px; border-radius:999px;">Wealth Planner</span><span style="font-size:10.5px; color:#A6ADBB;">Jun 26</span></div></div>
+            </div>
+            <div style="display:flex; gap:12px; padding:13px 14px; border-radius:9px;">
+              <span style="width:8px; height:8px; border-radius:50%; background:#5E806B; margin-top:5px; flex:none;"></span>
+              <div style="flex:1;"><div style="font-size:13.5px; color:#141E3C; font-weight:600;">10-year anniversary</div><div style="font-size:12px; color:#707A8A; margin-top:2px;">The Bianchi Family · send personal note</div><div style="margin-top:7px; display:flex; gap:7px;"><span style="font-size:10.5px; background:#EDEFF3; color:#1B2A4A; font-weight:600; padding:2px 8px; border-radius:999px;">Relationship</span><span style="font-size:10.5px; color:#A6ADBB;">Jun 24</span></div></div>
+            </div>
+            <div style="display:flex; gap:12px; padding:13px 14px; border-radius:9px;">
+              <span style="width:8px; height:8px; border-radius:50%; background:#5E806B; margin-top:5px; flex:none;"></span>
+              <div style="flex:1;"><div style="font-size:13.5px; color:#141E3C; font-weight:600;">Daughter enters university</div><div style="font-size:12px; color:#707A8A; margin-top:2px;">Amara Okafor · activate education funding plan</div><div style="margin-top:7px; display:flex; gap:7px;"><span style="font-size:10.5px; background:#EDEFF3; color:#1B2A4A; font-weight:600; padding:2px 8px; border-radius:999px;">Wealth Planner</span><span style="font-size:10.5px; color:#A6ADBB;">August</span></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "soc_001",
+    "subject": "Sarah Keller",
+    "match_terms": ["Sarah Keller"],
+    "platform": "LinkedIn",
+    "signal": "professional",
+    "sentiment": "positive",
+    "summary": "Founder & former CEO of a Zurich SaaS company acquired in 2023. Now angel investor and board member of two impact-focused funds.",
+    "category": "social",
+    "note": "Benign, reputation-positive. Confirms source-of-wealth narrative (tech exit)."
+  },
+  {
+    "id": "soc_002",
+    "subject": "Sarah Keller",
+    "match_terms": ["Sarah Keller"],
+    "platform": "Press",
+    "signal": "philanthropy",
+    "sentiment": "positive",
+    "summary": "Featured speaker on impact philanthropy and next-generation wealth at a Zurich foundation summit.",
+    "category": "social",
+    "note": "Benign. Supports the impact-philanthropy goal and the Wheel-of-Life Impact dimension."
+  },
+  {
+    "id": "soc_003",
+    "subject": "Viktor Sokolenko",
+    "match_terms": ["Viktor Sokolenko"],
+    "platform": "Press",
+    "signal": "industry",
+    "sentiment": "neutral",
+    "summary": "Quoted in trade coverage on energy and metals trading volumes; named as the industrialist behind Meridian Energy Holdings.",
+    "category": "social",
+    "note": "Benign industry signal. Feeds the wealth story; not a risk flag."
+  }
+]

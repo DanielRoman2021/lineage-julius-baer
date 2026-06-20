@@ -1,0 +1,32 @@
+[
+  {
+    "id": "san_001",
+    "name": "Volkov Energy Holdings LLC",
+    "aliases": ["VEH LLC"],
+    "program": "EU Council Regulation (sectoral)",
+    "country": "Russia",
+    "category": "sanctions",
+    "listed": "2022-03-15",
+    "note": "Sanctioned entity, energy sector."
+  },
+  {
+    "id": "san_002",
+    "name": "Northbridge Maritime FZE",
+    "aliases": ["Northbridge Maritime"],
+    "program": "OFAC SDN",
+    "country": "United Arab Emirates",
+    "category": "sanctions",
+    "listed": "2021-11-02",
+    "note": "Sanctions evasion / shipping."
+  },
+  {
+    "id": "san_003",
+    "name": "Aurelio Sandoval",
+    "aliases": ["A. Sandoval"],
+    "program": "OFAC SDN (narcotics)",
+    "country": "Mexico",
+    "category": "sanctions",
+    "listed": "2020-06-18",
+    "note": "Designated individual."
+  }
+]

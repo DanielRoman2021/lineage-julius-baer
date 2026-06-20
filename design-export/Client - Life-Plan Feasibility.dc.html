@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E8E4DB;}
+  ::selection{background:#C9A86A;color:#141E3C;}
+  .scroll::-webkit-scrollbar{width:0;}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:999px;background:#E4DFD3;outline:none;margin:0;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:#141E3C;border:4px solid #C9A86A;cursor:pointer;box-shadow:0 2px 6px rgba(20,30,60,.3);}
+</style>
+</helmet>
+<div style="min-height:924px; background:radial-gradient(120% 90% at 50% 0%, #EFEBE2, #E2DDD3); display:flex; align-items:flex-start; justify-content:center; padding:40px; font-family:'Archivo',sans-serif;">
+  <div style="width:392px; height:844px; background:#F7F5F0; border-radius:46px; border:11px solid #141E3C; box-shadow:0 40px 80px -30px rgba(20,30,60,.55); overflow:hidden; position:relative;">
+
+    <div style="height:46px; display:flex; align-items:center; justify-content:space-between; padding:0 26px; font-size:13px; font-weight:600; color:#141E3C;">
+      <span>9:41</span>
+      <span style="display:flex; gap:6px; align-items:center;"><svg width="17" height="11" viewBox="0 0 17 11" fill="#141E3C"><rect x="0" y="6" width="3" height="5" rx="1"/><rect x="4.5" y="4" width="3" height="7" rx="1"/><rect x="9" y="2" width="3" height="9" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="2.5" stroke="#141E3C"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.2" fill="#141E3C"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#141E3C"/></svg></span>
+    </div>
+
+    <div class="scroll" style="height:787px; overflow-y:auto; padding:6px 22px 30px;">
+
+      <div style="padding:4px 2px 12px;">
+        <div style="font-size:12px; color:#A8854A; letter-spacing:0.12em; text-transform:uppercase; font-weight:700;">Life plan</div>
+        <div style="font-family:'Spectral',serif; font-size:25px; color:#141E3C; margin-top:3px;">Can your plans work?</div>
+        <div style="font-size:13.5px; color:#6B7488; line-height:1.6; margin-top:6px;">Move the levers below to see how your choices play out across your lifetime.</div>
+      </div>
+
+      <!-- verdict -->
+      <div style="background:{{ verdictBg }}; border:1px solid {{ verdictBorder }}; border-radius:18px; padding:18px 20px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="width:12px; height:12px; border-radius:50%; background:{{ verdictColor }};"></span>
+          <span style="font-family:'Spectral',serif; font-size:21px; color:#141E3C;">{{ verdict }}</span>
+        </div>
+        <div style="font-size:13px; color:#5C6576; line-height:1.6; margin-top:8px;">{{ verdictNote }}</div>
+        <!-- chart -->
+        <div style="margin-top:14px;">{{ chart }}</div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:6px;">
+          <div><div style="font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#8A93A3; font-weight:600;">Estimated legacy at 90</div><div style="font-family:'Spectral',serif; font-size:26px; color:#141E3C;">CHF {{ endWealth }}M</div></div>
+          <div style="text-align:right;"><div style="font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#8A93A3; font-weight:600;">Today</div><div style="font-family:'Spectral',serif; font-size:18px; color:#6B7488;">CHF 180M</div></div>
+        </div>
+      </div>
+
+      <!-- levers -->
+      <div style="margin-top:20px; display:flex; flex-direction:column; gap:18px;">
+
+        <div style="background:#fff; border:1px solid #E8E1D3; border-radius:16px; padding:16px 18px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between;"><span style="font-size:14px; color:#141E3C; font-weight:600;">Retire at age</span><span style="font-family:'Spectral',serif; font-size:22px; color:#141E3C;">{{ retire }}</span></div>
+          <input type="range" min="50" max="65" value="{{ retire }}" onChange="{{ setRetire }}" style="margin-top:14px;" />
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:#A6ADBB; margin-top:6px;"><span>50 · sooner</span><span>65 · later</span></div>
+        </div>
+
+        <div style="background:#fff; border:1px solid #E8E1D3; border-radius:16px; padding:16px 18px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between;"><span style="font-size:14px; color:#141E3C; font-weight:600;">Yearly lifestyle</span><span style="font-family:'Spectral',serif; font-size:22px; color:#141E3C;">CHF {{ lifestyle }}M</span></div>
+          <input type="range" min="1" max="6" step="0.5" value="{{ lifestyle }}" onChange="{{ setLifestyle }}" style="margin-top:14px;" />
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:#A6ADBB; margin-top:6px;"><span>Modest</span><span>Expansive</span></div>
+        </div>
+
+        <div style="background:#fff; border:1px solid #E8E1D3; border-radius:16px; padding:16px 18px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between;"><span style="font-size:14px; color:#141E3C; font-weight:600;">A house by 65</span><span style="font-family:'Spectral',serif; font-size:22px; color:#141E3C;">CHF {{ house }}M</span></div>
+          <input type="range" min="0" max="40" step="2" value="{{ house }}" onChange="{{ setHouse }}" style="margin-top:14px;" />
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:#A6ADBB; margin-top:6px;"><span>None</span><span>Landmark</span></div>
+        </div>
+
+        <div style="background:#fff; border:1px solid #E8E1D3; border-radius:16px; padding:16px 18px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between;"><span style="font-size:14px; color:#141E3C; font-weight:600;">Impact philanthropy</span><span style="font-family:'Spectral',serif; font-size:22px; color:#141E3C;">CHF {{ philan }}M</span></div>
+          <input type="range" min="0" max="60" step="5" value="{{ philan }}" onChange="{{ setPhilan }}" style="margin-top:14px;" />
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:#A6ADBB; margin-top:6px;"><span>Later</span><span>Bold</span></div>
+        </div>
+
+        <!-- locked goal -->
+        <div style="background:#FBFAF6; border:1px dashed #D8CFBC; border-radius:16px; padding:14px 18px; display:flex; align-items:center; gap:12px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5E806B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/></svg>
+          <div style="flex:1;"><div style="font-size:13.5px; color:#141E3C; font-weight:600;">Children's studies</div><div style="font-size:12px; color:#707A8A;">Lena &amp; Max · two degrees — fully funded</div></div>
+          <span style="font-size:11px; font-weight:600; color:#436B52; background:#E7EFE8; padding:3px 9px; border-radius:999px;">Secured</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:472,&quot;height&quot;:924}}">
+class Component extends DCLogic {
+  state = { retire:55, lifestyle:2.5, house:12, philan:20 };
+
+  project(){
+    const { retire, lifestyle, house, philan } = this.state;
+    let w = 180; const g = 1.028; const pts = [];
+    for(let age=50; age<=90; age++){
+      w *= g;
+      w -= lifestyle;
+      if(age <= 56) w -= 0.6;          // studies
+      if(age === 54) w -= house;        // house lump
+      if(age >= 60) w -= philan/30;     // philanthropy spread
+      if(age < retire) w += 1.6;        // residual board income before retiring
+      pts.push({age, w});
+    }
+    return pts;
+  }
+
+  renderChart(pts){
+    const h = React.createElement;
+    const W = 320, H = 116, pad = 4;
+    const ws = pts.map(p=>p.w);
+    const yMax = Math.max(...ws, 200);
+    const yMin = Math.min(...ws, 0);
+    const x = i => pad + i/(pts.length-1)*(W-2*pad);
+    const y = v => pad + (1-(v-yMin)/(yMax-yMin))*(H-2*pad);
+    const line = pts.map((p,i)=>`${i?'L':'M'} ${x(i).toFixed(1)} ${y(p.w).toFixed(1)}`).join(' ');
+    const area = `${line} L ${x(pts.length-1).toFixed(1)} ${y(yMin).toFixed(1)} L ${x(0).toFixed(1)} ${y(yMin).toFixed(1)} Z`;
+    const last = pts[pts.length-1];
+    const neg = last.w < 0;
+    const stroke = last.w < 10 ? '#C8895E' : '#A8854A';
+    const els = [
+      h('defs',{key:'d'}, h('linearGradient',{id:'fa',x1:0,y1:0,x2:0,y2:1},
+        h('stop',{offset:'0%',stopColor:stroke,stopOpacity:0.22}),
+        h('stop',{offset:'100%',stopColor:stroke,stopOpacity:0.02}))),
+      h('path',{key:'a',d:area,fill:'url(#fa)'}),
+      h('path',{key:'l',d:line,fill:'none',stroke,strokeWidth:2.2,strokeLinecap:'round',strokeLinejoin:'round'}),
+      h('circle',{key:'e',cx:x(pts.length-1),cy:y(last.w),r:4,fill:stroke})
+    ];
+    if(yMin < 0){ const zy=y(0); els.push(h('line',{key:'z',x1:pad,y1:zy,x2:W-pad,y2:zy,stroke:'#C8895E',strokeWidth:1,strokeDasharray:'3 3',opacity:.6})); }
+    return h('svg',{viewBox:`0 0 ${W} ${H}`,width:'100%',style:{display:'block'}},...els);
+  }
+
+  renderVals(){
+    const pts = this.project();
+    const end = pts[pts.length-1].w;
+    let verdict, verdictNote, verdictColor, verdictBg, verdictBorder;
+    if(end >= 60){ verdict='Comfortably feasible'; verdictColor='#5E806B'; verdictBg='#EEF3EE'; verdictBorder='#CFE0D2'; verdictNote='Every goal is funded with a generous legacy left for the next generation.'; }
+    else if(end >= 12){ verdict='Feasible'; verdictColor='#5E806B'; verdictBg='#EEF3EE'; verdictBorder='#CFE0D2'; verdictNote='Your plans hold together, with a healthy margin of safety.'; }
+    else if(end >= 0){ verdict='Tight — at risk'; verdictColor='#C8895E'; verdictBg='#FBF1E9'; verdictBorder='#EBD9C9'; verdictNote='Achievable, but with little room to spare. Worth easing one lever.'; }
+    else { verdict='Not feasible yet'; verdictColor='#9F5E3A'; verdictBg='#FBF1E9'; verdictBorder='#EBD9C9'; verdictNote='These choices outrun your wealth over time. Try retiring a little later or trimming spend.'; }
+    return {
+      chart: this.renderChart(pts),
+      endWealth: Math.round(end),
+      retire: this.state.retire,
+      lifestyle: this.state.lifestyle,
+      house: this.state.house,
+      philan: this.state.philan,
+      verdict, verdictNote, verdictColor, verdictBg, verdictBorder,
+      setRetire:(e)=>this.setState({retire:+e.target.value}),
+      setLifestyle:(e)=>this.setState({lifestyle:+e.target.value}),
+      setHouse:(e)=>this.setState({house:+e.target.value}),
+      setPhilan:(e)=>this.setState({philan:+e.target.value})
+    };
+  }
+}
+</script>
+</body>
+</html>
