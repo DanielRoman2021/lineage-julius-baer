@@ -6,9 +6,10 @@ import type { Metadata } from "next";
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Lineage — Wealth Relationship OS",
+  title: "Lineage, Wealth Relationship OS",
   description:
-    "Lineage turns KYC intake into a living wealth story the client co-owns — AI does the bureaucracy, the human RM owns every decision.",
+    "Lineage turns KYC intake into a living wealth story the client co-owns. AI does the bureaucracy, the human RM owns every decision.",
+  icons: { icon: "/icon.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
