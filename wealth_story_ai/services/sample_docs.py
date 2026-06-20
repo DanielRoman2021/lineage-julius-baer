@@ -125,6 +125,27 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "The name, date of birth, and nationality on this passport are the reference "
                 "identity for all screening and know your customer checks.",
             ])
+        if client["id"] == "sofia_castellano":
+            return ("Identity Document, Swiss Passport", [
+                "Issuing authority: Swiss Confederation, Federal Office of Police (fedpol).",
+                "Document type: Passport, machine readable, biometric.",
+                "Full name: Sofia Castellano.",
+                "Nationality: Swiss.",
+                "Sex: Female.",
+                "Date of birth: 17 September 1974.",
+                "Place of birth: Lugano, Ticino, Switzerland.",
+                "Place of origin: Lugano TI.",
+                "Passport number: F4490217.",
+                "Date of issue: 06 March 2022.",
+                "Date of expiry: 05 March 2032.",
+                "Authority: Kanton Ticino.",
+                "Residential domicile on file: Lugano, Switzerland.",
+                "Identity verified at onboarding via remote video identification (video-ID).",
+                "Document checks passed: machine readable zone consistent, photograph matches "
+                "the live video session, no signs of tampering.",
+                "The name, date of birth, and nationality on this passport are the reference "
+                "identity for all screening and know your customer checks.",
+            ])
         return ("Identity Document — Passport", [
             f"Full name: {name}", "Document type: Passport (machine-readable)",
             f"Nationality: {'Swiss' if 'Switzerland' in dom else 'See record'}",
@@ -245,6 +266,34 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "CHF 1.9 million.",
                 "Mandate: capital preservation first, with a measured redeployment into ventures.",
             ])
+        if client["id"] == "sofia_castellano":
+            return ("Financial Statements 2024, Summary Balance Sheet", [
+                f"Client: {name}.",
+                "Reporting date: 31 December 2024. Reporting currency: Swiss francs (CHF).",
+                "Total consolidated net worth: approximately CHF 180 million.",
+                "",
+                "Most assets are now held through Castellano Holding S.a r.l., a holding company "
+                "incorporated in Luxembourg. Sofia Castellano is the ultimate beneficial owner of "
+                "the holding. The Castellano Family Trust, settled in Jersey in 2023, owns the "
+                "shares of Castellano Holding S.a r.l.",
+                "",
+                "Assets held under Castellano Holding S.a r.l., approximate values.",
+                "Cash and short term deposits from the company sale: about CHF 160 million. These "
+                "are the net proceeds of the 2022 sale of a 70 percent stake in Castellano Milano "
+                "S.p.A. to Maison Lumiere for EUR 240 million.",
+                "Retained 30 percent stake in Castellano Milano S.p.A., the luxury leather goods "
+                "house: about CHF 8 million.",
+                "Residential property, a Milan apartment: about CHF 5 million.",
+                "Residential property, a Lake Como villa: about CHF 7 million.",
+                "",
+                "Held outside the holding and the trust: the Castellano Craft Foundation, funded "
+                "with EUR 5 million, sits separately. Sofia is its Founder and Principal. "
+                "Foundation assets are not part of her personal net worth.",
+                "",
+                "Annual income: approximately CHF 2.6 million. Annual spending: approximately "
+                "CHF 1.5 million.",
+                "Mandate: capital preservation first, with the sale proceeds ring-fenced.",
+            ])
         return ("Financial statements", [
             f"Client: {name}", f"Net worth, about {client['currency']} {int(client['net_worth']):,}.",
         ])
@@ -323,6 +372,28 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "Outside the structure: the Marchetti Education Foundation is not held by the trust "
                 "or the holding. Elena is its Founder and Principal.",
                 "Purpose: to ring-fence and protect the proceeds of the 2023 company sale and to "
+                "provide for an orderly multi generational transfer of wealth.",
+            ])
+        if client["id"] == "sofia_castellano":
+            return ("Castellano Family Trust, Trust Deed Summary", [
+                "Instrument: irrevocable discretionary family trust, governed by the law of Jersey.",
+                "Date of settlement: 2023.",
+                f"Settlor: {name}.",
+                "Trustee: a Jersey licensed corporate trustee.",
+                "Directors of the trustee arrangement: Paolo Castellano is named as a director.",
+                "Beneficiaries: Sofia Castellano and her husband Paolo Castellano. Paolo is a "
+                "co-beneficiary of the trust. No children are named.",
+                "Trust property: the trust owns the shares of Castellano Holding S.a r.l., a "
+                "holding company incorporated in Luxembourg. Further holding shares are to be "
+                "settled into the trust to complete the funding.",
+                "Control chain: the Castellano Family Trust (Jersey) sits at the top. It owns the "
+                "shares of Castellano Holding S.a r.l. (Luxembourg), whose ultimate beneficial "
+                "owner is Sofia Castellano. The holding in turn holds the EUR 240 million cash "
+                "proceeds, the retained 30 percent stake in Castellano Milano S.p.A., and the two "
+                "properties, a Milan apartment and a Lake Como villa.",
+                "Outside the structure: the Castellano Craft Foundation is not held by the trust "
+                "or the holding. Sofia is its Founder and Principal.",
+                "Purpose: to ring-fence and protect the proceeds of the 2022 company sale and to "
                 "provide for an orderly multi generational transfer of wealth.",
             ])
         return ("Family trust deed (summary)", [
@@ -434,6 +505,38 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "agreement and proof of receipt of the CHF 180 million, is to be confirmed and "
                 "cleared by compliance before onboarding completes.",
             ])
+        if client["id"] == "sofia_castellano":
+            return ("Source of Funds Letter", [
+                f"Re: Sofia Castellano, primary source of funds and source of wealth.",
+                "",
+                "This letter sets out the origin of the funds and assets placed under management, "
+                "with a dated history of the business she built and sold.",
+                "",
+                "In 2006 Sofia Castellano founded Castellano Milano S.p.A., a luxury leather goods "
+                "house based in Milan.",
+                "In 2015 the company expanded, opening flagship stores across Europe.",
+                "In 2022 she sold a 70 percent majority stake in Castellano Milano S.p.A. to Maison "
+                "Lumiere, a French luxury group, for EUR 240 million, keeping a 30 percent stake. "
+                "This sale is the principal source of her private wealth.",
+                "In 2023 she settled the Castellano Family Trust in Jersey.",
+                "In May 2024 she funded the Castellano Craft Foundation with EUR 5 million for "
+                "artisan apprenticeships in Italy and Switzerland.",
+                "",
+                "Ownership chain: the Castellano Family Trust (Jersey) owns the shares of Castellano "
+                "Holding S.a r.l. (Luxembourg), whose ultimate beneficial owner is Sofia Castellano. "
+                "The holding holds the EUR 240 million cash proceeds and the retained 30 percent "
+                "stake in Castellano Milano S.p.A. Paolo Castellano is a co-beneficiary and a "
+                "director of the trust.",
+                "",
+                "The proceeds are legitimate proceeds from the sale of a company the client founded "
+                "and operated. No borrowed or third party funds were used to build this wealth.",
+                "",
+                "Screening note for compliance: an automated adverse media screen returned a "
+                "name overlap match on the surname Castellano, against an unrelated S. Castellano "
+                "named in a 2019 local tax dispute. That individual has a different first name, a "
+                "different date of birth, and a different nationality from the client. This is most "
+                "likely a name overlap only and is to be confirmed and cleared by compliance.",
+            ])
         return ("Source of Wealth — Statement", [
             f"Subject: {name}", f"Domicile: {dom}",
             "Declared source of wealth: proceeds from a privately owned operating business and "
@@ -467,6 +570,25 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "Founder and Principal. Foundation assets are not part of her personal net worth.",
                 "Note: funding of the Jersey trust with the remaining holding shares is still to be "
                 "completed.",
+            ])
+        if client["id"] == "sofia_castellano":
+            return ("Asset Summary — Ownership and Control Chain", [
+                f"Client: {name}", "Total net worth: approximately CHF 180 million.",
+                "Top of the structure: the Castellano Family Trust, settled in Jersey in 2023. It "
+                "owns the shares of Castellano Holding S.a r.l.",
+                "Castellano Holding S.a r.l. is incorporated in Luxembourg. Sofia Castellano is "
+                "the ultimate beneficial owner. Her husband Paolo Castellano is a co-beneficiary "
+                "of the trust and a director.",
+                "Held by Castellano Holding S.a r.l.: the EUR 240 million cash proceeds from the "
+                "2022 sale of a 70 percent stake in Castellano Milano S.p.A. to Maison Lumiere; "
+                "the retained 30 percent stake in Castellano Milano S.p.A.; a Milan apartment; and "
+                "a Lake Como villa.",
+                "Held outside the holding and the trust: the Castellano Craft Foundation, funded "
+                "with EUR 5 million for artisan apprenticeships in Italy and Switzerland. Sofia is "
+                "its Founder and Principal. Foundation assets are not part of her personal net "
+                "worth.",
+                "Note: funding of the Jersey trust with the remaining holding shares is still to "
+                "be completed.",
             ])
         return ("Asset Summary", [
             f"Client: {name}", f"Total net worth: approximately {client['currency']} "
@@ -539,6 +661,28 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "her Series A, and she now redeploys into early stage robotics through it.",
                 "Press coverage is consistently positive and focuses on her record as a robotics "
                 "founder and her STEM philanthropy. No adverse media relating to the client has "
+                "been identified.",
+            ])
+        if client["id"] == "sofia_castellano":
+            return ("Company and Press Profile", [
+                f"Subject: {name}.",
+                "Sofia Castellano founded Castellano Milano S.p.A. in 2006, a Milan based luxury "
+                "leather goods house.",
+                "In 2015 the company expanded, opening flagship stores across Europe.",
+                "In 2022 she sold a 70 percent majority stake in Castellano Milano S.p.A. to "
+                "Maison Lumiere, a French luxury group, for EUR 240 million, keeping a 30 percent "
+                "stake, a widely reported luxury exit.",
+                "After the sale she set up Castellano Holding S.a r.l. in Luxembourg to "
+                "consolidate the proceeds, with herself as ultimate beneficial owner.",
+                "In 2023 she settled the Castellano Family Trust in Jersey, with her husband Paolo "
+                "Castellano as co-beneficiary and a director.",
+                "In May 2024 she launched the Castellano Craft Foundation, funding it with EUR 5 "
+                "million for artisan apprenticeships in Italy and Switzerland. She serves as "
+                "Founder and Principal of the foundation.",
+                "She has stepped back from running the house and now holds a minority stake and "
+                "the holding company.",
+                "Press coverage is consistently positive and focuses on her record as a luxury "
+                "founder and her craft philanthropy. No adverse media relating to the client has "
                 "been identified.",
             ])
         return ("Public Profile (Press Compilation)", [

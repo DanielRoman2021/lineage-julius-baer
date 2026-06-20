@@ -380,5 +380,55 @@
       "current_age": 49,
       "retirement_age": 55
     }
+  },
+  {
+    "id": "sofia_castellano",
+    "name": "Sofia Castellano",
+    "photo_url": null,
+    "headline": "Luxury leather-goods founder, post-exit. Building a Luxembourg holding, a Jersey family trust, and a craft apprenticeship foundation.",
+    "domicile": "Lugano, Switzerland",
+    "marital_status": "Married to Paolo Castellano",
+    "segment": "UHNW",
+    "net_worth": 180000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "onboarding",
+    "tags": ["Luxury exit 2022", "Holding + trust structure", "Craft philanthropy", "Cross-border CH/LU/JE/IT"],
+    "trust_score": 0,
+    "dna": [
+      {"name": "Legacy", "score": 9, "note": "Just set up a Jersey trust and a foundation; wants the house and the craft to outlast her."},
+      {"name": "Impact", "score": 8, "note": "EUR 5M foundation funding artisan apprenticeships in Italy and Switzerland."},
+      {"name": "Family", "score": 7, "note": "Married to Paolo, who is a co-beneficiary and a director of the trust."},
+      {"name": "Security", "score": 8, "note": "Wants the holding and trust to protect the sale proceeds."},
+      {"name": "Health", "score": 6, "note": "Recovering from a long build and a demanding sale process."},
+      {"name": "Freedom", "score": 7, "note": "Liquid for the first time after the 2022 sale."},
+      {"name": "Growth", "score": 7, "note": "Keeps a 30 percent stake in the brand and wants to back young makers."},
+      {"name": "Lifestyle", "score": 7, "note": "Lugano base, a Milan apartment, and a Lake Como villa; understated."},
+      {"name": "Wealth", "score": 9, "note": "About CHF 180M after the 2022 majority sale."},
+      {"name": "Business", "score": 8, "note": "Stepped back from running the house; now holds a minority stake and a holding company."}
+    ],
+    "goals": [
+      {"title": "Consolidate the sale proceeds under Castellano Holding", "goal_type": "other", "target_year": 2026, "estimated_cost": null, "notes": "Finish moving the proceeds and the retained stake under the Luxembourg holding."},
+      {"title": "Endow the Castellano Craft Foundation", "goal_type": "philanthropy", "target_year": 2027, "estimated_cost": 5000000, "notes": "Artisan apprenticeships across Italy and Switzerland; she is Founder and Principal."},
+      {"title": "Fund the Jersey family trust", "goal_type": "other", "target_year": 2026, "estimated_cost": null, "notes": "Settle the holding shares into the trust; Paolo is co-beneficiary and a director."}
+    ],
+    "documents": [
+      {"filename": "castellano_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "castellano_financials_2024.pdf", "doc_type": "financials", "flagged": false},
+      {"filename": "castellano_source_of_wealth.pdf", "doc_type": "source_of_wealth", "flagged": true},
+      {"filename": "castellano_trust_deed.pdf", "doc_type": "trust_deed", "flagged": false},
+      {"filename": "castellano_asset_summary.pdf", "doc_type": "asset_summary", "flagged": false},
+      {"filename": "castellano_company_profile.pdf", "doc_type": "news", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 180000000,
+      "annual_income": 2600000,
+      "annual_spending": 1500000,
+      "growth_rate": 0.045,
+      "inflation": 0.02,
+      "current_age": 51,
+      "retirement_age": 58
+    }
   }
 ]
