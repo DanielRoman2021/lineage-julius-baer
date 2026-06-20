@@ -430,5 +430,55 @@
       "current_age": 47,
       "retirement_age": 55
     }
+  },
+  {
+    "id": "stefan_novak",
+    "name": "Stefan Novak",
+    "photo_url": null,
+    "headline": "Logistics-software founder, post-exit. A clean Zug holding and a small residual stake, with a name-screen match for compliance to clear.",
+    "domicile": "Zug, Switzerland",
+    "marital_status": "Married to Petra Novak",
+    "segment": "UHNW",
+    "net_worth": 160000000,
+    "currency": "CHF",
+    "rm_id": "rm_markus",
+    "rm_name": "Markus Brunner",
+    "status": "onboarding",
+    "tags": ["Logistics-tech exit 2021", "Cross-border CZ/CH/LU", "Name-screen match to clear"],
+    "trust_score": 0,
+    "dna": [
+      {"name": "Legacy", "score": 8, "note": "Wants the exit proceeds to pass cleanly to his two children through a simple, transparent holding."},
+      {"name": "Impact", "score": 5, "note": "Open to backing logistics and software education, but nothing committed yet."},
+      {"name": "Family", "score": 7, "note": "Married to Petra; two children he wants to provide for."},
+      {"name": "Security", "score": 8, "note": "Wants the Zug holding to ring-fence and protect the sale proceeds."},
+      {"name": "Health", "score": 6, "note": "Recovering from a long build and the 2021 sale process."},
+      {"name": "Freedom", "score": 8, "note": "Liquid after the NovaLog sale; first time with real optionality."},
+      {"name": "Growth", "score": 7, "note": "Keeps a small residual NovaLog stake and wants to back young founders."},
+      {"name": "Lifestyle", "score": 6, "note": "Zug family home plus a Prague apartment; understated."},
+      {"name": "Wealth", "score": 9, "note": "About CHF 160M after the 2021 sale of NovaLog."},
+      {"name": "Business", "score": 8, "note": "Stepped back from running NovaLog; now holds a Zug holding and a residual stake."}
+    ],
+    "goals": [
+      {"title": "Consolidate the exit proceeds under Novak Capital AG", "goal_type": "other", "target_year": 2026, "estimated_cost": null, "notes": "Finish moving proceeds and the residual NovaLog stake under the Zug holding."},
+      {"title": "Set up provision for his two children", "goal_type": "other", "target_year": 2027, "estimated_cost": 4000000, "notes": "Provide for the two children through the holding; Petra is co-owner of the family home."},
+      {"title": "Acquire a family residence in Zug", "goal_type": "property", "target_year": 2027, "estimated_cost": 8000000, "notes": "Long-term family anchor alongside the Prague apartment."}
+    ],
+    "documents": [
+      {"filename": "novak_passport.pdf", "doc_type": "passport", "flagged": false},
+      {"filename": "novak_financials_2024.pdf", "doc_type": "financials", "flagged": false},
+      {"filename": "novak_source_of_wealth.pdf", "doc_type": "source_of_wealth", "flagged": true},
+      {"filename": "novak_holding_structure.pdf", "doc_type": "trust_deed", "flagged": false},
+      {"filename": "novak_asset_summary.pdf", "doc_type": "asset_summary", "flagged": false},
+      {"filename": "novak_company_profile.pdf", "doc_type": "news", "flagged": false}
+    ],
+    "feasibility_assumptions": {
+      "current_assets": 160000000,
+      "annual_income": 2200000,
+      "annual_spending": 1300000,
+      "growth_rate": 0.045,
+      "inflation": 0.02,
+      "current_age": 47,
+      "retirement_age": 58
+    }
   }
 ]

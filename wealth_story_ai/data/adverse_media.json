@@ -70,5 +70,17 @@
     "category": "adverse_media",
     "summary": "Investigative reporting links the energy and metals trading group to opaque cross-border trades and names it in a procurement inquiry.",
     "note": "High-severity; matches the company named in the source-of-wealth and company-profile documents."
+  },
+  {
+    "id": "adv_007",
+    "entity": "Stefan Novak",
+    "match_terms": ["Stefan Novak", "S. Novak"],
+    "headline": "Slovak businessman named in cross-border money-laundering case",
+    "outlet": "OCCRP",
+    "date": "2019-08-05",
+    "sentiment": "high_negative",
+    "category": "adverse_media",
+    "summary": "Reporting names a Stefan Novak, born 1965, a Slovak national, in a money-laundering investigation. Identity attributes differ from many same-name individuals.",
+    "note": "Name only match risk. Confirm date of birth and nationality. A client born 1979 and Czech is most likely a different person."
   }
 ]

@@ -145,6 +145,30 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "The name, date of birth, and nationality on this passport are the reference "
                 "identity for all screening and know your customer checks.",
             ])
+        if client["id"] == "stefan_novak":
+            return ("Identity Document, Czech Passport", [
+                "Issuing authority: Czech Republic, Ministry of the Interior.",
+                "Document type: Passport, machine readable, biometric.",
+                "Full name: Stefan Novak.",
+                "Nationality: Czech.",
+                "Sex: Male.",
+                "Date of birth: 14 March 1979.",
+                "Place of birth: Prague, Czech Republic.",
+                "Passport number: 34920718.",
+                "Date of issue: 09 March 2022.",
+                "Date of expiry: 08 March 2032.",
+                "Authority: Magistrate of the City of Prague.",
+                "Residential domicile on file: Zug, Switzerland.",
+                "Identity verified at onboarding via remote video identification (video-ID).",
+                "Document checks passed: machine readable zone consistent, photograph matches "
+                "the live video session, no signs of tampering.",
+                "Screening note for compliance: an automated name screen returned an overlap "
+                "against a sanctioned individual and an adverse media subject, both named Stefan "
+                "Novak. That person was born in 1965 and is a Slovak national. This client was born "
+                "on 14 March 1979 and is Czech, so it is most likely a different person.",
+                "The name, date of birth, and nationality on this passport are the reference "
+                "identity for all screening and know your customer checks.",
+            ])
         return ("Identity Document — Passport", [
             f"Full name: {name}", "Document type: Passport (machine-readable)",
             f"Nationality: {'Swiss' if 'Switzerland' in dom else 'See record'}",
@@ -291,6 +315,29 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "CHF 1.7 million.",
                 "Mandate: capital preservation first, with the exit proceeds ring-fenced.",
             ])
+        if client["id"] == "stefan_novak":
+            return ("Financial Statements 2024, Summary Balance Sheet", [
+                f"Client: {name}.",
+                "Reporting date: 31 December 2024. Reporting currency: Swiss francs (CHF).",
+                "Total consolidated net worth: approximately CHF 160 million.",
+                "",
+                "Most assets are now held through Novak Capital AG, a holding company "
+                "incorporated in Zug, Switzerland. Stefan Novak is the ultimate beneficial "
+                "owner of the holding.",
+                "",
+                "Assets held under Novak Capital AG, approximate values.",
+                "Cash and short term deposits from the company sale: about CHF 138 million. These "
+                "are the net proceeds of the 2021 sale of NovaLog s.r.o. to Rheinland Logistik AG.",
+                "Residual stake in NovaLog, retained at the sale: about CHF 9 million.",
+                "Shares of Novak IP S.a r.l., a Luxembourg company holding the software IP "
+                "licences: about CHF 4 million.",
+                "Residential property, a Zug family home: about CHF 6 million.",
+                "Residential property, a Prague apartment: about CHF 3 million.",
+                "",
+                "Annual income: approximately CHF 2.2 million. Annual spending: approximately "
+                "CHF 1.3 million.",
+                "Mandate: capital preservation first, with the exit proceeds ring-fenced.",
+            ])
         return ("Financial statements", [
             f"Client: {name}", f"Net worth, about {client['currency']} {int(client['net_worth']):,}.",
         ])
@@ -393,6 +440,26 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "or the holding. Henrik is its Founder and Chairman.",
                 "Purpose: to ring-fence and protect the proceeds of the 2021 company sale and to "
                 "provide for an orderly multi generational transfer of wealth.",
+            ])
+        if client["id"] == "stefan_novak":
+            return ("Novak Capital AG, Holding Structure Summary", [
+                "Instrument: corporate holding structure, no trust in place yet.",
+                "Holding company: Novak Capital AG, incorporated in Zug, Switzerland.",
+                f"Ultimate beneficial owner: {name}. The ownership is direct and transparent, "
+                "with no nominee shareholders.",
+                "Control chain: Stefan Novak owns Novak Capital AG outright. The holding in turn "
+                "holds the cash proceeds of the 2021 NovaLog sale, the residual NovaLog stake, "
+                "the shares of Novak IP S.a r.l. (Luxembourg, which holds the software IP "
+                "licences), and two properties, a Zug family home and a Prague apartment.",
+                "Subsidiary: Novak IP S.a r.l. is a Luxembourg company that holds the software "
+                "intellectual property licences carried over from NovaLog.",
+                "Family: Stefan Novak is married to Petra Novak. They have two children. Petra is "
+                "co-owner of the Zug family home.",
+                "Cross border note: the structure spans the Czech Republic, Switzerland, and "
+                "Luxembourg. The cross-border tax position should be confirmed by the tax "
+                "specialist before any distribution or gift is made.",
+                "Note for the wealth planner: the client intends to settle part of the holding "
+                "into a family trust for the two children, but no trust is in place yet.",
             ])
         return ("Family trust deed (summary)", [
             f"Settlor: {name}", "A family trust holds part of the estate for the next generation.",
@@ -537,6 +604,39 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "date of birth, and a different nationality from the client. This is most likely "
                 "a name overlap only and is to be confirmed and cleared by compliance.",
             ])
+        if client["id"] == "stefan_novak":
+            return ("Source of Funds Letter", [
+                f"Re: Stefan Novak, primary source of funds and source of wealth.",
+                "",
+                "This letter sets out the origin of the funds and assets placed under management, "
+                "with a dated history of the business he built and sold.",
+                "",
+                "In 2007 Stefan Novak founded NovaLog s.r.o., a logistics software company based "
+                "in Prague, Czech Republic.",
+                "In 2014 the company raised a Series B funding round of CHF 25 million.",
+                "In 2021 he sold NovaLog s.r.o. to Rheinland Logistik AG, a German logistics "
+                "group, for CHF 180 million, keeping a small residual stake. This sale is the "
+                "principal source of his private wealth.",
+                "",
+                "Ownership chain: Novak Capital AG (Zug, Switzerland), whose ultimate beneficial "
+                "owner is Stefan Novak, holds the cash proceeds, the residual NovaLog stake, the "
+                "shares of Novak IP S.a r.l. (Luxembourg, which holds the software IP licences), "
+                "and two properties, a Zug family home and a Prague apartment. The ownership is "
+                "direct and transparent, with no nominee shareholders.",
+                "",
+                "The proceeds are legitimate proceeds from the sale of a company the client "
+                "founded and operated. No borrowed or third party funds were used to build this "
+                "wealth. Supporting documentation, including the share sale agreement and proof of "
+                "receipt of the proceeds, has been provided to the bank.",
+                "",
+                "Screening note for compliance: an automated name screen returned matches against "
+                "a sanctioned individual and an adverse media subject, both named Stefan Novak. "
+                "That person was born in 1965 and is a Slovak national. This client was born on "
+                "14 March 1979 and is a Czech national, with a clean logistics-software exit as "
+                "the documented source of wealth. The two identities differ on date of birth and "
+                "nationality, so this is most likely a name overlap only and is to be confirmed "
+                "and cleared by compliance.",
+            ])
         return ("Source of Wealth — Statement", [
             f"Subject: {name}", f"Domicile: {dom}",
             "Declared source of wealth: proceeds from a privately owned operating business and "
@@ -588,6 +688,23 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "personal net worth.",
                 "Note: funding of the Liechtenstein trust with the remaining holding shares is "
                 "still to be completed.",
+            ])
+        if client["id"] == "stefan_novak":
+            return ("Asset Summary — Ownership and Control Chain", [
+                f"Client: {name}", "Total net worth: approximately CHF 160 million.",
+                "Top of the structure: Novak Capital AG, a holding company incorporated in Zug, "
+                "Switzerland. Stefan Novak is the ultimate beneficial owner. The ownership is "
+                "direct and transparent, with no nominee shareholders.",
+                "Held by Novak Capital AG: the cash proceeds from the 2021 sale of NovaLog s.r.o. "
+                "to Rheinland Logistik AG; the residual stake in NovaLog; 100 percent of Novak IP "
+                "S.a r.l., a Luxembourg company holding the software IP licences; a Zug family "
+                "home; and a Prague apartment.",
+                "Family: Stefan Novak is married to Petra Novak, who is co-owner of the Zug family "
+                "home. They have two children.",
+                "Note: the client intends to settle part of the holding into a family trust for "
+                "the two children. No trust is in place yet.",
+                "Screening note: the name screen overlap with a 1965 Slovak individual is a "
+                "different person from this 1979 Czech client and is to be cleared by compliance.",
             ])
         return ("Asset Summary", [
             f"Client: {name}", f"Total net worth: approximately {client['currency']} "
@@ -682,6 +799,28 @@ def _content(client: dict, doc: dict) -> tuple[str, list[str]]:
                 "Press coverage is consistently positive and focuses on his record as a payments "
                 "founder and his coding-education philanthropy. No adverse media relating to the "
                 "client has been identified.",
+            ])
+        if client["id"] == "stefan_novak":
+            return ("Company and Press Profile", [
+                f"Subject: {name}.",
+                "Stefan Novak founded NovaLog s.r.o. in 2007, a logistics software company based "
+                "in Prague, Czech Republic.",
+                "In 2014 the company raised a Series B funding round of CHF 25 million.",
+                "In 2021 he sold NovaLog s.r.o. to Rheinland Logistik AG, a German logistics "
+                "group, for CHF 180 million, keeping a small residual stake, a widely reported "
+                "Central European software exit.",
+                "After the sale he set up Novak Capital AG in Zug, Switzerland to consolidate the "
+                "proceeds, with himself as ultimate beneficial owner.",
+                "He has stepped back from running the company and now holds a holding company, a "
+                "residual NovaLog stake, and the software IP through Novak IP S.a r.l. in "
+                "Luxembourg, and he wants to back young founders.",
+                "Press coverage of this client is consistently positive and focuses on his record "
+                "as a logistics-software founder.",
+                "Screening note for compliance: an automated name screen returned a separate "
+                "sanctioned individual and an adverse media subject, both named Stefan Novak, born "
+                "1965 and Slovak. This client is a different person, born 1979 and Czech, and no "
+                "adverse media relating to this client himself has been identified. The overlap is "
+                "to be confirmed and cleared by compliance.",
             ])
         return ("Public Profile (Press Compilation)", [
             f"Subject: {name}.", "No material adverse media identified in the compilation.",

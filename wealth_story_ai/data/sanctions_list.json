@@ -28,5 +28,17 @@
     "category": "sanctions",
     "listed": "2020-06-18",
     "note": "Designated individual."
+  },
+  {
+    "id": "san_004",
+    "name": "Stefan Novak",
+    "aliases": ["S. Novak"],
+    "match_terms": ["Stefan Novak", "S. Novak"],
+    "program": "OFAC SDN",
+    "country": "Slovakia",
+    "dob": "1965",
+    "category": "sanctions",
+    "listed": "2019-07-22",
+    "note": "Designated individual, born 1965, Slovak national. The name overlaps common Central European names. Confirm date of birth and nationality before treating this as a true match."
   }
 ]
