@@ -2,6 +2,9 @@ import "./globals.css";
 import "@xyflow/react/dist/style.css";
 import type { Metadata } from "next";
 
+// Cloudflare Pages (next-on-pages) serves dynamic routes on the edge runtime.
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "Lineage — Wealth Relationship OS",
   description:
