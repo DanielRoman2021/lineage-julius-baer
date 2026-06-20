@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { money } from "@/lib/format";
 import { LoadingState, ErrorState } from "@/components/states";
+import { ClientSwitcher } from "@/components/client-switcher";
 import type { ClientState, WealthStory } from "@/lib/types";
 
 function stripMarkdown(s: string): string {
@@ -77,26 +78,11 @@ export default function LivingWealthStory() {
           gap: 18,
         }}
       >
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            background: "#1B2A4A",
-            color: "#F7F5F0",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "Spectral, serif",
-            fontSize: 16,
-          }}
-        >
-          {initials}
-        </div>
-        <div>
-          <div style={{ fontFamily: "Spectral, serif", fontSize: 18, color: "#141E3C" }}>{c.name}</div>
-          <div style={{ fontSize: 12, color: "#707A8A" }}>Living Wealth Story</div>
-        </div>
+        <ClientSwitcher
+          currentId={id}
+          hrefFor={(cid) => `/rm/clients/${cid}/story`}
+          subtitle="Living Wealth Story"
+        />
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 14 }}>
           <span
             style={{

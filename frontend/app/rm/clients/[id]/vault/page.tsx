@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import type { ClientState, DocumentRec } from "@/lib/types";
 import { docLabel } from "@/lib/format";
 import { LoadingState, ErrorState, EmptyState } from "@/components/states";
+import { ClientSwitcher } from "@/components/client-switcher";
 
 const FileIconNavy = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="1.5">
@@ -97,12 +98,6 @@ export default function DocumentVaultPage() {
   const docs = state?.documents ?? [];
   const clientName = state?.client?.name ?? "Sarah Keller";
   const firstName = clientName.split(" ")[0];
-  const initials = clientName
-    .split(" ")
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
   const trust = state?.trust?.score ?? 82;
   const verifiedCount = docs.filter((d) => !d.flagged).length;
   const flaggedCount = docs.filter((d) => d.flagged).length;
@@ -121,26 +116,11 @@ export default function DocumentVaultPage() {
           gap: 18,
         }}
       >
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            background: "#1B2A4A",
-            color: "#F7F5F0",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "Spectral, serif",
-            fontSize: 16,
-          }}
-        >
-          {initials}
-        </div>
-        <div>
-          <div style={{ fontFamily: "Spectral, serif", fontSize: 18, color: "#141E3C" }}>{clientName}</div>
-          <div style={{ fontSize: 12, color: "#707A8A" }}>Document Vault · {docs.length} items</div>
-        </div>
+        <ClientSwitcher
+          currentId={clientId}
+          hrefFor={(id) => `/rm/clients/${id}/vault`}
+          subtitle={`Document Vault · ${docs.length} items`}
+        />
         <div
           style={{
             marginLeft: "auto",

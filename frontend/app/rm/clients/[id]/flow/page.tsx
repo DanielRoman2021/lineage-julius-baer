@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { api, runPipeline } from "@/lib/api";
 import type { ClientState, Verification, SubCheck, SpecialistReview, DocumentRec, Finding, AuditEntry } from "@/lib/types";
 import { LoadingState, ErrorState } from "@/components/states";
+import { ClientSwitcher } from "@/components/client-switcher";
 
 const REVIEWER_NAME = "Markus Brunner";
 const REVIEWER_SHORT = "M. Brunner";
@@ -283,26 +284,7 @@ export default function AgentVerificationFlow() {
     <div className="px-8 py-7" style={{ fontFamily: "Archivo", color: "#3C4456" }}>
       {/* Client strip */}
       <div className="flex items-center gap-4" style={{ marginBottom: 4 }}>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            background: "#1B2A4A",
-            color: "#F7F5F0",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "Spectral",
-            fontSize: 16,
-          }}
-        >
-          {initials(client.name)}
-        </div>
-        <div>
-          <div style={{ fontFamily: "Spectral", fontSize: 18, color: "#141E3C" }}>{client.name}</div>
-          <div style={{ fontSize: 12, color: "#707A8A" }}>Onboarding · Verification in progress</div>
-        </div>
+        <ClientSwitcher currentId={id} hrefFor={(cid) => `/rm/clients/${cid}/flow`} subtitle="Onboarding · Verification in progress" />
         <div className="flex items-center gap-2" style={{ marginLeft: 18, fontSize: 12.5, color: "#707A8A" }}>
           <span style={{ color: "#A8854A" }}>Intake</span>
           <span style={{ color: "#C7C0B0" }}>›</span>

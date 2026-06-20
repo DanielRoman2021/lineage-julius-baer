@@ -1,13 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "@/lib/api";
 import type { WheelDimension } from "@/lib/types";
 import { WheelOfLife } from "@/components/wheel";
 import { LoadingState, ErrorState } from "@/components/states";
-
-const CLIENT_ID = "sarah_keller";
+import { ClientSwitcher } from "@/components/client-switcher";
 
 type DocStatus = "verified" | "flagged";
 const DOCUMENTS: { label: string; status: DocStatus }[] = [
@@ -25,8 +24,9 @@ const VALUE_CHIPS = [
   { label: "Build something new", active: false },
 ];
 
-export default function IntakeAndDnaPage() {
+function IntakeAndDnaInner() {
   const router = useRouter();
+  const clientId = useSearchParams().get("client") || "sarah_keller";
   const [dimensions, setDimensions] = useState<WheelDimension[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -37,14 +37,14 @@ export default function IntakeAndDnaPage() {
     setLoading(true);
     setError(false);
     try {
-      const w = await api.getWheel(CLIENT_ID);
+      const w = await api.getWheel(clientId);
       setDimensions(w.dimensions);
     } catch {
       setError(true);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [clientId]);
 
   useEffect(() => {
     reload();
@@ -61,8 +61,8 @@ export default function IntakeAndDnaPage() {
     setSaving(true);
     setSaveError(null);
     try {
-      await api.setDna(CLIENT_ID, dimensions);
-      router.push(`/rm/clients/${CLIENT_ID}/flow`);
+      await api.setDna(clientId, dimensions);
+      router.push(`/rm/clients/${clientId}/flow`);
     } catch {
       setSaveError("We could not save the DNA. Check the connection and try again.");
       setSaving(false);
@@ -99,26 +99,11 @@ export default function IntakeAndDnaPage() {
           gap: 18,
         }}
       >
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            background: "#1B2A4A",
-            color: "#F7F5F0",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "Spectral",
-            fontSize: 16,
-          }}
-        >
-          SK
-        </div>
-        <div>
-          <div style={{ fontFamily: "Spectral", fontSize: 18, color: "#141E3C" }}>Sarah Keller</div>
-          <div style={{ fontSize: 12, color: "#707A8A" }}>New relationship · Intake</div>
-        </div>
+        <ClientSwitcher
+          currentId={clientId}
+          hrefFor={(id) => `/rm/intake?client=${id}`}
+          subtitle="New relationship · Intake"
+        />
         <div
           style={{
             marginLeft: 18,
@@ -413,5 +398,19 @@ export default function IntakeAndDnaPage() {
         }
       `}</style>
     </div>
+  );
+}
+
+export default function IntakeAndDnaPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-7" style={{ fontFamily: "Archivo", color: "#707A8A" }}>
+          Loading intake…
+        </div>
+      }
+    >
+      <IntakeAndDnaInner />
+    </Suspense>
   );
 }
