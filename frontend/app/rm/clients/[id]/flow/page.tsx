@@ -3,7 +3,27 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { api, runPipelinePolled } from "@/lib/api";
-import type { ClientState, Verification, SubCheck, SpecialistReview, DocumentRec, Finding, AuditEntry } from "@/lib/types";
+import type { ClientState, Verification, SubCheck, SpecialistReview, DocumentRec, Finding, RiskFlag, AuditEntry } from "@/lib/types";
+
+// A normalized item a human must clear on the gate: either an open risk flag
+// (raised by KYC, cleared via the flag endpoint) or a specialist finding that
+// requires approval. Both render the same way and both write an audit entry.
+type ReviewItem = {
+  id: string;
+  kind: "flag" | "finding";
+  title: string;
+  summary: string;
+  draftNote?: string;
+  confidence: number;
+  checkedAgainst: string;
+  routedToName: string;
+};
+function flagToItem(f: RiskFlag): ReviewItem {
+  return { id: f.id, kind: "flag", title: f.title, summary: f.rationale, confidence: f.confidence, checkedAgainst: f.checked_against, routedToName: f.routed_to_name };
+}
+function findingToItem(f: Finding): ReviewItem {
+  return { id: f.id, kind: "finding", title: f.title, summary: f.summary, draftNote: f.draft_note, confidence: f.confidence, checkedAgainst: f.checked_against, routedToName: f.routed_to_name };
+}
 import { LoadingState, ErrorState } from "@/components/states";
 import { ClientSwitcher } from "@/components/client-switcher";
 
@@ -52,7 +72,7 @@ export default function AgentVerificationFlow() {
   const [gateBusy, setGateBusy] = useState(false);
   const [decideError, setDecideError] = useState<string | null>(null);
   // Evidence/audit drawer — holds the matched finding (or null when closed).
-  const [drawerFinding, setDrawerFinding] = useState<Finding | null>(null);
+  const [drawerItem, setDrawerItem] = useState<ReviewItem | null>(null);
   const [audit, setAudit] = useState<AuditEntry[]>([]);
 
   const reload = useCallback(async () => {
@@ -142,25 +162,52 @@ export default function AgentVerificationFlow() {
   const hasDocs = docs.length > 0;
   const hasRun = !!state.pipeline;
 
+  // Open risk flags routed to a role are the real items a human must clear.
+  const openFlags: RiskFlag[] = (state.flags || []).filter((f) => f.status === "open");
+  function flagsForRole(role: string): RiskFlag[] {
+    return openFlags.filter((f) => f.routed_to_role === role);
+  }
   // Match a routed specialist to the finding that backs it (same agent role, awaiting a human).
   function findingFor(sp: SpecialistReview): Finding | undefined {
     return findings.find((f) => f.agent_role === sp.role && f.requires_approval);
   }
-
-  // Approve the finding behind a single routed specialist, then refetch the whole flow.
-  async function approveRouted(sp: SpecialistReview) {
+  // Everything a human must clear for one routed specialist: its open flags plus any finding.
+  function reviewItemsFor(sp: SpecialistReview): ReviewItem[] {
+    const items = flagsForRole(sp.role).map(flagToItem);
     const fd = findingFor(sp);
-    if (!fd) return;
-    setBusyRole(sp.role);
-    setDecideError(null);
-    try {
+    if (fd) items.push(findingToItem(fd));
+    return items;
+  }
+
+  // Clear every open flag and approve every finding behind one routed specialist.
+  async function clearRole(sp: SpecialistReview): Promise<void> {
+    const flags = flagsForRole(sp.role);
+    const fd = findingFor(sp);
+    for (const fl of flags) {
+      await api.decideFlag(id, fl.id, {
+        decision: "approve",
+        reviewer_name: sp.routed_to_name || REVIEWER_NAME,
+        reviewer_role: sp.role,
+        rationale: "Reviewed and cleared.",
+      });
+    }
+    if (fd) {
       await api.decideFinding(id, fd.id, {
         decision: "approve",
         reviewer_name: REVIEWER_NAME,
         reviewer_role: REVIEWER_ROLE,
         rationale: "Reviewed and approved.",
       });
-      setDecidedRole((d) => ({ ...d, [sp.role]: true }));
+    }
+    setDecidedRole((d) => ({ ...d, [sp.role]: true }));
+  }
+
+  async function approveRouted(sp: SpecialistReview) {
+    if (!reviewItemsFor(sp).length) return;
+    setBusyRole(sp.role);
+    setDecideError(null);
+    try {
+      await clearRole(sp);
       await reload();
     } catch {
       setDecideError("That approval did not go through. Check the connection and try again.");
@@ -169,25 +216,15 @@ export default function AgentVerificationFlow() {
     }
   }
 
-  // The gate's Approve clears every routed finding in one pass.
+  // The gate's Approve clears every routed specialist (flags and findings) in one pass.
   async function approveGate() {
     if (gateBusy) return;
-    const withFindings = routed.filter((sp) => findingFor(sp));
-    if (!withFindings.length) return;
+    const pending = routed.filter((sp) => reviewItemsFor(sp).length);
+    if (!pending.length) return;
     setGateBusy(true);
     setDecideError(null);
     try {
-      for (const sp of withFindings) {
-        const fd = findingFor(sp);
-        if (!fd) continue;
-        await api.decideFinding(id, fd.id, {
-          decision: "approve",
-          reviewer_name: REVIEWER_NAME,
-          reviewer_role: REVIEWER_ROLE,
-          rationale: "Reviewed and approved.",
-        });
-        setDecidedRole((d) => ({ ...d, [sp.role]: true }));
-      }
+      for (const sp of pending) await clearRole(sp);
       await reload();
     } catch {
       setDecideError("That approval did not go through. Check the connection and try again.");
@@ -196,8 +233,8 @@ export default function AgentVerificationFlow() {
     }
   }
 
-  function openDrawer(fd: Finding) {
-    setDrawerFinding(fd);
+  function openDrawer(item: ReviewItem) {
+    setDrawerItem(item);
     // Pull the freshest audit so a just-written entry shows in the drawer.
     api.getAudit(id).then(setAudit).catch(() => {});
   }
@@ -205,7 +242,7 @@ export default function AgentVerificationFlow() {
   // The gate turns green ONLY when a human actually signed off. A real approval writes
   // an audit entry (model_version "human-decision"); criteria geometry alone never proves it.
   const humanApproved = (state.audit || []).some(
-    (a) => a.ref_type === "finding" && a.model_version === "human-decision",
+    (a) => (a.ref_type === "finding" || a.ref_type === "flag") && a.model_version === "human-decision",
   );
   const gateDone = hasRun && routed.length === 0 && humanApproved;
   // After a run with nothing routed to a human and no sign-off recorded, there is simply
@@ -729,10 +766,10 @@ export default function AgentVerificationFlow() {
                 </button>
                 <button
                   onClick={() => {
-                    const fd = routed.map(findingFor).find(Boolean);
-                    if (fd) openDrawer(fd);
+                    const item = routed.flatMap(reviewItemsFor)[0];
+                    if (item) openDrawer(item);
                   }}
-                  disabled={!routed.some((sp) => findingFor(sp))}
+                  disabled={!routed.some((sp) => reviewItemsFor(sp).length)}
                   style={{
                     padding: "7px 12px",
                     borderRadius: 7,
@@ -742,8 +779,8 @@ export default function AgentVerificationFlow() {
                     fontSize: 12,
                     fontWeight: 600,
                     fontFamily: "Archivo, sans-serif",
-                    cursor: routed.some((sp) => findingFor(sp)) ? "pointer" : "default",
-                    opacity: routed.some((sp) => findingFor(sp)) ? 1 : 0.6,
+                    cursor: routed.some((sp) => reviewItemsFor(sp).length) ? "pointer" : "default",
+                    opacity: routed.some((sp) => reviewItemsFor(sp).length) ? 1 : 0.6,
                   }}
                 >
                   View
@@ -782,7 +819,8 @@ export default function AgentVerificationFlow() {
           {routedCards.map(({ sp }, i) => {
             const top = routedCardTops[i];
             const ini = sp.routed_to_initials || initials(sp.routed_to_name);
-            const fd = findingFor(sp);
+            const items = reviewItemsFor(sp);
+            const primary = items[0];
             const busy = busyRole === sp.role;
             const decided = !!decidedRole[sp.role];
             return (
@@ -815,7 +853,7 @@ export default function AgentVerificationFlow() {
                     <div style={{ fontSize: 11, color: "#707A8A" }}>{sp.action_label}</div>
                   </div>
                 </div>
-                {fd && (
+                {primary && (
                   <div style={{ display: "flex", gap: 7, marginTop: 11 }}>
                     {decided ? (
                       <div
@@ -858,7 +896,7 @@ export default function AgentVerificationFlow() {
                       </button>
                     )}
                     <button
-                      onClick={() => openDrawer(fd)}
+                      onClick={() => openDrawer(primary)}
                       style={{
                         padding: "7px 11px",
                         borderRadius: 7,
@@ -959,10 +997,10 @@ export default function AgentVerificationFlow() {
       )}
 
       {/* Evidence / audit drawer */}
-      {drawerFinding && (
+      {drawerItem && (
         <>
           <div
-            onClick={() => setDrawerFinding(null)}
+            onClick={() => setDrawerItem(null)}
             style={{ position: "fixed", inset: 0, background: "rgba(20,30,60,.28)", zIndex: 40 }}
           />
           <div
@@ -988,11 +1026,11 @@ export default function AgentVerificationFlow() {
                   Evidence
                 </div>
                 <div style={{ fontFamily: "Spectral, serif", fontSize: 19, marginTop: 5, lineHeight: 1.3 }}>
-                  {drawerFinding.title}
+                  {drawerItem.title}
                 </div>
               </div>
               <button
-                onClick={() => setDrawerFinding(null)}
+                onClick={() => setDrawerItem(null)}
                 style={{ border: "none", background: "transparent", color: "#9BA6BC", fontSize: 22, lineHeight: 1, cursor: "pointer", padding: 0 }}
                 aria-label="Close"
               >
@@ -1001,40 +1039,40 @@ export default function AgentVerificationFlow() {
             </div>
 
             <div style={{ padding: "20px 22px", color: "#3C4456" }}>
-              <div style={{ fontSize: 13.5, color: "#3C4456", lineHeight: 1.6 }}>{drawerFinding.summary}</div>
+              <div style={{ fontSize: 13.5, color: "#3C4456", lineHeight: 1.6 }}>{drawerItem.summary}</div>
 
-              {drawerFinding.draft_note && (
+              {drawerItem.draftNote && (
                 <div style={{ marginTop: 16, background: "#FBFAF6", border: "1px solid #EDE7DA", borderRadius: 10, padding: "14px 16px" }}>
                   <div style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "#A6ADBB", fontWeight: 600 }}>Draft note</div>
-                  <div style={{ fontSize: 12.5, color: "#3C4456", marginTop: 5, lineHeight: 1.55 }}>{drawerFinding.draft_note}</div>
+                  <div style={{ fontSize: 12.5, color: "#3C4456", marginTop: 5, lineHeight: 1.55 }}>{drawerItem.draftNote}</div>
                 </div>
               )}
 
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16, alignItems: "center" }}>
                 <span style={{ fontSize: 11, color: "#707A8A" }}>Confidence</span>
                 <span style={{ fontSize: 11.5, fontWeight: 600, color: "#3C4456", background: "#F4EFE4", padding: "3px 10px", borderRadius: 999 }}>
-                  {Math.round(drawerFinding.confidence * 100)}%
+                  {Math.round(drawerItem.confidence * 100)}%
                 </span>
                 <span style={{ fontSize: 11, color: "#707A8A" }}>Checked against</span>
                 <span style={{ fontSize: 11.5, fontWeight: 600, color: "#3C4456", background: "#F4EFE4", padding: "3px 10px", borderRadius: 999 }}>
-                  {drawerFinding.checked_against}
+                  {drawerItem.checkedAgainst}
                 </span>
               </div>
 
               <div style={{ display: "flex", gap: 9, marginTop: 12, alignItems: "center" }}>
                 <span style={{ fontSize: 11, color: "#707A8A" }}>Routed to</span>
                 <span style={{ fontSize: 11.5, fontWeight: 600, color: "#1B2A4A", background: "#EDEFF3", padding: "3px 10px", borderRadius: 999 }}>
-                  {drawerFinding.routed_to_name}
+                  {drawerItem.routedToName}
                 </span>
               </div>
 
               {/* written audit, after approval */}
               {(() => {
-                const entries = audit.filter((a) => a.ref_id === drawerFinding.id);
+                const entries = audit.filter((a) => a.ref_id === drawerItem.id);
                 if (!entries.length) {
                   return (
                     <div style={{ marginTop: 20, borderTop: "1px solid #F1ECE1", paddingTop: 16, fontSize: 12.5, color: "#A6ADBB", lineHeight: 1.55 }}>
-                      No audit entry yet. Approve this finding to write one.
+                      No audit entry yet. Approve this item to write one.
                     </div>
                   );
                 }

@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from models.client import (
     ClientState,
+    FlagStatus,
     HumanRole,
     SpecialistReview,
     SubCheck,
@@ -73,8 +74,15 @@ def build(state: ClientState) -> Verification:
     specialists: list[SpecialistReview] = []
     for role in ("advisor", "wealth_planner", "tax", "compliance"):
         fs = [f for f in state.findings if f.agent_role.value == role]
+        # An OPEN risk flag routed to this role needs a human, even if the agent's
+        # own draft finding came back "pass". The flag, not the finding, is the
+        # thing a human must clear.
+        open_flags = [
+            f for f in state.flags
+            if f.status == FlagStatus.open and f.routed_to_role and f.routed_to_role.value == role
+        ]
         status = "pass"
-        if any(f.status == "flagged" for f in fs):
+        if any(f.status == "flagged" for f in fs) or open_flags:
             status = "flagged"
         elif any(f.status == "needs_review" for f in fs):
             status = "needs_review"

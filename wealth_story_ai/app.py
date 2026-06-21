@@ -387,6 +387,9 @@ def decide_flag(client_id: str, flag_id: str, body: FlagDecision):
     s.client.trust_score = s.trust.score
     if s.pipeline and not [f for f in s.flags if f.status == FlagStatus.open]:
         s.pipeline.status = StageStatus.done
+    # Rebuild verification so the specialist status / criteria reflect the cleared flag.
+    if s.pipeline is not None:
+        s.verification = verification_service.build(s)
     store.persist_results(s)
     return {"flag": flag, "trust": s.trust.score}
 

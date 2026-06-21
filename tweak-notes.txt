@@ -1,2 +1,6 @@
-- extract important points of discussion from the pillar priority change and suggest future topics and who will need to be involved
-- 
+- Debug why for my teammate it doesn't show correctly the page.
+- So what we need from the KYC agent: scan first name and last name, companies (owners, beneficiars and controllers) name and other known relatives names and check if they are PEP or not, can you check if we already do that in the current flow? 
+- prepare the technical documentation (agents models used, deployments etc...)
+- documents for testing for the jury
+
+
