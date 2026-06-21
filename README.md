@@ -9,6 +9,33 @@ Lineage turns the one-way KYC onboarding process into a living wealth story the 
 
 ---
 
+## Try the live demo
+
+The backend is on a free tier that sleeps after 15 minutes idle, so **open the app once and wait a few seconds first** to wake it (the first request can take up to a minute).
+
+### Run a client end to end (you act as both the RM and the client)
+
+1. **Download a document pack** from this repo: [`demo-documents/`](demo-documents). Use `tomas-berg/` (raises a sanctions flag) or `claudia-moser/` (raises an adverse-media flag). On GitHub, open each PDF and click **Download**, or download the whole repo as a ZIP.
+2. **Open the RM cockpit:** https://lineage-31i.pages.dev/rm
+3. Click **New client**, type the matching name (e.g. **Tomas Berg**), and create it.
+4. An **Onboarding link** appears. Click **Copy link**.
+5. **Open that link in a new tab.** This is the client's onboarding page. Click **Begin**, then **upload all the PDFs** from the pack you downloaded.
+6. The pipeline runs (about 20 to 60 seconds on the free tier). The client sees their **wealth story**, **Wheel of Life**, and **life-plan feasibility**. The net worth is read from the documents.
+7. **Go back to the RM cockpit**, open the client, and go to the **Agent Verification Flow**. You will see KYC screening, the four specialist reviews, and the **risk flag routed to Compliance**. Open the routed card, press **Approve** to clear it, and the human-approval gate turns green. Every decision is written to the audit trail.
+
+### Or use a pre-seeded client (no client creation needed)
+
+Two onboarding clients already exist; open the link, upload their documents, and run:
+
+- **Henrik Lindqvist** — clean pass, nothing flagged: https://lineage-31i.pages.dev/onboard/henrik_lindqvist
+- **Stefan Novak** — a name-screen match to a sanctioned individual that Compliance reviews and clears as a name overlap: https://lineage-31i.pages.dev/onboard/stefan_novak
+
+Their sample documents are generated on the server. For a created client, the documents to upload are the packs in [`demo-documents/`](demo-documents).
+
+> Note: every figure and watchlist match in the demo is mock data for the screening lists bundled with the app. No real sanctions data or personal data is used.
+
+---
+
 ## 1. What it does
 
 - **Intake.** A client opens a secure onboarding link, uploads documents, and the pipeline runs.
