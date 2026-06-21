@@ -47,6 +47,15 @@ _use_mongo = False
 
 _GOAL_TYPES = {gt.value: gt for gt in GoalType}
 
+# The ten Wheel of Life dimensions. A client created from the UI starts with these
+# at a neutral 5 so the wheel renders and the client can move the sliders, rather
+# than showing an empty ring.
+_WHEEL_DIMENSIONS = [
+    "Legacy", "Impact", "Family", "Security", "Health",
+    "Freedom", "Growth", "Lifestyle", "Wealth", "Business",
+]
+_DEFAULT_DNA = [{"name": n, "score": 5, "note": ""} for n in _WHEEL_DIMENSIONS]
+
 
 def _load_json(name: str) -> list[dict]:
     with open(settings.data_dir / name, "r", encoding="utf-8") as fh:
@@ -65,8 +74,10 @@ def _build_state(c: dict) -> tuple[ClientState, FeasibilityAssumptions]:
     )
     wheel = WheelOfLife(
         client_id=client.id,
+        # A client with no values DNA yet (created from the UI) gets the ten
+        # dimensions at a neutral 5 so the wheel renders and is editable.
         dimensions=[WheelDimension(name=d["name"], score=d["score"], note=d.get("note", ""))
-                    for d in c.get("dna", [])],
+                    for d in (c.get("dna") or _DEFAULT_DNA)],
     )
     goals = [
         Goal(client_id=client.id, title=g["title"],
@@ -169,7 +180,7 @@ def create_client(name: str, email: str = "") -> ClientState:
     raw = {
         "id": cid, "name": name, "status": "onboarding",
         "rm_id": "rm_markus", "rm_name": "Markus Brunner",
-        "dna": [], "goals": [], "documents": [], "tags": [], "trust_score": 0,
+        "dna": [dict(d) for d in _DEFAULT_DNA], "goals": [], "documents": [], "tags": [], "trust_score": 0,
     }
     state, assumptions = _build_state(raw)
     _STATES[cid] = state
@@ -299,6 +310,16 @@ def persist_results(state: ClientState) -> None:
     }
     try:
         db.get_db()[db.RESULTS].replace_one({"client_id": state.client.id}, res, upsert=True)
+        # Persist profile fields the pipeline can change (net worth read from docs,
+        # trust score) so they survive a restart and show on every screen.
+        db.get_db()[db.CLIENTS].update_one(
+            {"id": state.client.id},
+            {"$set": {
+                "net_worth": state.client.net_worth,
+                "currency": state.client.currency,
+                "trust_score": state.client.trust_score,
+            }},
+        )
     except Exception:
         pass
 

@@ -39,7 +39,7 @@ from models.client import (
     StageStatus,
     now_iso,
 )
-from services import screening, trust_score, verification
+from services import financials, screening, trust_score, verification
 
 AGENTS = {
     AgentType.kyc: kyc_agent,
@@ -148,6 +148,18 @@ async def run_stream(state: ClientState, assumptions: FeasibilityAssumptions) ->
     ctx.social = screening.social_enrichment(client.name)
     text_hits = {d.id: screening.screen_text(d.extracted_text) for d in state.documents if d.extracted_text}
     ctx.screening_text = {k: v for k, v in text_hits.items() if v}
+
+    # Fill net worth and the feasibility assumptions from the documents when they
+    # are not on file yet (a client created from the UI starts at zero).
+    money = financials.extract_financials(state.documents)
+    if money["net_worth"] and not client.net_worth:
+        client.net_worth = money["net_worth"]
+    if money["net_worth"] and not assumptions.current_assets:
+        assumptions.current_assets = money["net_worth"]
+    if money["annual_income"] and not assumptions.annual_income:
+        assumptions.annual_income = money["annual_income"]
+    if money["annual_spending"] and not assumptions.annual_spending:
+        assumptions.annual_spending = money["annual_spending"]
 
     run = _build_run(client.id)
     state.pipeline = run
